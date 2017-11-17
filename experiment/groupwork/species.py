@@ -13,10 +13,10 @@ class Species(object):
         self.__subpopulation = []                     # species's individuals
         self.add(first_individual)
         # Does this species have the best individual of the population?
-        self.hasBest = False  
+        self.hasBest = False
         self.spawn_amount = 0
         # the age species has shown no improvements on average
-        self.no_improvement_age = 0  
+        self.no_improvement_age = 0
         self.__last_avg_fitness = 0
         self.representant = first_individual
 
@@ -37,7 +37,7 @@ class Species(object):
             cls.__id = previous_id
         cls.__id += 1
         return cls.__id
-        
+
     def add(self, individual):
         """ Add a new individual to the species """
         # set individual's species id
@@ -114,7 +114,7 @@ class Species(object):
             offspring.append(self.__subpopulation[0])
             self.spawn_amount -= 1
         # keep a % of the best individuals
-        survivors = int(round(len(self)*Config.survival_threshold)) 
+        survivors = int(round(len(self)*Config.survival_threshold))
 
         if survivors > 0:
             self.__subpopulation = self.__subpopulation[:survivors]

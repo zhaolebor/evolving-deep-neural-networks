@@ -3,39 +3,31 @@ import random
 from .config import Config
 
 class NodeGene(object):
-    def __init__(self, id, nodetype, bias=0, response=4.924273, \
-                 activation_type=None):
+    def __init__(self, id, nodetype):
         """
-        A node gene encodes the basic artificial neuron model.
-        nodetype should be"INPUT", "HIDDEN", or "OUTPUT"
+        A node gene defines the basic unit of the chromosome.
         """
         self._id = id
         self._type = nodetype
-        self._bias = bias
-        self._response = response
-        self._activation_type = activation_type
 
     id = property(lambda self: self._id)
     type = property(lambda self: self._type)
-    bias = property(lambda self: self._bias)
-    response = property(lambda self: self._response)
-    activation_type = property(lambda self: self._activation_type)
 
     def __str__(self):
-        return "Node %2d %6s, bias %+2.10s, response %+2.10s" \
-                %(self._id, self._type, self._bias, self._response)
+        return "Node %2d %6s " \
+                %(self._id, self._type)
 
     def get_child(self, other):
         """
         Creates a new NodeGene randonly inheriting its attributes from
         parents.
         """
-        assert(self._id == other._id)
+        assert(self._type == other._type)
 
         ng = NodeGene(self._id, self._type,
                       random.choice((self._bias, other._bias)),
                       random.choice((self._response, other._response)),
-                      self._activation_type) 
+                      self._activation_type)
         return ng
 
     def _mutate_bias(self):
@@ -46,107 +38,167 @@ class NodeGene(object):
         elif self._bias < Config.min_weight:
             self._bias = Config.min_weight
 
-    def _mutate_response(self):
-        """ Mutates the neuron's average firing response. """
-        #self._response += random.uniform(-0.2, 0.2) * \
-        #                  Config.bias_mutation_power
-        self._response += random.gauss(0,1)*Config.bias_mutation_power
-
     def copy(self):
-        return NodeGene(self._id, self._type, self._bias,
-                        self._response, self._activation_type)
-    def mutate(self):
-        r = random.random
-        if r() < Config.prob_mutatebias:
-            self._mutate_bias()
-        #TODO: WHY
-        if r() < Config.prob_mutatebias:
-            self._mutate_response()
-
-class NeuronGene(NodeGene):
-    def __init__(self, id, nodetype, bias=0, response=4.924273, \
-                 activation_type=None):
-        """
-        A node gene encodes the basic artificial neuron model.
-        nodetype should be"INPUT", "HIDDEN", or "OUTPUT"
-        """
-        super(NeuronGene, self).__init__(id, nodetype, bias, response, activation_type)
-        assert(self._type in ('INPUT', 'OUTPUT', 'HIDDEN'))
-
-
-class CTNodeGene(NeuronGene):
-    """
-    Continuous-time node gene - used in CTRNNs.  The main difference
-    here is the addition of a decay rate given by the time constant.
-    """
-    def __init__(self, id, nodetype, bias = 1.0, response = 1.0, \
-                 activation_type = 'exp', time_constant = 1.0):
-        super(CTNodeGene, self).__init__(id, nodetype, bias, response, \
-                                         activation_type)
-
-        self._time_constant = time_constant
-
-    time_constant = property(lambda self: self._time_constant)
+        return NodeGene(self._id, self._type)
 
     def mutate(self):
-        super(CTNodeGene, self).mutate()
-        # mutating the time constant could bring numerical instability
-        # do it with caution
-        #if random.random() < 0.1:
-        #    self.__mutate_time_constant()
+        pass
 
-    def __mutate_time_constant(self):
+class LayerGene(object):
+    _id = 0
+    def __init__(self, id, layertype, outputdim):
         """
-        Warning: pertubing the time constant (tau) may result in
-        numerical instability
+        A layer gene is a node which represents a single Keras layer.
         """
-        self._time_constant += random.gauss(1.0,0.5)*0.001
-        if self._time_constant > Config.max_weight:
-            self._time_constant = Config.max_weight
-        elif self._time_constant < Config.min_weight:
-            self._time_constant = Config.min_weight
-        return self
+        self._id = id
+        self._type = layertype
+        self._size = outputdim
+
+    id = property(lambda self: self._id)
+    type = property(lambda self: self._type)
+    size = property(lambda self: self._size)
+
+    @classmethod
+    def __get_new_id(cls):
+        cls._id += 1
+        return cls._id
+
+
+    def __str__(self):
+        return "Layer %2d %6s %6s" \
+                %(self._id, self._type, self._size)
 
     def get_child(self, other):
         """
-        Creates a new NodeGene ramdonly inheriting its attributes from
-        parents
+        Creates a new LayerGene randonly inheriting its attributes from
+        parents.
         """
-        assert(self._id == other._id)
+        assert(self._type == other._type)
 
-        ng = CTNodeGene(self._id, self._type,
-                        random.choice((self._bias, other._bias)),
-                        random.choice((self._response, other._response)),
-                        self._activation_type,
-                        random.choice((self._time_constant, \
-                                       other._time_constant)))
-        return ng
-
-    def __str__(self):
-        return "Node %2d %6s, bias %+2.10s, response %+2.10s, activation %s, time constant %+2.5s" \
-                % (self._id, self._type, self._bias, self._response,
-                   self._activation_type, self._time_constant)
+        g = LayerGene(self.__get_new_id, self._type, random.choice(self._size, other._size))
+        return g
 
     def copy(self):
-        return CTNodeGene(self._id, self._type, self._bias,
-                          self._response, self._activation_type, self._time_constant)
+        return LayerGene(self.__get_new_id(), self._type, self._size)
+
+    def mutate(self):
+        raise NotImplementedError
+
+class DenseGene(LayerGene):
+    def __init__(self, id, numnodes, activation='relu', dropout=0.0, batch_norm=False \
+            layertype='DENSE'):
+        super(DenseGene, self).__init__(id, layertype, numnodes)
+        self._activation = activation
+        self._dropout = dropout
+        self._batch_norm = batch_norm
+        self.layer_params = {
+            "_size": [2**i for i in range(4, int(math.log(256, 2)) + 1)],
+            "_activation": ['sigmoid', 'tanh', 'relu']
+            "_dropout": [0.0, 0.7]
+            "_batch_norm": [True, False],
+        }
+
+    def get_child(self, other):
+        assert(self._type == other._type)
+        child_param = []
+        for key in self.layer_params:
+           child_param.append(random.choice(self.key, other.key))
+        return DenseGene(self.__get_new_id(), child_param[0], child_param[1], child_param[2], \
+                child_param[3])
+
+    def copy(self):
+        return DenseGene(self.__get_new_id(), self._size, self._activation, \
+                self._dropout, self._batch_norm)
+
+    def mutate(self):
+        pass
+
+class ConvGene(LayerGene):
+    def __init__(self, id, numfilter, kernel_size=1, activation='relu', dropout=0.0, \
+            padding='same', strides=(1,1), max_pooling=0, batch_norm=False, layertype='CONV'):
+        super(DenseGene, self).__init__(id, layertype, numfilter)
+        self._kernel_size = kernel_size
+        self._activation = activation
+        self._dropout = dropout
+        self._padding = padding
+        self._strides = strides
+        self._max_pooling = max_pooling
+        self._batch_norm = batch_norm
+        self.layer_params = {
+            "_size": [2**i for i in range(1, 10)],
+            "_kernel_size": [1,3,5],
+            "_activation": ['sigmoid','tanh','relu'],
+            "_dropout": [(i if dropout else 0) for i in range(11)],
+            "_padding": ['same','valid'],
+            "_strides": [(1,1), (2,1), (1,2), (2,2)],
+            "_max_pooling": list(range(3)),
+            "_batch_norm": [True, False],
+        }
+    def get_child(self, other):
+        assert(self._type == other._type)
+        child_param = []
+        for key in self.layer_params:
+           child_param.append(random.choice(self.key, other.key))
+        return ConvGene(self.__get_new_id(), child_param[0], child_param[1], child_param[2], \
+                child_param[3], child_param[4], child_param[5], child_param[6], child_param[7])
 
 
-class ConnectionGene(object):
-    __global_innov_number = 0
-    __innovations = {} # A list of innovations.
+    def copy(self):
+        return ConvGene(self.__get_new_id(), self._size, self._activation, self._dropout, \
+                self._padding, self._strides, self._max_pooling, self._batch_norm)
+
+    def mutate(self):
+        pass
+
+
+class ModuleGene(object):
+    def __init__(self, id, modtype, modspecies):
+        """
+        A module gene is a node which represents a multilayer component of
+        a deep neural network.
+        """
+        self._id = id
+        self._type = layertype
+        self._module = modspecies
+
+    id = property(lambda self: self._id)
+    type = property(lambda self: self._type)
+    module = property(lambda self: self._module)
+
+    def __str__(self):
+        return "Module %2d %6s " \
+                %(self._id, self._type, self._module._species_id)
+
+    def get_child(self, other):
+        """
+        Creates a new NodeGene randonly inheriting its attributes from
+        parents.
+        """
+        assert(self._type == other._type)
+
+        g = ModuleGene(self._id, self._type, random.choice(self._module, other._module))
+        return g
+
+    def copy(self):
+        return ModuleGene(self._id, self._type, self._module)
+
+    def mutate(self):
+        pass
+
+
+class Connection(object):
+    #__global_innov_number = 0
+    #__innovations = {} # A list of innovations.
     # Should it be global? Reset at every generation? Who knows?
 
-    @classmethod
-    def reset_innovations(cls):
-        cls.__innovations = {}
+    #@classmethod
+    #def reset_innovations(cls):
+    #    cls.__innovations = {}
 
-    def __init__(self, innodeid, outnodeid, weight, enabled, innov = None, stype='SYNAPSE'):
-        self.__in = innodeid
-        self.__out = outnodeid
-        self.__weight = weight
-        self.__enabled = enabled
-        self.__type = stype
+    def __init__(self, innodes, outnodes, innov = None):
+        self.__in = innodes
+        self.__out = outnodes
+        '''
         if innov is None:
             try:
                 self.__innov_number = self.__innovations[self.key]
@@ -156,14 +208,12 @@ class ConnectionGene(object):
         else:
             self.__innov_number = innov
         self.__out_node = None
+        '''
 
-    weight    = property(lambda self: self.__weight)
-    innodeid  = property(lambda self: self.__in)
-    outnodeid = property(lambda self: self.__out)
-    enabled   = property(lambda self: self.__enabled)
-    type      = property(lambda self: self.__type)
+    innodes  = property(lambda self: self.__in)
+    outnodes = property(lambda self: self.__out)
     # Key for dictionaries, avoids two connections between the same nodes.
-    key = property(lambda self: (self.__in, self.__out))
+    # key = property(lambda self: (self.__in, self.__out))
 
     def mutate(self):
         r = random.random
@@ -174,39 +224,12 @@ class ConnectionGene(object):
         #TODO: Remove weight_replaced?
         #if r() < 0.001:
         #    self.__weight_replaced()
-
-    def enable(self):
-        """ Enables a link. """
-        self.__enabled = True
-
-    def disable(self):
-        """ Disables a link"""
-        self.__enabled = False
-
-    def attach(self, OutNode):
-        self.__out_node = OutNode
-
-    def __mutate_weight(self):
-        #self.__weight += random.uniform(-1,1) * Config.weight_mutation_power
-        if(self.__type == 'CONV_IN' and self.__out_node is not None):
-            self.__out_node.mutate_weights()
-        else:
-            self.__weight += random.gauss(0,1)*Config.weight_mutation_power
-            if self.__weight > Config.max_weight:
-                self.__weight = Config.max_weight
-            elif self.__weight < Config.min_weight:
-                self.__weight = Config.min_weight
-
-    def __weight_replaced(self):
-        #self.__weight = random.uniform(-Config.random_range, \
-        #                               Config.random_range)
-        self.__weight = random.gauss(0, Config.weight_stdev)
-
+    '''
     @classmethod
     def __get_new_innov_number(cls):
         cls.__global_innov_number += 1
         return cls.__global_innov_number
-
+    '''
     def __str__(self):
         s = "In %2d, Out %2d, Weight %+3.5f, " % \
             (self.__in, self.__out, self.__weight)
@@ -225,6 +248,9 @@ class ConnectionGene(object):
     def __gt__(self, other):
         return int(self.__innov_number) > int(other.__innov_number)
 
+    def add_in(self, node_in):
+        self.__in.append(node_in)
+
     def split(self, node_id):
         """
         Splits a connection, creating two new connections and
@@ -235,24 +261,10 @@ class ConnectionGene(object):
         new_conn2 = ConnectionGene(node_id, self.__out, self.__weight, True)
         return new_conn1, new_conn2
 
-    def conv_split(self, node_id, ConvNode):
-        """
-        Splits several connections, creating two new connections each as
-        part of inserting a ConvNode
-        """
-        self.__enabled = False
-        new_conn1 = ConnectionGene(self.__in, node_id, 1.0, True, None, 'CONV_IN')
-        new_conn1.attach(ConvNode)
-        new_conn2 = ConnectionGene(node_id, self.__out, self.__weight, True)
-        ConvNode.attach(new_conn2)
-        return new_conn1, new_conn2
-
 
     def copy(self):
         toReturn = ConnectionGene(self.__in, self.__out, self.__weight,
                               self.__enabled, self.__innov_number, self.__type)
-        if toReturn.type == 'CONV_IN':
-            toReturn.attach(self.__out_node)
         return toReturn
 
     def is_same_innov(self, cg):

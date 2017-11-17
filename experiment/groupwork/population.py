@@ -57,7 +57,7 @@ class Population(object):
     """ Manages all the species  """
     evaluate = None # Evaluates the entire population. You need to override
                     # this method in your experiments
-    
+
     def __init__(self, checkpoint_file=None):
         self.first = True
         if checkpoint_file:
@@ -71,18 +71,18 @@ class Population(object):
             self.__species = []
             # species history
             self.__species_log = []
-                    
+
             # Statistics
             self.__avg_fitness = []
             self.__best_fitness = []
-            
+
             self.__create_population()
             self.__generation = -1
             self.best = None
-            
+
     stats = property(lambda self: (self.__best_fitness, self.__avg_fitness))
     species_log = property(lambda self: self.__species_log)
-    
+
     def __resume_checkpoint(self, checkpoint):
         """ Resumes the simulation from a previous saved point. """
         try:
@@ -94,13 +94,13 @@ class Population(object):
         # when unpickling __init__ is not called again
         previous_pop = pickle.load(file)
         self.__dict__ = previous_pop.__dict__
-        
+
         print('Loading random state')
         rstate = pickle.load(file)
         random.setstate(rstate)
         #random.jumpahead(1)
         file.close()
-    
+
     def __create_checkpoint(self, report):
         """ Saves the current simulation state. """
         #from time import strftime
@@ -109,7 +109,7 @@ class Population(object):
         if report:
             print('Creating checkpoint file at generation: %d' % \
                   self.__generation)
-            
+
         # dumps 'self'
         #file = open('checkpoint_'+str(self.__generation), 'w')
         file = gzip.open(self.name+'checkpoint_'+ \
@@ -119,7 +119,7 @@ class Population(object):
         # dumps the current random state
         pickle.dump(random.getstate(), file, protocol=2)
         file.close()
-    
+
     def __create_population(self):
         self.__population = []
         for i in range(self.__popsize):
@@ -134,21 +134,21 @@ class Population(object):
         if Config.hidden_nodes > 0:
             g.add_hidden_nodes(Config.hidden_nodes)
         return g
-    
+
     def __repr__(self):
         s = "Population size: %d" %self.__popsize
         s += "\nTotal species: %d" %len(self.__species)
         return s
-                                
+
     def __len__(self):
         return len(self.__population)
-      
+
     def __iter__(self):
         return iter(self.__population)
 
     def __getitem__(self, key):
         return self.__population[key]
-    
+
     #def remove(self, chromo):
     #    ''' Removes a chromosome from the population '''
     #    self.__population.remove(chromo)
@@ -193,20 +193,20 @@ class Population(object):
             else:
                 print('Compatibility threshold cannot be changed')
                 print('(minimum value has been reached)')
-                
+
     def average_fitness(self):
         """ Returns the average raw fitness of population """
         sum = 0.0
         for c in self:
             sum += c.fitness
         return sum/len(self)
-    
+
     def stdeviation(self):
         """ Returns the population standard deviation """
         # first compute the average
         u = self.average_fitness()
         error = 0.0
-        
+
         try:
             # now compute the distance from average
             for c in self:
@@ -217,12 +217,12 @@ class Population(object):
             print("error = %f \t average = %f" %(error, u))
             print("Population fitness:")
             print([c.fitness for c in self])
-            
+
         return math.sqrt(error/len(self))
-       
+
     def __compute_spawn_levels(self):
         """ Compute each species' spawn amount (Stanley, p. 40) """
-        
+
         # 1. Boost if young and penalize if old
         # TODO: does it really increase the overall performance?
         species_stats = []
@@ -233,7 +233,7 @@ class Population(object):
                 species_stats.append(s.average_fitness()*Config.old_penalty)
             else:
                 species_stats.append(s.average_fitness())
-                
+
         # 2. Share fitness (only useful for computing spawn amounts)       
         # More info: http://tech.groups.yahoo.com/group/neat/message/2203
         # Sharing the fitness is only meaningful here  
@@ -241,19 +241,19 @@ class Population(object):
         total_average = 0.0
         for s in species_stats:
                 total_average += s
-                
+
         # 3. Compute spawn
         for i, s in enumerate(self.__species):
             s.spawn_amount = int(round((species_stats[i]*\
                                         self.__popsize/total_average)))
-            
+
     def __tournament_selection(self, k=2):
         """ Tournament selection with size k (default k=2). 
             Make sure the population has at least k individuals """
         random.shuffle(self.__population)   
-        
+
         return max(self.__population[:k])     
-                
+
     def __log_species(self):
         """ Logging species data for visualizing speciation """
         higher = max([s.id for s in self.__species])
