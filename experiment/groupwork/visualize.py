@@ -1,62 +1,12 @@
 import biggles
 import pydot
 import random
+from keras.utils import plot_model
 
-def draw_net(chromosome, id=''):
+def draw_net(model, id=''):
     ''' Receives a chromosome and draws a neural network with arbitrary topology. '''
-    output = 'digraph G {\n  node [shape=circle, fontsize=9, height=0.2, width=0.2]'
+    plot_model(model, to_file='phenotype'+id+'.svg')
 
-    # subgraph for inputs and outputs
-    output += '\n  subgraph cluster_inputs { \n  node [style=filled, shape=box] \n    color=white'
-    for ng in chromosome.node_genes:
-        if ng.type== 'INPUT':
-            output += '\n    '+str(ng.id)
-    output += '\n  }'
-
-    output += '\n  subgraph cluster_outputs { \n    node [style=filled, color=lightblue] \n    color=white'
-    for ng in chromosome.node_genes:
-        if ng.type== 'OUTPUT':
-            output += '\n    '+str(ng.id)
-    output += '\n  }'
-    # topology
-    for cg in chromosome.conn_genes:
-        output += '\n  '+str(cg.innodeid)+' -> '+str(cg.outnodeid)
-        if cg.enabled is False:
-            output += ' [style=dotted, color=cornflowerblue]'
-
-    output += '\n }'
-
-    g = pydot.graph_from_dot_data(output)
-    g = g[0]
-    g.write('phenotype'+id+'.svg', prog='dot', format='svg')
-
-def draw_ff(chromosome):
-    ''' Draws a feedforward neural network '''
-
-    output = 'digraph G {\n  node [shape=circle, fontsize=9, height=0.2, width=0.2]'
-
-    # subgraph for inputs and outputs
-    output += '\n  subgraph cluster_inputs { \n  node [style=filled, shape=box] \n    color=white'
-    for ng in chromosome.node_genes:
-        if ng.type== 'INPUT':
-            output += '\n    '+str(ng.id)
-    output += '\n  }'
-
-    output += '\n  subgraph cluster_outputs { \n    node [style=filled, color=lightblue] \n    color=white'
-    for ng in chromosome.node_genes:
-        if ng.type== 'OUTPUT':
-            output += '\n    '+str(ng.id)
-    output += '\n  }'
-    # topology
-    for cg in chromosome.conn_genes:
-        output += '\n  '+str(cg.innodeid)+' -> '+str(cg.outnodeid)
-        if cg.enabled is False:
-            output += ' [style=dotted, color=cornflowerblue]'
-
-    output += '\n }'
-
-    g = pydot.graph_from_dot_data(output)
-    g.write('feedforward.svg', prog='dot', format='svg')
 
 def plot_stats(stats, name=""):
     ''' 

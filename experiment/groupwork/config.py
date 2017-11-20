@@ -18,30 +18,25 @@ def load(file):
         Config.hidden_nodes         =       int(parameters.get('phenotype','hidden_nodes'))
         Config.max_weight           =     float(parameters.get('phenotype','max_weight'))
         Config.min_weight           =     float(parameters.get('phenotype','min_weight'))
-        Config.feedforward          =  bool(int(parameters.get('phenotype','feedforward')))
         Config.nn_activation        =           parameters.get('phenotype','nn_activation')  # exp or tanh
         Config.weight_stdev         =     float(parameters.get('phenotype','weight_stdev'))
 
         # GA
         Config.pop_size                 =   int(parameters.get('genetic','pop_size'))
         Config.max_fitness_threshold    = float(parameters.get('genetic','max_fitness_threshold'))
-        Config.prob_addconn             = float(parameters.get('genetic','prob_addconn'))
-        Config.prob_addnode             = float(parameters.get('genetic','prob_addnode'))
-        Config.prob_addconv             = float(parameters.get('genetic','prob_addconv'))
-        Config.prob_mutatebias          = float(parameters.get('genetic','prob_mutatebias'))
-        Config.prob_mutatepatch         = float(parameters.get('genetic','prob_mutatepatch'))
+        Config.prob_addlayer            = float(parameters.get('genetic','prob_addconn'))
+        Config.prob_addmodule           = float(parameters.get('genetic','prob_addnode'))
+        Config.prob_addconn             = float(parameters.get('genetic','prob_addconv'))
         Config.bias_mutation_power      = float(parameters.get('genetic','bias_mutation_power'))
-        Config.prob_mutate_weight       = float(parameters.get('genetic','prob_mutate_weight'))
-        Config.weight_mutation_power    = float(parameters.get('genetic','weight_mutation_power'))
         Config.prob_togglelink          = float(parameters.get('genetic','prob_togglelink'))
         Config.elitism                  = float(parameters.get('genetic','elitism'))
 
         # genotype compatibility
-        Config.compatibility_threshold  = float(parameters.get('genotype compatibility','compatibility_threshold'))
-        Config.compatibility_change     = float(parameters.get('genotype compatibility','compatibility_change'))
-        Config.excess_coeficient        = float(parameters.get('genotype compatibility','excess_coeficient'))
-        Config.disjoint_coeficient      = float(parameters.get('genotype compatibility','disjoint_coeficient'))
-        Config.weight_coeficient        = float(parameters.get('genotype compatibility','weight_coeficient'))
+        Config.compatibility_threshold   = float(parameters.get('genotype compatibility','compatibility_threshold'))
+        Config.compatibility_change      = float(parameters.get('genotype compatibility','compatibility_change'))
+        Config.excess_coefficient        = float(parameters.get('genotype compatibility','excess_coeficient'))
+        Config.disjoint_coefficient      = float(parameters.get('genotype compatibility','disjoint_coeficient'))
+        Config.connection_coefficient    = float(parameters.get('genotype compatibility','weight_coeficient'))
 
         # species
         Config.species_size         =   int(parameters.get('species','species_size'))
@@ -68,11 +63,8 @@ class Config:
     pop_size                = None
     max_fitness_threshold   = None
     prob_addconn            = None
-    prob_addnode            = None
-    prob_addconv            = None
-    prob_mutatebias         = None
-    prob_mutatepatch        = None
-    bias_mutation_power     = None
+    prob_addlayer           = None
+    prob_addmodule          = None
     prob_mutate_weight      = None # dynamic mutation rate (future release)
     weight_mutation_power   = None
     prob_togglelink         = None
@@ -84,9 +76,9 @@ class Config:
     # genotype compatibility
     compatibility_threshold = None
     compatibility_change    = None
-    excess_coeficient       = None
-    disjoint_coeficient     = None
-    weight_coeficient       = None
+    excess_coefficient       = None
+    disjoint_coefficient     = None
+    connection_coefficient       = None
 
     # species
     species_size        = None

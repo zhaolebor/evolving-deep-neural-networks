@@ -1,48 +1,7 @@
 # -*- coding: UTF-8 -*-
 import random
 from .config import Config
-
-class NodeGene(object):
-    def __init__(self, id, nodetype):
-        """
-        A node gene defines the basic unit of the chromosome.
-        """
-        self._id = id
-        self._type = nodetype
-
-    id = property(lambda self: self._id)
-    type = property(lambda self: self._type)
-
-    def __str__(self):
-        return "Node %2d %6s " \
-                %(self._id, self._type)
-
-    def get_child(self, other):
-        """
-        Creates a new NodeGene randonly inheriting its attributes from
-        parents.
-        """
-        assert(self._type == other._type)
-
-        ng = NodeGene(self._id, self._type,
-                      random.choice((self._bias, other._bias)),
-                      random.choice((self._response, other._response)),
-                      self._activation_type)
-        return ng
-
-    def _mutate_bias(self):
-        #self._bias += random.uniform(-1, 1) * Config.bias_mutation_power
-        self._bias += random.gauss(0,1)*Config.bias_mutation_power
-        if self._bias > Config.max_weight:
-            self._bias = Config.max_weight
-        elif self._bias < Config.min_weight:
-            self._bias = Config.min_weight
-
-    def copy(self):
-        return NodeGene(self._id, self._type)
-
-    def mutate(self):
-        pass
+import keras
 
 class LayerGene(object):
     _id = 0
@@ -50,7 +9,10 @@ class LayerGene(object):
         """
         A layer gene is a node which represents a single Keras layer.
         """
-        self._id = id
+        if (id == None):
+            self._id = self.__get_new_id()
+        else:
+            self._id = id
         self._type = layertype
         self._size = outputdim
 
@@ -78,28 +40,41 @@ class LayerGene(object):
         g = LayerGene(self.__get_new_id, self._type, random.choice(self._size, other._size))
         return g
 
+    def __cmp__(self, other):
+        return cmp(self._id, other._id)
+
+    def __lt__(self, other):
+        return self._id <  other._id
+
+    def __gt__(self, other):
+        return self._id > other._id
+
+
     def copy(self):
         return LayerGene(self.__get_new_id(), self._type, self._size)
 
     def mutate(self):
         raise NotImplementedError
 
+    def decode(self, x):
+        raise NotImplementedError
+
 class DenseGene(LayerGene):
-    def __init__(self, id, numnodes, activation='relu', dropout=0.0, batch_norm=False \
-            layertype='DENSE'):
+    def __init__(self, id, numnodes, activation='relu', dropout=0.0, batch_norm=False, layertype='DENSE'):
         super(DenseGene, self).__init__(id, layertype, numnodes)
         self._activation = activation
         self._dropout = dropout
         self._batch_norm = batch_norm
         self.layer_params = {
             "_size": [2**i for i in range(4, int(math.log(256, 2)) + 1)],
-            "_activation": ['sigmoid', 'tanh', 'relu']
-            "_dropout": [0.0, 0.7]
+            "_activation": ['sigmoid', 'tanh', 'relu'],
+            "_dropout": [0.0, 0.7],
             "_batch_norm": [True, False],
         }
 
     def get_child(self, other):
-        assert(self._type == other._type)
+        if(self._type != other._type):
+            raise TypeError
         child_param = []
         for key in self.layer_params:
            child_param.append(random.choice(self.key, other.key))
@@ -107,11 +82,17 @@ class DenseGene(LayerGene):
                 child_param[3])
 
     def copy(self):
-        return DenseGene(self.__get_new_id(), self._size, self._activation, \
+        return DenseGene(self._id, self._size, self._activation, \
                 self._dropout, self._batch_norm)
 
     def mutate(self):
         pass
+
+    def decode(self, x):
+        x = keras.layers.Dense(self._size, self._activation)(x)
+        if self._dropout:
+            x = keras.layers.Dropout(self._dropout)(x)
+        return x
 
 class ConvGene(LayerGene):
     def __init__(self, id, numfilter, kernel_size=1, activation='relu', dropout=0.0, \
@@ -125,7 +106,7 @@ class ConvGene(LayerGene):
         self._max_pooling = max_pooling
         self._batch_norm = batch_norm
         self.layer_params = {
-            "_size": [2**i for i in range(1, 10)],
+            "_size": [2**i for i in range(5, 9)],
             "_kernel_size": [1,3,5],
             "_activation": ['sigmoid','tanh','relu'],
             "_dropout": [(i if dropout else 0) for i in range(11)],
@@ -135,7 +116,8 @@ class ConvGene(LayerGene):
             "_batch_norm": [True, False],
         }
     def get_child(self, other):
-        assert(self._type == other._type)
+        if(self._type != other._type):
+            raise TypeError
         child_param = []
         for key in self.layer_params:
            child_param.append(random.choice(self.key, other.key))
@@ -144,22 +126,41 @@ class ConvGene(LayerGene):
 
 
     def copy(self):
-        return ConvGene(self.__get_new_id(), self._size, self._activation, self._dropout, \
+        return ConvGene(self._id, self._size, self._activation, self._dropout, \
                 self._padding, self._strides, self._max_pooling, self._batch_norm)
 
     def mutate(self):
         pass
 
+    def decode(self, x):
+        x = keras.layers.Conv2D(self._size, self._kernel_size, self._strides, self._padding, \
+                activation=self._activation)(x)
+        if self._dropout:
+            x = keras.layers.Dropout(self._dropout)(x)
+        if self._max_pooling:
+            x = keras.layers.MaxPool2D()(x)
+        return x
+
+
 
 class ModuleGene(object):
-    def __init__(self, id, modtype, modspecies):
+    _id = 0
+    def __init__(self, id, modspecies):
         """
         A module gene is a node which represents a multilayer component of
         a deep neural network.
         """
-        self._id = id
+        if id == None:
+            self._id = self.__get_new_id
+        else:
+            self._id = id
         self._type = layertype
         self._module = modspecies
+
+    @classmethod
+    def __get_new_id(cls):
+        cls._id += 1
+        return cls._id
 
     id = property(lambda self: self._id)
     type = property(lambda self: self._type)
@@ -182,94 +183,30 @@ class ModuleGene(object):
     def copy(self):
         return ModuleGene(self._id, self._type, self._module)
 
+    def set_module(self, modspecies):
+        self._module = modspecies
+
     def mutate(self):
         pass
 
 
 class Connection(object):
-    #__global_innov_number = 0
-    #__innovations = {} # A list of innovations.
-    # Should it be global? Reset at every generation? Who knows?
+    def __init__(self, innodes=[], outnodes=[]):
+        self._in = innodes
+        self._out = outnodes
 
-    #@classmethod
-    #def reset_innovations(cls):
-    #    cls.__innovations = {}
+    input  = property(lambda self: self._in)
+    output = property(lambda self: self._out)
 
-    def __init__(self, innodes, outnodes, innov = None):
-        self.__in = innodes
-        self.__out = outnodes
-        '''
-        if innov is None:
-            try:
-                self.__innov_number = self.__innovations[self.key]
-            except KeyError:
-                self.__innov_number = self.__get_new_innov_number()
-                self.__innovations[self.key] = self.__innov_number
-        else:
-            self.__innov_number = innov
-        self.__out_node = None
-        '''
-
-    innodes  = property(lambda self: self.__in)
-    outnodes = property(lambda self: self.__out)
-    # Key for dictionaries, avoids two connections between the same nodes.
-    # key = property(lambda self: (self.__in, self.__out))
-
-    def mutate(self):
-        r = random.random
-        if r() < Config.prob_mutate_weight:
-            self.__mutate_weight()
-        if r() <  Config.prob_togglelink:
-            self.enable()
-        #TODO: Remove weight_replaced?
-        #if r() < 0.001:
-        #    self.__weight_replaced()
-    '''
-    @classmethod
-    def __get_new_innov_number(cls):
-        cls.__global_innov_number += 1
-        return cls.__global_innov_number
-    '''
     def __str__(self):
-        s = "In %2d, Out %2d, Weight %+3.5f, " % \
-            (self.__in, self.__out, self.__weight)
-        if self.__enabled:
-            s += "Enabled, "
-        else:
-            s += "Disabled, "
-        return s + "Innov %d" % (self.__innov_number,)
+        s = "In %10s, Out %10s " % \
+            (self._in, self._out)
+        return s
 
-    def __cmp__(self, other):
-        return cmp(int(self.__innov_number), int(other.__innov_number))
-
-    def __lt__(self, other):
-        return int(self.__innov_number) <  int(other.__innov_number)
-
-    def __gt__(self, other):
-        return int(self.__innov_number) > int(other.__innov_number)
-
-    def add_in(self, node_in):
-        self.__in.append(node_in)
-
-    def split(self, node_id):
-        """
-        Splits a connection, creating two new connections and
-        disabling this one
-        """
-        self.__enabled = False
-        new_conn1 = ConnectionGene(self.__in, node_id, 1.0, True)
-        new_conn2 = ConnectionGene(node_id, self.__out, self.__weight, True)
-        return new_conn1, new_conn2
-
-
-    def copy(self):
-        toReturn = ConnectionGene(self.__in, self.__out, self.__weight,
-                              self.__enabled, self.__innov_number, self.__type)
-        return toReturn
-
-    def is_same_innov(self, cg):
-        return self.__innov_number == cg.__innov_number
-
-    def get_child(self, cg):
-        # TODO: average both weights (Stanley, p. 38)
-        return random.choice((self, cg)).copy()
+    def decode(self, x):
+        if len(self._in) > 1:
+            x = keras.layers.Add()(x)
+        output = []
+        for layer in self._out:
+            output.append(layer.decode(x))
+        return output

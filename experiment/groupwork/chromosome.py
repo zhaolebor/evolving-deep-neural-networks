@@ -1,24 +1,27 @@
 import random, math
 from .config import Config
 from . import genome
+import numpy as np
+from keras.models import Model
+from keras.layers import Input, Activation, Dense, Dropout, Flatten
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.layers.normalization import BatchNormalization
+
 
 # Temporary workaround - default settings
 #node_gene_type = genome.NodeGene
 conn_gene_type = genome.ConnectionGene
 
 class Chromosome(object):
-    """ A chromosome for general recurrent neural networks. """
+    """ A chromosome data type for co-evolving deep neural networks """
     _id = 0
-    def __init__(self, input, output, parent1_id, parent2_id, gene_type):
+    def __init__(self, parent1_id, parent2_id, gene_type):
 
         self._id = self.__get_new_id()
-        self._input  = input
-        self._output = output
 
-        # the type of NodeGene and ConnectionGene the chromosome carries
+        # the type of ModuleGene or LayerGene the chromosome carries
         self._gene_type = gene_type
         # how many genes of the previous type the chromosome has
-        self._connections = {} # dictionary of connection genes
         self._genes = []
 
         self.fitness = None
@@ -28,10 +31,7 @@ class Chromosome(object):
         self.parent1_id = parent1_id
         self.parent2_id = parent2_id
 
-    conn       = property(lambda self: list(self._connections.values()))
     genes      = property(lambda self: self._genes)
-    input      = property(lambda self: self._input)
-    output     = property(lambda self: self._output)
     id         = property(lambda self: self._id)
 
     @classmethod
@@ -65,16 +65,22 @@ class Chromosome(object):
         assert self.species_id == other.species_id, 'Different parents species ID: %d vs %d' \
                                                          % (self.species_id, other.species_id)
 
-        # TODO: if they're of equal fitnesses, choose the shortest
         if self.fitness > other.fitness:
             parent1 = self
             parent2 = other
+        elif self.fitness == other.fitness:
+            if len(self._genes) > len(other._genes):
+                parent1 = other
+                parent2 = self
+            else:
+                parent1 = self
+                parent2 = other
         else:
             parent1 = other
             parent2 = self
 
         # creates a new child
-        child = self.__class__(self._input, self._output, self.id, other.id, self._node_gene_type)
+        child = self.__class__(self._input, self.id, other.id, self._gene_type)
 
         child._inherit_genes(parent1, parent2)
 
@@ -84,36 +90,7 @@ class Chromosome(object):
 
     def _inherit_genes(child, parent1, parent2):
         """ Applies the crossover operator. """
-        assert(parent1.fitness >= parent2.fitness)
-
-        # Crossover connection genes
-        for cg1 in list(parent1._connections.values()):
-            try:
-                cg2 = parent2._connections[cg1.key]
-            except KeyError:
-                # Copy excess or disjoint genes from the fittest parent
-                child._connections[cg1.key] = cg1.copy()
-            else:
-                if cg2.is_same_innov(cg1): # Always true for *global* INs
-                    # Homologous gene found
-                    new_gene = cg1.get_child(cg2)
-                    #new_gene.enable() # avoids disconnected neurons
-                else:
-                    new_gene = cg1.copy()
-                child._connections[new_gene.key] = new_gene
-
-        # Crossover node genes
-        for i, ng1 in enumerate(parent1._genes):
-            try:
-                # matching node genes: randomly selects the neuron's bias and response
-                child._genes.append(ng1.get_child(parent2._genes[i]))
-            except IndexError:
-                # copies extra genes from the fittest parent
-                child._genes.append(ng1.copy())
-
-
-    def _mutate_add_node(self):
-        throw NotImplementedError
+        raise NotImplementedError
 
     # compatibility function
     def distance(self, other):
@@ -148,123 +125,216 @@ class Chromosome(object):
             s += "\n\t" + str(ng)
         return s
 
-class FFChromosome(Chromosome):
-    """ A chromosome for feedforward neural networks. Feedforward
-        topologies are a particular case of Recurrent NNs.
-    """
-    def __init__(self, parent1_id, parent2_id, node_gene_type, conn_gene_type):
-        super(FFChromosome, self).__init__(parent1_id, parent2_id, node_gene_type, conn_gene_type)
-        self.__node_order = [] # hidden node order (for feedforward networks)
-
-    node_order = property(lambda self: self.__node_order)
-
-    def _inherit_genes(child, parent1, parent2):
-        super(FFChromosome, child)._inherit_genes(parent1, parent2)
-
-        child.__node_order = parent1.__node_order[:]
-
-        assert(len(child.__node_order) == len([n for n in child.node_genes if n.type == 'HIDDEN']))
-
-    def _mutate_add_node(self):
-        ng, split_conn = super(FFChromosome, self)._mutate_add_node()
-        # Add node to node order list: after the presynaptic node of the split connection
-        # and before the postsynaptic node of the split connection
-        if self._node_genes[split_conn.innodeid - 1].type == 'HIDDEN':
-            mini = self.__node_order.index(split_conn.innodeid) + 1
-        else:
-            # Presynaptic node is an input node, not hidden node
-            mini = 0
-        if self._node_genes[split_conn.outnodeid - 1].type == 'HIDDEN':
-            maxi = self.__node_order.index(split_conn.outnodeid)
-        else:
-            # Postsynaptic node is an output node, not hidden node
-            maxi = len(self.__node_order)
-        self.__node_order.insert(random.randint(mini, maxi), ng.id)
-        assert(len(self.__node_order) == len([n for n in self.node_genes if n.type == 'HIDDEN']))
-        return (ng, split_conn)
-
-    def _mutate_add_connection(self):
-        # Only for feedforwad networks
-        num_hidden = len(self.__node_order)
-        num_output = len(self._node_genes) - self._input_nodes - num_hidden
-
-        total_possible_conns = (num_hidden+num_output)*(self._input_nodes+num_hidden) - \
-            sum(range(num_hidden+1))
-
-        remaining_conns = total_possible_conns - len(self._connection_genes)
-        # Check if new connection can be added:
-        if remaining_conns > 0:
-            n = random.randint(0, remaining_conns - 1)
-            count = 0
-            # Count connections
-            for in_node in (self._node_genes[:self._input_nodes] + self._node_genes[-num_hidden:]):
-                for out_node in self._node_genes[self._input_nodes:]:
-                    if (in_node.id, out_node.id) not in list(self._connection_genes.keys()) and \
-                        self.__is_connection_feedforward(in_node, out_node):
-                        # Free connection
-                        if count == n: # Connection to create
-                            #weight = random.uniform(-Config.random_range, Config.random_range)
-                            weight = random.gauss(0,1)
-                            cg = self._conn_gene_type(in_node.id, out_node.id, weight, True)
-                            self._connection_genes[cg.key] = cg
-                            return
-                        else:
-                            count += 1
-
-    def __is_connection_feedforward(self, in_node, out_node):
-        return in_node.type == 'INPUT' or out_node.type == 'OUTPUT' or \
-            self.__node_order.index(in_node.id) < self.__node_order.index(out_node.id)
-
-    def add_hidden_nodes(self, num_hidden):
-        id = len(self._node_genes)+1
-        for i in range(num_hidden):
-            node_gene = self._node_gene_type(id,
-                                          nodetype = 'HIDDEN',
-                                          activation_type = Config.nn_activation)
-            self._node_genes.append(node_gene)
-            self.__node_order.append(node_gene.id)
-            id += 1
-            # Connect all input nodes to it
-            for pre in self._node_genes[:self._input_nodes]:
-                weight = random.gauss(0, Config.weight_stdev)
-                cg = self._conn_gene_type(pre.id, node_gene.id, weight, True)
-                self._connection_genes[cg.key] = cg
-                assert self.__is_connection_feedforward(pre, node_gene)
-            # Connect all previous hidden nodes to it
-            for pre_id in self.__node_order[:-1]:
-                assert pre_id != node_gene.id
-                weight = random.gauss(0, Config.weight_stdev)
-                cg = self._conn_gene_type(pre_id, node_gene.id, weight, True)
-                self._connection_genes[cg.key] = cg
-            # Connect it to all output nodes
-            for post in self._node_genes[self._input_nodes:(self._input_nodes + self._output_nodes)]:
-                assert post.type == 'OUTPUT'
-                weight = random.gauss(0, Config.weight_stdev)
-                cg = self._conn_gene_type(node_gene.id, post.id, weight, True)
-                self._connection_genes[cg.key] = cg
-                assert self.__is_connection_feedforward(node_gene, post)
-
-    def __str__(self):
-        s = super(FFChromosome, self).__str__()
-        s += '\nNode order: ' + str(self.__node_order)
-        return s
-
 def BlueprintChromo(Chromosome):
     """
     A chromosome for deep neural network blueprints.
     """
-    def __init__(self, input, output, parent1_id, parent2_id, node_order=[], gene_type='MODULE'):
-        super(BluePrintChromo, self).__init__(input, output, parent1_id, parent2_id, gene_type)
-        self.__node_order = node_order # module order
+    def __init__(self, parent1_id, parent2_id, module_pop, activ_params={}, gene_type='MODULE'):
+        super(BluePrintChromo, self).__init__(parent1_id, parent2_id, gene_type)
+        self._species_indiv = {}
+        self._all_params = {
+                "learning_rate": [.0001, .1],
+                "momentum": [.68,.99],
+                "hue_shift": [0, 45],
+                "sv_shift": [0, .5],
+                "sv_scale": [0, .5],
+                "cropped_image_size": [26,32],
+                "spatial_scaling": [0,0.3],
+                "horizontal_flips": [True, False],
+                "variance_norm": [True, False],
+                "nesterov_acc": [True, False],
+                }
+        self._active_params = active_params
+        self._module_pop = module_pop
+
+    def __get_species_indiv(self):
+        for i in range(len(self._genes)):
+            if not (self._module_pop.has_species(module(self._genes[i]))):
+                self._genes[i].set_module(self._module_pop.get_species())
+        for g in self._genes:
+            try:
+                self._species_indiv[module(g)._species_id] = species.get_indiv()
+            except KeyError:
+                pass
+
+    def decode(self, input):
+        self.__get_species_indiv()
+        inputs = Input(shape=input)
+        next = inputs
+        for species in self._genes:
+            mod, x = self._species_indiv[species._species_id].decode(next)
+            next = x
+        network = Model(inputs=inputs, outputs=next)
+        return network
+
+    def distance(self, other):
+        dist = 0
+        if len(self._genes) > len(other._genes):
+            chromo1 = self
+            chromo2 = other
+        else:
+            chromo1 = other
+            chromo2 = self
+        dist += (len(chromo1._genes)-len(chromo2._genes))*Config.excess_coefficient
+        chromo1_species = []
+        chromo2_species = []
+        for g in chromo1._genes:
+            chromo1_species.append(module(g)._species_id)
+        for g in chromo2._genes:
+            chromo2_species.append(module(g)._species_id)
+        for id in chromo1_species:
+            if id in chromo2_species:
+                chromo2_species.remove(id)
+            else:
+                dist += Config.disjoint_coefficient
+        return dist
+
+    def _inherit_genes(child, parent1, parent2):
+        """ Applies the crossover operator. """
+        assert(parent1.fitness >= parent2.fitness)
+
+        # Crossover layer genes
+        for i, g1 in enumerate(parent1._genes):
+            try:
+                # matching node genes: randomly selects the neuron's bias and response
+                child._genes.append(g1.get_child(parent2._genes[i]))
+            except IndexError:
+                # copies extra genes from the fittest parent
+                child._genes.append(g1.copy())
+            except TypeError:
+                # copies disjoint genes from the fittest parent
+                child._genes.append(g1.copy())
+
+    def mutate(self):
+        """ Mutates this chromosome """
+
+        r = random.random
+        if r() < Config.prob_addmodule:
+            self._mutate_add_module()
+        else:
+            for param in list(self._active_params.keys):
+                if r() < 0.5:
+                    self._active_params[param] = random.choice(self._all_params[param])
+        return self
+
+    def _mutate_add_module(self):
+        """ Adds a module to the BluePrintChromo"""
+        ind = random.randint(0,len(self._genes))
+        module = self._module_pop.get_species()
+        self._genes.insert(ind, genome.ModuleGene(None, module))
+
+    def create_initial(newchromo, module_pop):
+        newchromo.__init__(None, None, module_pop)
+        newchromo._genes.append(genome.ModuleGene(None, module_pop.get_species()))
+        newchromo._genes.append(genome.ModuleGene(None, module_pop.get_species()))
+        return newchromo
+
 
 def ModuleChromo(Chromosome):
     """
     A chromosome for deep neural network "modules" which consist of a small number of layers and
     their associated hyperparameters.
     """
-    def __init__(self, input, output, parent1_id, parent2_id, gene_type='DENSE'):
-        super(Module, self).__init__(parent1_id, parent2_id, node_gene_type, conn_gene_type)
-        self.__node_order = [] # hidden node order (for feedforward networks)
+    def __init__(self, parent1_id, parent2_id, gene_type='DENSE'):
+        super(ModuleChromo, self).__init__(parent1_id, parent2_id, gene_type)
+        self._connections = []
+
+    def decode(self, input):
+        """
+        Produces Keras Model of this module
+        """
+        inputs = Input(shape=input)
+        next = inputs
+        for conn in self._connections:
+            x = conn.decode(next)
+            next = x
+        mod = Model(inputs=inputs, outputs=x)
+        return mod, next
+
+    def distance(self, other):
+        dist = 0
+        if len(self._genes) > len(other._genes):
+            chromo1 = self
+            chromo2 = other
+        else:
+            chromo1 = other
+            chromo2 = self
+        dist += (len(chromo1._connections)-len(chromo2._connections))*Config.excess_coefficient
+        if (chromo1._gene_type != chromo2._gene_type):
+            return (dist+1000)
+        else:
+            for i, conn in enumerate(chromo2._connections):
+                for input in chromo1._connections[i]._in:
+                    if input not in conn._in:
+                        dist += Config.connection_coefficient
+        return dist
+
+    def _inherit_genes(child, parent1, parent2):
+        """ Applies the crossover operator. """
+        assert(parent1.fitness >= parent2.fitness)
+
+        # Crossover layer genes
+        for i, g1 in enumerate(parent1._genes):
+            try:
+                # matching node genes: randomly selects the neuron's bias and response
+                child._genes.append(g1.get_child(parent2._genes[i]))
+            except IndexError:
+                # copies extra genes from the fittest parent
+                child._genes.append(g1.copy())
+            except TypeError:
+                # copies disjoint genes from the fittest parent
+                child._genes.append(g1.copy())
+        child._connections = parent1._connections.copy()
+        for conn in child._connections:
+            for input in conn._in:
+                ind = parent1._genes.index(input)
+                input = child._genes(ind)
+
+    def mutate(self):
+        """ Mutates this chromosome """
+
+        r = random.random
+        if r() < Config.prob_addlayer:
+            self._mutate_add_layer()
+
+        # elif r() < Config.prob_addconn:
+        #    self._mutate_add_connection()
+
+        else:
+            for g in self._genes:
+                g.mutate() # mutate layer params
+
+        return self
+
+    def _mutate_add_layer(self):
+        r = random.random
+        input = random.choice(self._connections[:len(self._connections)/2])
+        output = random.choice(self._connections[len(self._connections)/2])
+        if self._gene_type == 'CONV':
+            if r() < .4:
+                ng = genome.ConvGene(None,32)
+                input._out.append(ng)
+                output._in.append(ng)
+                self._genes.append(ng)
+        else:
+            ng = genome.DenseGene(None,128)
+            input._out.append(ng)
+            output._in.append(ng)
+            self._genes.append(ng)
+
+    def create_initial(newchromo):
+        newchromo.__init__(None,None)
+        if Config.conv and random.random() > .5:
+            newchromo._gene_type = 'CONV'
+            g = genome.ConvGene(None, 32))
+            newchromo._genes.append(g)
+            newchromo._connections.append(genome.Connection([],g))
+            newchromo._connections.append(genome.Connection(g,[]))
+        else:
+            g = genome.DenseGene(None, 128))
+            newchromo._genes.append(g)
+            newchromo._connections.append(genome.Connection([],g))
+            newchromo._connections.append(genome.Connection(g,[]))
 
 if __name__ == '__main__':
     # Example

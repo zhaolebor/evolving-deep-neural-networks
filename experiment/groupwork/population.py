@@ -23,42 +23,12 @@ graph of best and average fitness scores throughout evolution are
 based on the scores received rather than updated scores.
 """
 
-class Population:
-
-
-    def __init__(self, members, fitnesses, score, obj='max'):
-        self.members = members
-        scores = fitnesses - fitnesses.min()
-        if scores.max() > 0:
-            scores /= scores.max()
-        if obj is 'min':
-            scores = 1 - scores
-        if score:
-            self.scores = score(scores)
-        else:
-            self.scores = scores
-        self.s_fit = sum(self.scores)
-
-    def getBest(self, n):
-        combined = [(self.members[i], self.scores[i])
-                    for i in range(len(self.members))]
-        sorted(combined, key=(lambda x: x[1]), reverse=True)
-        return [x[0] for x in combined[:n]]
-
-    def select(self):
-        dart = rand.uniform(0, self.s_fit)
-        sum_fits = 0
-        for i in range(len(self.members)):
-            sum_fits += self.scores[i]
-            if sum_fits >= dart:
-                return self.members[i]
-
 class Population(object):
     """ Manages all the species  """
     evaluate = None # Evaluates the entire population. You need to override
                     # this method in your experiments
 
-    def __init__(self, checkpoint_file=None):
+    def __init__(self, chromo_type=None, co_pop=None, checkpoint_file=None):
         self.first = True
         if checkpoint_file:
             # start from a previous point: creates an 'empty'
@@ -69,6 +39,11 @@ class Population(object):
             self.__popsize = Config.pop_size
             # currently living species
             self.__species = []
+
+            self.__chromo_type = chromo_type
+
+            self.__co_population = co_pop
+
             # species history
             self.__species_log = []
 
@@ -77,6 +52,7 @@ class Population(object):
             self.__best_fitness = []
 
             self.__create_population()
+            self.__speciate(False)
             self.__generation = -1
             self.best = None
 
@@ -126,13 +102,14 @@ class Population(object):
             self.__population.append(self.create_individual())
 
     def create_individual(self):
-        if Config.feedforward:
-            genotypes = chromosome.FFChromosome
+        if self.__chromo_type != None:
+            genotypes = chromosome.self.__chromo_type
         else:
             genotypes = chromosome.Chromosome
-        g = genotypes.create_fully_connected()
-        if Config.hidden_nodes > 0:
-            g.add_hidden_nodes(Config.hidden_nodes)
+        if self.__co_population == None:
+            g = genotypes.create_initial()
+        else:
+            g = genotypes.create_inital(self.__co_population)
         return g
 
     def __repr__(self):
@@ -201,6 +178,14 @@ class Population(object):
             sum += c.fitness
         return sum/len(self)
 
+    def get_species(self):
+        """ Used for getting a pointer to a random species."""
+        return random.choice(self.__species)
+
+    def has_species(self, species):
+        """ Checks if a species is in the population."""
+        return (species in self.__species)
+
     def stdeviation(self):
         """ Returns the population standard deviation """
         # first compute the average
@@ -210,7 +195,7 @@ class Population(object):
         try:
             # now compute the distance from average
             for c in self:
-                error += (u - c.fitness)**2                 
+                error += (u - c.fitness)**2
         except OverflowError:
             #TODO: catch OverflowError: (34, 'Numerical result out of range')
             print("Overflow - printing population status")
@@ -264,36 +249,30 @@ class Population(object):
                 if i == s.id:
                     temp.append(len(s))
                     found_specie = True
-                    break                            
-            if not found_specie:                     
-                temp.append(0)                            
+                    break
+            if not found_specie:
+                temp.append(0)
         self.__species_log.append(temp)
-        
     def __population_diversity(self):
         """ Calculates the diversity of population: total average weights, 
             number of connections, nodes """
-            
+
         num_nodes = 0
-        num_conns = 0
-        avg_weights = 0.0
-        
+
         for c in self:
-            num_nodes += len(c.node_genes)
-            num_conns += len(c.conn_genes)
-            for cg in c.conn_genes:
-                avg_weights += cg.weight
-            
+            num_nodes += len(c._genes)
+
         total = len(self)
-        return (num_nodes/total, num_conns/total, avg_weights/total)
-                    
+        return (num_nodes/total, num_nodes/total, avg_nodes/total)
+
     def getGen(self):
         return self.__generation
-    
+
     def epoch(self, n, report=True, save_best=False, checkpoint_interval = 10,
         checkpoint_generation = None, name = ""):
         self.name = name
         """ Runs NEAT's genetic algorithm for n epochs.
-        
+
             Keyword arguments:
             report -- show stats at each epoch (default True)
             save_best -- save the best chromosome from each epoch
