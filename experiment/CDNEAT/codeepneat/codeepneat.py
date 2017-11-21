@@ -40,6 +40,10 @@ def evaluate(blueprint_pop, module_pop, num_networks, f, data):
         bps[i].fitness += fit
         for module in list(bp._species_indiv.values()):
             module.fitness += fit
+    for module in module_pop:
+      module.fitness = module.fitness/module.num_use
+    for blueprint in blueprint_pop:
+      blueprint.fitness = blueprint.fitness/blueprint.num_use
 
 def epoch(n, pop1, pop2, num_networks, f, data, save_best, name='', report=True):
     for g in range(n):

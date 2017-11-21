@@ -23,7 +23,7 @@ y_test = to_categorical(y_test)
 dataset = ((x_train, y_train), (x_test, y_test))
 
 max_conv_layers = 5
-max_dense_layers = 2 # including final softmax layer
+max_dense_layers = 3 # including final softmax layer
 max_conv_kernels = 64
 max_dense_nodes = 1024
 input_shape = x_train.shape[1:]
@@ -37,7 +37,7 @@ genome_handler = GenomeHandler(max_conv_layers, max_dense_layers, max_conv_kerne
                 optimizers=None, activations=activ)
 
 num_generations = 20
-population_size = 10
+population_size = 20
 num_epochs = 10
 
 devol = DEvol(genome_handler)

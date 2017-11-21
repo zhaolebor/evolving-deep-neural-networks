@@ -112,8 +112,8 @@ class DEvol:
         try:
             model.fit(self.x_train, self.y_train, validation_data=(self.x_test, self.y_test),
                       epochs=epochs,
-                      verbose=1,
-                      callbacks=[EarlyStopping(monitor='val_loss', patience=1, verbose=1)])
+                      verbose=0,
+                      callbacks=[EarlyStopping(monitor='val_loss', patience=1, verbose=0)])
             loss, accuracy = model.evaluate(self.x_test, self.y_test, verbose=0)
         except:
             loss = 6.66
