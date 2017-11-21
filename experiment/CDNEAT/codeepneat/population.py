@@ -4,7 +4,6 @@ from . import species
 from . import chromosome
 import pickle as pickle
 from . import visualize
-
 """
 Updated by Gabriel Meyer-Lee for DeepNEAT-like use.
 
@@ -184,7 +183,14 @@ class Population(object):
 
     def has_species(self, species):
         """ Checks if a species is in the population."""
-        return (species in self.__species)
+        try:
+          ind = self.__species.index(species)
+          if len(self.__species[ind].members) == 0:
+              return False
+          else:
+              return True
+        except IndexError:
+          return False
 
     def stdeviation(self):
         """ Returns the population standard deviation """
@@ -268,8 +274,10 @@ class Population(object):
     def getGen(self):
         return self.__generation
 
-    def epoch(self, g, report=True, save_best=False, checkpoint_interval = 10,
+    def epoch(self, g, report=True, save_best=False, checkpoint_interval = 10.0,
         checkpoint_generation = None, name = ""):
+        
+        t0 = time.time() # for saving checkpoints
         self.name = name
         """ Runs NEAT's genetic algorithm for n epochs.
 
@@ -282,7 +290,6 @@ class Population(object):
             checkpoint_generation -- time in generations between
             saving checkpoints (default 0 -- option disabled)
         """
-        t0 = time.time() # for saving checkpoints
 
         self.__generation += 1
 
@@ -442,7 +449,6 @@ class Population(object):
         # how often a checkpoint will be created?
         #if self.__generation % 10 is 0:
         #    self.__create_checkpoint(report)
-            
         if checkpoint_interval is not None and \
                time.time() > t0 + 60*checkpoint_interval:
             self.__create_checkpoint(report)

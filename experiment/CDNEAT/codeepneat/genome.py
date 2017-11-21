@@ -52,7 +52,7 @@ class LayerGene(object):
 
 
     def copy(self):
-        return LayerGene(self.__get_new_id(), self._type, self._size)
+        return LayerGene(self._id, self._type, self._size)
 
     def mutate(self):
         raise NotImplementedError
@@ -78,8 +78,8 @@ class DenseGene(LayerGene):
         if(self._type != other._type):
             raise TypeError
         child_param = []
-        for key in self.layer_params:
-           child_param.append(random.choice(self.key, other.key))
+        for key in list(DenseGene.layer_params.keys()):
+           child_param.append(random.choice(getattr(self,key), getattr(other,key)))
         return DenseGene(self.__get_new_id(), child_param[0], child_param[1], child_param[2], \
                 child_param[3])
 
@@ -119,7 +119,7 @@ class ConvGene(LayerGene):
             "_max_pooling": list(range(3)),
             "_batch_norm": [True, False],
     }
-
+    
     def __init__(self, id, numfilter, kernel_size=1, activation='relu', dropout=0.0, \
             padding='same', strides=(1,1), max_pooling=0, batch_norm=False, layertype='CONV'):
         super(ConvGene, self).__init__(id, layertype, numfilter)
@@ -130,18 +130,18 @@ class ConvGene(LayerGene):
         self._strides = strides
         self._max_pooling = max_pooling
         self._batch_norm = batch_norm
+
     def get_child(self, other):
         if(self._type != other._type):
             raise TypeError
         child_param = []
-        for key in self.layer_params:
-           child_param.append(random.choice(self.key, other.key))
+        for key in list(ConvGene.layer_params.keys()):
+           child_param.append(random.choice(getattr(self,key), getattr(other,key)))
         return ConvGene(self.__get_new_id(), child_param[0], child_param[1], child_param[2], \
                 child_param[3], child_param[4], child_param[5], child_param[6], child_param[7])
 
     def copy(self):
-        return ConvGene(self._id, self._size, self._activation, self._dropout, \
-                self._padding, self._strides, self._max_pooling, self._batch_norm)
+        return ConvGene(self._id, self._size, self._kernel_size, self._activation, self._dropout,self._padding, self._strides, self._max_pooling, self._batch_norm)
 
     def mutate(self):
         r = random.random
@@ -212,7 +212,7 @@ class ModuleGene(object):
         return g
 
     def copy(self):
-        return ModuleGene(self._id, self._type, self._module)
+        return ModuleGene(self._id, self._module)
 
     def set_module(self, modspecies):
         self._module = modspecies

@@ -161,12 +161,16 @@ class BlueprintChromo(Chromosome):
 
 
     def __get_species_indiv(self):
-        for i in range(len(self._genes)):
-            if not (self._module_pop.has_species(self._genes[i].module)):
+        valid_species = False
+        while not valid_species:
+          valid_species = True
+          for i in range(len(self._genes)):
+              if not (self._module_pop.has_species(self._genes[i].module)):
                 self._genes[i].set_module(self._module_pop.get_species())
+                valid_species = False
         for g in self._genes:
             try:
-                self._species_indiv[g.module.id] = g.module.get_indiv()
+                self._species_indiv[g.module.id] = random.choice(g.module.members)
             except KeyError:
                 pass
 
@@ -222,7 +226,7 @@ class BlueprintChromo(Chromosome):
         r = random.random
         if r() < Config.prob_addmodule:
             self._mutate_add_module()
-        else:
+        elif len(self._active_params) > 0:
             for param in list(self._active_params.keys):
                 if r() < 0.5:
                     self._active_params[param] = random.choice(self._all_params[param])
@@ -289,7 +293,7 @@ class ModuleChromo(Chromosome):
         # Crossover layer genes
         for i, g1 in enumerate(parent1._genes):
             try:
-                # matching node genes: randomly selects the neuron's bias and response
+                # matching node genes: randomly selects parameters
                 child._genes.append(g1.get_child(parent2._genes[i]))
             except IndexError:
                 # copies extra genes from the fittest parent
@@ -300,13 +304,14 @@ class ModuleChromo(Chromosome):
         child._connections = parent1._connections.copy()
         for conn in child._connections:
             for inlayer in conn._in:
-                if inlayer.type != 'IN':
+              #TODO why is this necessary
+                if inlayer.type != 'IN' and inlayer in parent1._genes:
                     ind = parent1._genes.index(inlayer)
-                    inlayer = child._genes(ind)
+                    inlayer = child._genes[ind]
             for outlayer in conn._out:
-                if outlayer.type != 'OUT':
+                if outlayer.type != 'OUT' and outlayer in parent1._genes:
                     ind = parent1._genes.index(outlayer)
-                    outlayer = child._genes(ind)
+                    outlayer = child._genes[ind]
 
     def mutate(self):
         """ Mutates this chromosome """
@@ -362,7 +367,7 @@ class ModuleChromo(Chromosome):
         c = cls(None,None)
         n = genome.LayerGene(0, 'IN', 0)
         x = genome.LayerGene(-1, 'OUT', 0)
-        if Config.conv and random.random() > Config.prob_addconv:
+        if Config.conv and random.random() < Config.prob_addconv:
             c._gene_type = 'CONV'
             g = genome.ConvGene(None, random.choice(genome.ConvGene.layer_params['_size']))
             c._genes.append(g)

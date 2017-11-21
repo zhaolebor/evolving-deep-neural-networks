@@ -38,9 +38,6 @@ class Species(object):
         cls.__id += 1
         return cls.__id
 
-    def get_indiv(self):
-        return random.choice(self.__subpopulation)
-
     def add(self, individual):
         """ Add a new individual to the species """
         # set individual's species id
