@@ -61,17 +61,18 @@ class LayerGene(object):
         raise NotImplementedError
 
 class DenseGene(LayerGene):
+    
+    layer_params = {
+            "_size": [2**i for i in range(4, int(math.log(256, 2)) + 1)],
+            "_activation": ['sigmoid', 'tanh', 'relu'],
+            "_dropout": [0.1*i for i in range(7)],
+            "_batch_norm": [True, False],
+    }
     def __init__(self, id, numnodes, activation='relu', dropout=0.0, batch_norm=False, layertype='DENSE'):
         super(DenseGene, self).__init__(id, layertype, numnodes)
         self._activation = activation
         self._dropout = dropout
         self._batch_norm = batch_norm
-        self.layer_params = {
-            "_size": [2**i for i in range(4, int(math.log(256, 2)) + 1)],
-            "_activation": ['sigmoid', 'tanh', 'relu'],
-            "_dropout": [0.1*i for i in range(7)],
-            "_batch_norm": [True, False],
-        }
 
     def get_child(self, other):
         if(self._type != other._type):
@@ -107,6 +108,18 @@ class DenseGene(LayerGene):
         return x
 
 class ConvGene(LayerGene):
+
+    layer_params = {
+            "_size": [2**i for i in range(5, 9)],
+            "_kernel_size": [1,3,5],
+            "_activation": ['sigmoid','tanh','relu'],
+            "_dropout": [.1*i for i in range(7)],
+            "_padding": ['same','valid'],
+            "_strides": [(1,1), (2,1), (1,2), (2,2)],
+            "_max_pooling": list(range(3)),
+            "_batch_norm": [True, False],
+    }
+
     def __init__(self, id, numfilter, kernel_size=1, activation='relu', dropout=0.0, \
             padding='same', strides=(1,1), max_pooling=0, batch_norm=False, layertype='CONV'):
         super(ConvGene, self).__init__(id, layertype, numfilter)
@@ -117,16 +130,6 @@ class ConvGene(LayerGene):
         self._strides = strides
         self._max_pooling = max_pooling
         self._batch_norm = batch_norm
-        self.layer_params = {
-            "_size": [2**i for i in range(5, 9)],
-            "_kernel_size": [1,3,5],
-            "_activation": ['sigmoid','tanh','relu'],
-            "_dropout": [.1*i for i in range(7)],
-            "_padding": ['same','valid'],
-            "_strides": [(1,1), (2,1), (1,2), (2,2)],
-            "_max_pooling": list(range(3)),
-            "_batch_norm": [True, False],
-        }
     def get_child(self, other):
         if(self._type != other._type):
             raise TypeError

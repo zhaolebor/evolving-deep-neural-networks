@@ -62,7 +62,7 @@ class Chromosome(object):
             parent2 = self
 
         # creates a new child
-        child = self.__class__(self._input, self.id, other.id, self._gene_type)
+        child = self.__class__(self.id, other.id, self._gene_type)
 
         child._inherit_genes(parent1, parent2)
 
@@ -128,6 +128,37 @@ class BlueprintChromo(Chromosome):
                 }
         self._active_params = active_params
         self._module_pop = module_pop
+    
+    def crossover(self, other):
+        """ Crosses over parents' chromosomes and returns a child. """
+
+        # This can't happen! Parents must belong to the same species.
+        assert self.species_id == other.species_id, 'Different parents species ID: %d vs %d' \
+                                                         % (self.species_id, other.species_id)
+
+        if self.fitness > other.fitness:
+            parent1 = self
+            parent2 = other
+        elif self.fitness == other.fitness:
+            if len(self._genes) > len(other._genes):
+                parent1 = other
+                parent2 = self
+            else:
+                parent1 = self
+                parent2 = other
+        else:
+            parent1 = other
+            parent2 = self
+
+        # creates a new child
+        child = self.__class__(self.id, other.id, self._module_pop, self._active_params)
+
+        child._inherit_genes(parent1, parent2)
+
+        child.species_id = parent1.species_id
+
+        return child
+
 
     def __get_species_indiv(self):
         for i in range(len(self._genes)):
@@ -206,8 +237,9 @@ class BlueprintChromo(Chromosome):
     @classmethod
     def create_initial(cls, module_pop):
         c = cls(None, None, module_pop)
-        c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
-        c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
+        n = random.randrange(2,5)
+        for i in range(n):
+            c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
         return c
 
 
@@ -332,12 +364,12 @@ class ModuleChromo(Chromosome):
         x = genome.LayerGene(-1, 'OUT', 0)
         if Config.conv and random.random() > Config.prob_addconv:
             c._gene_type = 'CONV'
-            g = genome.ConvGene(None, 32)
+            g = genome.ConvGene(None, random.choice(genome.ConvGene.layer_params['_size']))
             c._genes.append(g)
             c._connections.append(genome.Connection([n],[g]))
             c._connections.append(genome.Connection([g],[x]))
         else:
-            g = genome.DenseGene(None, 128)
+            g = genome.DenseGene(None, random.choice(genome.DenseGene.layer_params['_size']))
             c._genes.append(g)
             c._connections.append(genome.Connection([n],[g]))
             c._connections.append(genome.Connection([g],[x]))
