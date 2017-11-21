@@ -38,7 +38,7 @@ genome_handler = GenomeHandler(max_conv_layers, max_dense_layers, max_conv_kerne
 
 num_generations = 20
 population_size = 20
-num_epochs = 10
+num_epochs = 5
 
 devol = DEvol(genome_handler)
 model = devol.run(dataset, num_generations, population_size, num_epochs)
