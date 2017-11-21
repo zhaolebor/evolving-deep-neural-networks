@@ -22,7 +22,7 @@ def load(file):
         Config.max_fitness_threshold    = float(parameters.get('genetic','max_fitness_threshold'))
         Config.prob_addlayer            = float(parameters.get('genetic','prob_addlayer'))
         Config.prob_addmodule           = float(parameters.get('genetic','prob_addmodule'))
-        Config.prob_addconn             = float(parameters.get('genetic','prob_addconn'))
+        Config.prob_addconv             = float(parameters.get('genetic','prob_addconv'))
         Config.elitism                  = float(parameters.get('genetic','elitism'))
 
         # genotype compatibility
@@ -51,7 +51,7 @@ class Config:
     # GA config
     pop_size               = None
     max_fitness_threshold   = None
-    prob_addconn            = None
+    prob_addconv            = None
     prob_addlayer           = None
     prob_addmodule          = None
     elitism                 = None

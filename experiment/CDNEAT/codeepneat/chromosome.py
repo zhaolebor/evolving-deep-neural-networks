@@ -283,9 +283,6 @@ class ModuleChromo(Chromosome):
         if r() < Config.prob_addlayer:
             self._mutate_add_layer()
 
-        # elif r() < Config.prob_addconn:
-        #    self._mutate_add_connection()
-
         else:
             for g in self._genes:
                 g.mutate() # mutate layer params
@@ -295,7 +292,7 @@ class ModuleChromo(Chromosome):
     def _mutate_add_layer(self):
         r = random.random
         if self._gene_type == 'CONV':
-            if r() < .4:
+            if r() < Config.prob_addconv:
                 ng = genome.ConvGene(None,32)
                 self._genes.append(ng)
         else:
@@ -333,7 +330,7 @@ class ModuleChromo(Chromosome):
         c = cls(None,None)
         n = genome.LayerGene(0, 'IN', 0)
         x = genome.LayerGene(-1, 'OUT', 0)
-        if Config.conv and random.random() > .5:
+        if Config.conv and random.random() > Config.prob_addconv:
             c._gene_type = 'CONV'
             g = genome.ConvGene(None, 32)
             c._genes.append(g)
