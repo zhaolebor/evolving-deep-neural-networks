@@ -2,6 +2,7 @@
 import random
 from .config import Config
 import keras
+import math
 
 class LayerGene(object):
     _id = 0
@@ -89,7 +90,10 @@ class DenseGene(LayerGene):
         pass
 
     def decode(self, x):
-        x = keras.layers.Dense(self._size, self._activation)(x)
+        inputdim = len(keras.backend.int_shape(x)[1:])
+        if inputdim > 1:
+            x = keras.layers.Flatten()(x)
+        x = keras.layers.Dense(self._size, activation=self._activation)(x)
         if self._dropout:
             x = keras.layers.Dropout(self._dropout)(x)
         return x
@@ -97,7 +101,7 @@ class DenseGene(LayerGene):
 class ConvGene(LayerGene):
     def __init__(self, id, numfilter, kernel_size=1, activation='relu', dropout=0.0, \
             padding='same', strides=(1,1), max_pooling=0, batch_norm=False, layertype='CONV'):
-        super(DenseGene, self).__init__(id, layertype, numfilter)
+        super(ConvGene, self).__init__(id, layertype, numfilter)
         self._kernel_size = kernel_size
         self._activation = activation
         self._dropout = dropout
@@ -133,8 +137,16 @@ class ConvGene(LayerGene):
         pass
 
     def decode(self, x):
-        x = keras.layers.Conv2D(self._size, self._kernel_size, self._strides, self._padding, \
-                activation=self._activation)(x)
+        inputdim = len(keras.backend.int_shape(x)[1:])
+        if inputdim == 1:
+            xval = keras.backend.int_shape(x)[1]
+            dim1 = math.floor(math.sqrt(xval))
+            while (xval%dim1 != 0):
+                dim1 -= 1
+            dim2 = xval/dim1
+            x = keras.layers.Reshape((int(dim1),int(dim2),1))(x)
+        x = keras.layers.Conv2D(self._size, self._kernel_size, strides=self._strides, \
+                padding=self._padding, activation=self._activation)(x)
         if self._dropout:
             x = keras.layers.Dropout(self._dropout)(x)
         if self._max_pooling:
@@ -154,7 +166,7 @@ class ModuleGene(object):
             self._id = self.__get_new_id
         else:
             self._id = id
-        self._type = layertype
+        self._type = 'MODULE'
         self._module = modspecies
 
     @classmethod
@@ -203,10 +215,18 @@ class Connection(object):
             (self._in, self._out)
         return s
 
-    def decode(self, x):
+    def decode(self, mod_inputs):
         if len(self._in) > 1:
-            x = keras.layers.Add()(x)
-        output = []
+            conn_inputs = []
+            for mod in self._in:
+                conn_inputs.append(mod_inputs[mod._id])
+            x = keras.layers.Add()(conn_inputs)
+        else:
+            x = mod_inputs[self._in[0]._id]
         for layer in self._out:
-            output.append(layer.decode(x))
-        return output
+            if layer._type == 'OUT':
+                mod_inputs[-1] = x
+            else:
+                mod_inputs[layer._id] = layer.decode(x)
+
+        ###############################################

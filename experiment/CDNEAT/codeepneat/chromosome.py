@@ -6,7 +6,7 @@ from keras.models import Model
 from keras.layers import Input, Activation, Dense, Dropout, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
-
+from keras import backend
 
 class Chromosome(object):
     """ A chromosome data type for co-evolving deep neural networks """
@@ -107,12 +107,12 @@ class Chromosome(object):
             s += "\n\t" + str(ng)
         return s
 
-def BlueprintChromo(Chromosome):
+class BlueprintChromo(Chromosome):
     """
     A chromosome for deep neural network blueprints.
     """
-    def __init__(self, parent1_id, parent2_id, module_pop, activ_params={}, gene_type='MODULE'):
-        super(BluePrintChromo, self).__init__(parent1_id, parent2_id, gene_type)
+    def __init__(self, parent1_id, parent2_id, module_pop, active_params={}, gene_type='MODULE'):
+        super(BlueprintChromo, self).__init__(parent1_id, parent2_id, gene_type)
         self._species_indiv = {}
         self._all_params = {
                 "learning_rate": [.0001, .1],
@@ -131,23 +131,21 @@ def BlueprintChromo(Chromosome):
 
     def __get_species_indiv(self):
         for i in range(len(self._genes)):
-            if not (self._module_pop.has_species(module(self._genes[i]))):
+            if not (self._module_pop.has_species(self._genes[i].module)):
                 self._genes[i].set_module(self._module_pop.get_species())
         for g in self._genes:
             try:
-                self._species_indiv[module(g)._species_id] = species.get_indiv()
+                self._species_indiv[g.module.id] = g.module.get_indiv()
             except KeyError:
                 pass
 
-    def decode(self, input):
+    def decode(self, inputs):
         self.__get_species_indiv()
-        inputs = Input(shape=input)
         next = inputs
-        for species in self._genes:
-            mod, x = self._species_indiv[species._species_id].decode(next)
-            next = x
-        network = Model(inputs=inputs, outputs=next)
-        return network
+        for g in self._genes:
+            mod = self._species_indiv[g.module.id].decode(next)
+            next = mod(next)
+        return next
 
     def distance(self, other):
         dist = 0
@@ -161,9 +159,9 @@ def BlueprintChromo(Chromosome):
         chromo1_species = []
         chromo2_species = []
         for g in chromo1._genes:
-            chromo1_species.append(module(g)._species_id)
+            chromo1_species.append(g.module.id)
         for g in chromo2._genes:
-            chromo2_species.append(module(g)._species_id)
+            chromo2_species.append(g.module.id)
         for id in chromo1_species:
             if id in chromo2_species:
                 chromo2_species.remove(id)
@@ -205,14 +203,15 @@ def BlueprintChromo(Chromosome):
         module = self._module_pop.get_species()
         self._genes.insert(ind, genome.ModuleGene(None, module))
 
-    def create_initial(newchromo, module_pop):
-        newchromo.__init__(None, None, module_pop)
-        newchromo._genes.append(genome.ModuleGene(None, module_pop.get_species()))
-        newchromo._genes.append(genome.ModuleGene(None, module_pop.get_species()))
-        return newchromo
+    @classmethod
+    def create_initial(cls, module_pop):
+        c = cls(None, None, module_pop)
+        c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
+        c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
+        return c
 
 
-def ModuleChromo(Chromosome):
+class ModuleChromo(Chromosome):
     """
     A chromosome for deep neural network "modules" which consist of a small number of layers and
     their associated hyperparameters.
@@ -221,17 +220,17 @@ def ModuleChromo(Chromosome):
         super(ModuleChromo, self).__init__(parent1_id, parent2_id, gene_type)
         self._connections = []
 
-    def decode(self, input):
+    def decode(self, inputs):
         """
         Produces Keras Model of this module
         """
-        inputs = Input(shape=input)
-        next = inputs
+        inputdim = backend.int_shape(inputs)[1:]
+        inputlayer = Input(shape=inputdim)
+        mod_inputs = {0: inputlayer}
         for conn in self._connections:
-            x = conn.decode(next)
-            next = x
-        mod = Model(inputs=inputs, outputs=x)
-        return mod, next
+            conn.decode(mod_inputs)
+        mod = Model(inputs=inputlayer, outputs=mod_inputs[-1])
+        return mod
 
     def distance(self, other):
         dist = 0
@@ -246,8 +245,8 @@ def ModuleChromo(Chromosome):
             return (dist+1000)
         else:
             for i, conn in enumerate(chromo2._connections):
-                for input in chromo1._connections[i]._in:
-                    if input not in conn._in:
+                for j in range(len(chromo1._connections[i]._in)):
+                    if chromo1._connections[i]._in[j] not in list(conn._in):
                         dist += Config.connection_coefficient
         return dist
 
@@ -268,9 +267,14 @@ def ModuleChromo(Chromosome):
                 child._genes.append(g1.copy())
         child._connections = parent1._connections.copy()
         for conn in child._connections:
-            for input in conn._in:
-                ind = parent1._genes.index(input)
-                input = child._genes(ind)
+            for inlayer in conn._in:
+                if inlayer.type != 'IN':
+                    ind = parent1._genes.index(inlayer)
+                    inlayer = child._genes(ind)
+            for outlayer in conn._out:
+                if outlayer.type != 'OUT':
+                    ind = parent1._genes.index(outlayer)
+                    outlayer = child._genes(ind)
 
     def mutate(self):
         """ Mutates this chromosome """
@@ -290,31 +294,55 @@ def ModuleChromo(Chromosome):
 
     def _mutate_add_layer(self):
         r = random.random
-        input = random.choice(self._connections[:len(self._connections)/2])
-        output = random.choice(self._connections[len(self._connections)/2])
         if self._gene_type == 'CONV':
             if r() < .4:
                 ng = genome.ConvGene(None,32)
-                input._out.append(ng)
-                output._in.append(ng)
                 self._genes.append(ng)
         else:
             ng = genome.DenseGene(None,128)
-            input._out.append(ng)
-            output._in.append(ng)
             self._genes.append(ng)
+        n = genome.LayerGene(0, 'IN', 0)
+        x = genome.LayerGene(-1, 'OUT', 0)
+        conns = self._connections.copy()
+        conns.insert(0, genome.Connection([n], []))
+        inlayers = random.choice(conns)
+        inlayers._out.append(ng)
+        if len(inlayers._in) == 1 and inlayers._in[0].type == 'IN':
+            self._connections[0]._in.pop(0)
+            self._connections[0]._in.append(ng)
+            self._connections.insert(0,inlayers)
+        conns.append(genome.Connection([], [x]))
+        output = random.choice(conns[conns.index(inlayers):])
+        if ng in output._in:
+            if len(output._in) == 1:
+                output = random.choice(conns[cons.index(inlayers)+1:])
+            else:
+                inlayers2 = output._in.copy()
+                inlayers2.remove(ng)
+                self._connections.insert(output, genome.Connection(inlayers2, [ng]))
+                return
+        output._in.append(ng)
+        if len(output._out) == 1 and output._out[0].type == 'OUT':
+            self._connections[-1]._out.pop(0)
+            self._connections[-1]._out.append(ng)
+            self._connections.append(output)
 
-    def create_initial(newchromo):
-        newchromo.__init__(None,None)
+
+    @classmethod
+    def create_initial(cls):
+        c = cls(None,None)
+        n = genome.LayerGene(0, 'IN', 0)
+        x = genome.LayerGene(-1, 'OUT', 0)
         if Config.conv and random.random() > .5:
-            newchromo._gene_type = 'CONV'
+            c._gene_type = 'CONV'
             g = genome.ConvGene(None, 32)
-            newchromo._genes.append(g)
-            newchromo._connections.append(genome.Connection([],g))
-            newchromo._connections.append(genome.Connection(g,[]))
+            c._genes.append(g)
+            c._connections.append(genome.Connection([n],[g]))
+            c._connections.append(genome.Connection([g],[x]))
         else:
             g = genome.DenseGene(None, 128)
-            newchromo._genes.append(g)
-            newchromo._connections.append(genome.Connection([],g))
-            newchromo._connections.append(genome.Connection(g,[]))
+            c._genes.append(g)
+            c._connections.append(genome.Connection([n],[g]))
+            c._connections.append(genome.Connection([g],[x]))
+        return c
 
