@@ -28,7 +28,7 @@ class LayerGene(object):
 
 
     def __str__(self):
-        return "Layer %2d %6s %6s" \
+        return "Layer %2d %6s %4d" \
                 %(self._id, self._type, self._size)
 
     def get_child(self, other):
@@ -181,8 +181,8 @@ class ModuleGene(object):
         A module gene is a node which represents a multilayer component of
         a deep neural network.
         """
-        if id == None:
-            self._id = self.__get_new_id
+        if (id == None):
+            self._id = self.__get_new_id()
         else:
             self._id = id
         self._type = 'MODULE'
@@ -198,8 +198,7 @@ class ModuleGene(object):
     module = property(lambda self: self._module)
 
     def __str__(self):
-        return "Module %2d %6s " \
-                %(self._id, self._type, self._module._species_id)
+        return "Module %2d %2d"%(self._id, self._module.id)
 
     def get_child(self, other):
         """
@@ -208,7 +207,7 @@ class ModuleGene(object):
         """
         assert(self._type == other._type)
 
-        g = ModuleGene(self._id, self._type, random.choice(self._module, other._module))
+        g = ModuleGene(self._id, random.choice(self._module, other._module))
         return g
 
     def copy(self):

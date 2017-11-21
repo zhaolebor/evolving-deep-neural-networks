@@ -76,6 +76,7 @@ def evaluate(blueprint_pop, module_pop, num_networks, f, data):
 def epoch(n, pop1, pop2, num_networks, f, data, save_best, name='', report=True):
     for g in range(n):
         print("-----Generation "+str(g)+"--------")
+        print_populations(pop1, pop2)
         best_model = evaluate(pop1, pop2, num_networks, f, data)
         print("-----Blueprints----------")
         j = pop1.epoch(g, report=report, save_best=False, name=name)
@@ -89,3 +90,10 @@ def epoch(n, pop1, pop2, num_networks, f, data, save_best, name='', report=True)
         if j < 0 or k < 0:
             break
 
+def print_populations(bp_pop, mod_pop):
+  for bp in bp_pop:
+    print(str(bp))
+    for mod in list(bp._species_indiv.values()):
+       print("     "+str(mod))
+  for mod in mod_pop:
+    print(str(mod))

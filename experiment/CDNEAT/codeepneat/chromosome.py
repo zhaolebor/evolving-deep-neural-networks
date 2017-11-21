@@ -102,7 +102,7 @@ class Chromosome(object):
         return self.fitness > other.fitness
 
     def __str__(self):
-        s = "Genes:"
+        s = str(self._id)+"\nGenes:"
         for ng in self._genes:
             s += "\n\t" + str(ng)
         return s
@@ -162,11 +162,12 @@ class BlueprintChromo(Chromosome):
 
     def __get_species_indiv(self):
         valid_species = False
+        #TODO if species is working correctly, shouldn't need while loop
         while not valid_species:
           valid_species = True
-          for i in range(len(self._genes)):
-              if not (self._module_pop.has_species(self._genes[i].module)):
-                self._genes[i].set_module(self._module_pop.get_species())
+          for g in self._genes:
+              if not (self._module_pop.has_species(g.module)):
+                g.set_module(self._module_pop.get_species())
                 valid_species = False
         for g in self._genes:
             try:
@@ -284,6 +285,10 @@ class ModuleChromo(Chromosome):
                 for j in range(len(chromo1._connections[i]._in)):
                     if chromo1._connections[i]._in[j] not in list(conn._in):
                         dist += Config.connection_coefficient
+            size_diff = 0
+            for j, layer in enumerate(chromo2._genes):
+               size_diff += chromo1._genes[j]._size - layer._size
+            dist += abs(size_diff)*Config.size_coefficient
         return dist
 
     def _inherit_genes(child, parent1, parent2):
@@ -304,7 +309,7 @@ class ModuleChromo(Chromosome):
         child._connections = parent1._connections.copy()
         for conn in child._connections:
             for inlayer in conn._in:
-              #TODO why is this necessary
+              #TODO why is this necessary, should not have to do stuff after and
                 if inlayer.type != 'IN' and inlayer in parent1._genes:
                     ind = parent1._genes.index(inlayer)
                     inlayer = child._genes[ind]

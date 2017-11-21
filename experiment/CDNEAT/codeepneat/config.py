@@ -28,9 +28,10 @@ def load(file):
         # genotype compatibility
         Config.compatibility_threshold = float(parameters.get('genotype compatibility','compatibility_threshold'))
         Config.compatibility_change    = float(parameters.get('genotype compatibility','compatibility_change'))
-        Config.excess_coefficient      = float(parameters.get('genotype compatibility','excess_coeficient'))
-        Config.disjoint_coefficient    = float(parameters.get('genotype compatibility','disjoint_coeficient'))
-        Config.connection_coefficient  = float(parameters.get('genotype compatibility','connection_coeficient'))
+        Config.excess_coefficient      = float(parameters.get('genotype compatibility','excess_coefficient'))
+        Config.disjoint_coefficient    = float(parameters.get('genotype compatibility','disjoint_coefficient'))
+        Config.connection_coefficient  = float(parameters.get('genotype compatibility','connection_coefficient'))
+        Config.size_coefficient        = float(parameters.get('genotype compatibility','size_coefficient'))
 
         # species
         Config.species_size         =   int(parameters.get('species','species_size'))
@@ -65,6 +66,7 @@ class Config:
     excess_coefficient       = None
     disjoint_coefficient     = None
     connection_coefficient       = None
+    size_coefficient         = None
 
     # species
     species_size        = None
