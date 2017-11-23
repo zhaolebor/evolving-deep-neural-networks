@@ -62,7 +62,7 @@ class Chromosome(object):
             parent2 = self
 
         # creates a new child
-        child = self.__class__(self._input, self.id, other.id, self._gene_type)
+        child = self.__class__(self.id, other.id, self._gene_type)
 
         child._inherit_genes(parent1, parent2)
 
@@ -102,7 +102,7 @@ class Chromosome(object):
         return self.fitness > other.fitness
 
     def __str__(self):
-        s = "Genes:"
+        s = str(self._id)+"\nGenes:"
         for ng in self._genes:
             s += "\n\t" + str(ng)
         return s
@@ -128,14 +128,50 @@ class BlueprintChromo(Chromosome):
                 }
         self._active_params = active_params
         self._module_pop = module_pop
+    
+    def crossover(self, other):
+        """ Crosses over parents' chromosomes and returns a child. """
+
+        # This can't happen! Parents must belong to the same species.
+        assert self.species_id == other.species_id, 'Different parents species ID: %d vs %d' \
+                                                         % (self.species_id, other.species_id)
+
+        if self.fitness > other.fitness:
+            parent1 = self
+            parent2 = other
+        elif self.fitness == other.fitness:
+            if len(self._genes) > len(other._genes):
+                parent1 = other
+                parent2 = self
+            else:
+                parent1 = self
+                parent2 = other
+        else:
+            parent1 = other
+            parent2 = self
+
+        # creates a new child
+        child = self.__class__(self.id, other.id, self._module_pop, self._active_params)
+
+        child._inherit_genes(parent1, parent2)
+
+        child.species_id = parent1.species_id
+
+        return child
+
 
     def __get_species_indiv(self):
-        for i in range(len(self._genes)):
-            if not (self._module_pop.has_species(self._genes[i].module)):
-                self._genes[i].set_module(self._module_pop.get_species())
+        valid_species = False
+        #TODO if species is working correctly, shouldn't need while loop
+        while not valid_species:
+          valid_species = True
+          for g in self._genes:
+              if not (self._module_pop.has_species(g.module)):
+                g.set_module(self._module_pop.get_species())
+                valid_species = False
         for g in self._genes:
             try:
-                self._species_indiv[g.module.id] = g.module.get_indiv()
+                self._species_indiv[g.module.id] = random.choice(g.module.members)
             except KeyError:
                 pass
 
@@ -191,7 +227,7 @@ class BlueprintChromo(Chromosome):
         r = random.random
         if r() < Config.prob_addmodule:
             self._mutate_add_module()
-        else:
+        elif len(self._active_params) > 0:
             for param in list(self._active_params.keys):
                 if r() < 0.5:
                     self._active_params[param] = random.choice(self._all_params[param])
@@ -206,8 +242,9 @@ class BlueprintChromo(Chromosome):
     @classmethod
     def create_initial(cls, module_pop):
         c = cls(None, None, module_pop)
-        c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
-        c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
+        n = random.randrange(2,5)
+        for i in range(n):
+            c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
         return c
 
 
@@ -248,6 +285,10 @@ class ModuleChromo(Chromosome):
                 for j in range(len(chromo1._connections[i]._in)):
                     if chromo1._connections[i]._in[j] not in list(conn._in):
                         dist += Config.connection_coefficient
+            size_diff = 0
+            for j, layer in enumerate(chromo2._genes):
+               size_diff += chromo1._genes[j]._size - layer._size
+            dist += abs(size_diff)*Config.size_coefficient
         return dist
 
     def _inherit_genes(child, parent1, parent2):
@@ -257,7 +298,7 @@ class ModuleChromo(Chromosome):
         # Crossover layer genes
         for i, g1 in enumerate(parent1._genes):
             try:
-                # matching node genes: randomly selects the neuron's bias and response
+                # matching node genes: randomly selects parameters
                 child._genes.append(g1.get_child(parent2._genes[i]))
             except IndexError:
                 # copies extra genes from the fittest parent
@@ -268,13 +309,14 @@ class ModuleChromo(Chromosome):
         child._connections = parent1._connections.copy()
         for conn in child._connections:
             for inlayer in conn._in:
-                if inlayer.type != 'IN':
+              #TODO why is this necessary, should not have to do stuff after and
+                if inlayer.type != 'IN' and inlayer in parent1._genes:
                     ind = parent1._genes.index(inlayer)
-                    inlayer = child._genes(ind)
+                    inlayer = child._genes[ind]
             for outlayer in conn._out:
-                if outlayer.type != 'OUT':
+                if outlayer.type != 'OUT' and outlayer in parent1._genes:
                     ind = parent1._genes.index(outlayer)
-                    outlayer = child._genes(ind)
+                    outlayer = child._genes[ind]
 
     def mutate(self):
         """ Mutates this chromosome """
@@ -330,14 +372,14 @@ class ModuleChromo(Chromosome):
         c = cls(None,None)
         n = genome.LayerGene(0, 'IN', 0)
         x = genome.LayerGene(-1, 'OUT', 0)
-        if Config.conv and random.random() > Config.prob_addconv:
+        if Config.conv and random.random() < Config.prob_addconv:
             c._gene_type = 'CONV'
-            g = genome.ConvGene(None, 32)
+            g = genome.ConvGene(None, random.choice(genome.ConvGene.layer_params['_size']))
             c._genes.append(g)
             c._connections.append(genome.Connection([n],[g]))
             c._connections.append(genome.Connection([g],[x]))
         else:
-            g = genome.DenseGene(None, 128)
+            g = genome.DenseGene(None, random.choice(genome.DenseGene.layer_params['_size']))
             c._genes.append(g)
             c._connections.append(genome.Connection([n],[g]))
             c._connections.append(genome.Connection([g],[x]))

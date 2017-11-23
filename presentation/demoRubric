@@ -1,0 +1,43 @@
+Score: 10/10
+
+1. Was a clear overview of the project given? Yes
+
+Evolving deep neural networks
+Develop a framework that can come up with both recurrent and
+feed-forward
+Test on various benchmarks
+
+NEAT tends to design small nets
+Updates to NEAT (CoDeepNEAT, HyperNEAT) evolve bigger nets
+CoDeepNeat works by evolving blueprints and stackable modules
+
+Extend these capabilities: 
+-allow networks to inherit weights rather than starting from scratch
+ each time (hope to converge a lot faster)
+-fitness of modules is the avg of their contribution to good 
+ architectures, try to train them individually to maximize information 
+
+DEvol example showing parents and offspring (crossover and mutation)
+74% accuracy with 3 conv layers
+
+CIFAR-10, much harder than MNIST (has color, and images are much more
+varied), 10 epochs per model, 20 models per generation, 20
+generations--this could take almost a day to complete
+
+Language task, predict the next word (Penn Tree Bank data set). Want to
+apply LSTMs to this data set.  Not as clear how to evolve LSTMs. Enable
+or disable layer connections, allow skip connections between layers.
+
+2. Was the hypothesis and experiment to test it described? Yes
+
+Expect to be able to get good benchmark results with lower
+computational cost.
+
+3. What aspect of the system was demonstrated?
+
+Showed notebook with CIFAR-10 results
+
+4. Were questions adequately answered? Yes
+
+Which of all of these methods are you most excited about?
+Hierarchical approach

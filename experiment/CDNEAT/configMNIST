@@ -1,0 +1,31 @@
+#--- parameters for the robot experiment ---#
+[phenotype]
+input_nodes         = 28,28,1
+output_nodes        = 10
+conv                = True
+
+[genetic]
+max_fitness_threshold = 1
+
+# Human reasoning
+pop_size              = 10
+prob_addconv          = 0.9
+prob_addlayer         = 0.1
+prob_addmodule        = 0.05
+elitism               = 1
+
+[genotype compatibility]
+compatibility_threshold = 3.0
+compatibility_change    = 0.0
+excess_coeficient       = 1.0
+disjoint_coeficient     = 1.0
+connection_coeficient   = 0.4
+
+[species]
+species_size        = 10
+survival_threshold  = 0.2
+old_threshold       = 30
+youth_threshold     = 10
+old_penalty         = 0.2
+youth_boost         = 1.2
+max_stagnation      = 15
