@@ -102,7 +102,7 @@ class Chromosome(object):
         return self.fitness > other.fitness
 
     def __str__(self):
-        s = str(self._id)+"\nGenes:"
+        s = "ID: "+str(self._id)+" Species: "+str(self.species_id)+"\nGenes:"
         for ng in self._genes:
             s += "\n\t" + str(ng)
         return s
@@ -128,7 +128,7 @@ class BlueprintChromo(Chromosome):
                 }
         self._active_params = active_params
         self._module_pop = module_pop
-    
+
     def crossover(self, other):
         """ Crosses over parents' chromosomes and returns a child. """
 
@@ -231,6 +231,8 @@ class BlueprintChromo(Chromosome):
             for param in list(self._active_params.keys):
                 if r() < 0.5:
                     self._active_params[param] = random.choice(self._all_params[param])
+        ind = random.randrange(len(self._genes))
+        self._genes[ind].set_module = self._module_pop.get_species()
         return self
 
     def _mutate_add_module(self):
@@ -249,9 +251,10 @@ class BlueprintChromo(Chromosome):
 
 
 class ModuleChromo(Chromosome):
+    # TODO: remove most of the connection sorts
     """
-    A chromosome for deep neural network "modules" which consist of a small number of layers and
-    their associated hyperparameters.
+    A chromosome for deep neural network "modules" which consist of a small
+    number of layers and their associated hyperparameters.
     """
     def __init__(self, parent1_id, parent2_id, gene_type='DENSE'):
         super(ModuleChromo, self).__init__(parent1_id, parent2_id, gene_type)
@@ -264,6 +267,7 @@ class ModuleChromo(Chromosome):
         inputdim = backend.int_shape(inputs)[1:]
         inputlayer = Input(shape=inputdim)
         mod_inputs = {0: inputlayer}
+        self.__connection_sort()
         for conn in self._connections:
             conn.decode(mod_inputs)
         mod = Model(inputs=inputlayer, outputs=mod_inputs[-1])
@@ -287,7 +291,7 @@ class ModuleChromo(Chromosome):
                         dist += Config.connection_coefficient
             size_diff = 0
             for j, layer in enumerate(chromo2._genes):
-               size_diff += chromo1._genes[j]._size - layer._size
+               size_diff += math.log2(chromo1._genes[j]._size) - math.log2(layer._size)
             dist += abs(size_diff)*Config.size_coefficient
         return dist
 
@@ -306,17 +310,41 @@ class ModuleChromo(Chromosome):
             except TypeError:
                 # copies disjoint genes from the fittest parent
                 child._genes.append(g1.copy())
+        parent1.__connection_sort()
         child._connections = parent1._connections.copy()
-        for conn in child._connections:
-            for inlayer in conn._in:
-              #TODO why is this necessary, should not have to do stuff after and
-                if inlayer.type != 'IN' and inlayer in parent1._genes:
-                    ind = parent1._genes.index(inlayer)
-                    inlayer = child._genes[ind]
-            for outlayer in conn._out:
-                if outlayer.type != 'OUT' and outlayer in parent1._genes:
-                    ind = parent1._genes.index(outlayer)
-                    outlayer = child._genes[ind]
+        child.__connection_sort()
+        for i, conn in enumerate(parent1._connections):
+            for j, inlayer in enumerate(conn.input):
+                if inlayer.type != 'IN':
+                    try:
+                        if len(parent1._genes) == 1:
+                            child._connections[i]._in[j] = child._genes[0]
+                        else:
+                            ind = parent1._genes.index(inlayer)
+                            child._connections[i]._in[j] = child._genes[ind]
+                    except ValueError:
+                        # below code used for debugging, this exception isn't actually handled
+                        print(inlayer.type)
+                        print(conn.input[j].type)
+                        print(str(conn))
+                        for g in parent1._genes:
+                            print(str(g))
+            for k, outlayer in enumerate(conn.output):
+                if outlayer.type != 'OUT':
+                    try:
+                        if len(parent1._genes) == 1:
+                            child._connections[i]._out[k] = child._genes[0]
+                        else:
+                            ind = parent1._genes.index(outlayer)
+                            child._connections[i]._out[k] = child._genes[ind]
+                    except ValueError:
+                        # below code used for debugging, this exception isn't actually handled
+                        print(outlayer.type)
+                        print(conn)
+                        for g in parent1._genes:
+                            print(str(g))
+        child.__connection_sort()
+
 
     def mutate(self):
         """ Mutates this chromosome """
@@ -333,38 +361,88 @@ class ModuleChromo(Chromosome):
 
     def _mutate_add_layer(self):
         r = random.random
-        if self._gene_type == 'CONV':
-            if r() < Config.prob_addconv:
-                ng = genome.ConvGene(None,32)
-                self._genes.append(ng)
-        else:
-            ng = genome.DenseGene(None,128)
+        self.__connection_sort()
+        # create new either conv or dense gene
+        if self._gene_type == 'CONV' and r() < Config.prob_addconv:
+            ng = genome.ConvGene(None, random.choice(genome.ConvGene.layer_params['_size']))
             self._genes.append(ng)
+        else:
+            ng = genome.DenseGene(None, random.choice(genome.DenseGene.layer_params['_size']))
+            self._genes.append(ng)
+        # add the possibility of inserting new layer in front of existing layers linearly
         n = genome.LayerGene(0, 'IN', 0)
         x = genome.LayerGene(-1, 'OUT', 0)
         conns = self._connections.copy()
         conns.insert(0, genome.Connection([n], []))
-        inlayers = random.choice(conns)
-        inlayers._out.append(ng)
-        if len(inlayers._in) == 1 and inlayers._in[0].type == 'IN':
+        # randomly pick location for new layer
+        inind = random.randrange(len(conns))
+        inconn = conns[inind]
+        inconn._out.append(ng)
+        # if in front was chosen, add a new connection to the connection list
+        if inind == 0:
             self._connections[0]._in.pop(0)
-            self._connections[0]._in.append(ng)
-            self._connections.insert(0,inlayers)
+            self._connections[0]._in.insert(0,ng)
+            self._connections.insert(0,inconn)
+            self.__connection_sort()
+            return
+        # otherwise add the new layer to the output of the chosen input connections
+        else:
+            self._connections[inind-1]._out.append(ng)
+        # add possibility of inserting layer at end linearly
         conns.append(genome.Connection([], [x]))
-        output = random.choice(conns[conns.index(inlayers):])
-        if ng in output._in:
-            if len(output._in) == 1:
-                output = random.choice(conns[cons.index(inlayers)+1:])
+        # choose random out location
+        outind = random.randrange(conns.index(inconn),len(conns))
+        output = conns[outind]
+        # if the output location is the same as the input location
+        if ng in output._out:
+            # if this layer is the only layer that takes output, choose a new out location
+            if len(output._in) == 1 or outind == 0:
+                outind = random.randrange(conns.index(inconn)+1,len(conns))
+                output = conns[outind]
             else:
-                inlayers2 = output._in.copy()
-                inlayers2.remove(ng)
-                self._connections.insert(output, genome.Connection(inlayers2, [ng]))
+            # otherwise, insert a new connection
+                inlayers = output._in.copy()
+                self._connections[inind-1]._out.remove(ng)
+                self._connections[inind-1]._in.append(ng)
+                self._connections.insert(inind-1, genome.Connection(inlayers, [ng]))
+                self.__connection_sort()
                 return
         output._in.append(ng)
-        if len(output._out) == 1 and output._out[0].type == 'OUT':
+        if len(output._in) == 1 and output._out[0].type == 'OUT':
             self._connections[-1]._out.pop(0)
-            self._connections[-1]._out.append(ng)
+            self._connections[-1]._out.insert(0,ng)
             self._connections.append(output)
+            self.__connection_sort
+            return
+        else:
+            self._connections[outind-1]._in.append(ng)
+        self.__connection_sort()
+
+    def __connection_sort(self):
+        assert self._connections[0]._in[0].id == 0, str(self._connections[0])
+        assert self._connections[-1]._out[0].id == -1, str(self._connections[-1])
+        new_conns = []
+        new_conns.append(self._connections.pop(0))
+        avail_layers = new_conns[0]._out.copy()
+        ind = 0
+        pos_correct = False
+        while len(self._connections) > 1:
+            need_layers = self._connections[ind]._in
+            for layer in need_layers:
+                if layer not in avail_layers:
+                    ind += 1
+                    pos_correct = False
+                    break
+                else:
+                    pos_correct = True
+            if(pos_correct):
+                next_conn = self._connections.pop(ind)
+                avail_layers.extend(next_conn._out.copy())
+                new_conns.append(next_conn)
+                ind = 0
+        assert self._connections[0]._out[0].id == -1
+        new_conns.append(self._connections.pop(0))
+        self._connections = new_conns
 
 
     @classmethod

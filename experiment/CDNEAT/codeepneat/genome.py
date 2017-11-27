@@ -28,7 +28,7 @@ class LayerGene(object):
 
 
     def __str__(self):
-        return "Layer %2d %6s %4d" \
+        return "Layer ID: %2d Type: %6s Size: %4d" \
                 %(self._id, self._type, self._size)
 
     def get_child(self, other):
@@ -36,7 +36,8 @@ class LayerGene(object):
         Creates a new LayerGene randonly inheriting its attributes from
         parents.
         """
-        assert(self._type == other._type)
+        if(self._type != other._type):
+            raise TypeError
 
         g = LayerGene(self.__get_new_id, self._type, random.choice(self._size, other._size))
         return g
@@ -61,7 +62,7 @@ class LayerGene(object):
         raise NotImplementedError
 
 class DenseGene(LayerGene):
-    
+
     layer_params = {
             "_size": [2**i for i in range(4, int(math.log(256, 2)) + 1)],
             "_activation": ['sigmoid', 'tanh', 'relu'],
@@ -119,7 +120,7 @@ class ConvGene(LayerGene):
             "_max_pooling": list(range(3)),
             "_batch_norm": [True, False],
     }
-    
+
     def __init__(self, id, numfilter, kernel_size=1, activation='relu', dropout=0.0, \
             padding='same', strides=(1,1), max_pooling=0, batch_norm=False, layertype='CONV'):
         super(ConvGene, self).__init__(id, layertype, numfilter)
@@ -198,7 +199,7 @@ class ModuleGene(object):
     module = property(lambda self: self._module)
 
     def __str__(self):
-        return "Module %2d %2d"%(self._id, self._module.id)
+        return "Module ID: %2d Species ID: %2d"%(self._id, self._module.id)
 
     def get_child(self, other):
         """
@@ -229,15 +230,24 @@ class Connection(object):
     output = property(lambda self: self._out)
 
     def __str__(self):
-        s = "In %10s, Out %10s " % \
-            (self._in, self._out)
+        s_in = ""
+        s_out = ""
+        for g in self._in:
+            s_in += str(g)
+        for g in self._out:
+            s_out += str(g)
+        s = "IN: " + s_in + " OUT: " + s_out
         return s
 
     def decode(self, mod_inputs):
         if len(self._in) > 1:
             conn_inputs = []
             for mod in self._in:
-                conn_inputs.append(mod_inputs[mod._id])
+                try:
+                    conn_inputs.append(mod_inputs[mod._id])
+                except KeyError:
+                    print(str(self))
+                    raise KeyError
             x = keras.layers.Add()(conn_inputs)
         else:
             x = mod_inputs[self._in[0]._id]

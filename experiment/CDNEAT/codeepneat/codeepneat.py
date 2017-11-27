@@ -6,6 +6,7 @@ import time
 from .config import Config
 import pickle as pickle
 import random
+import h5py
 import keras
 
 def produce_net(bp):
@@ -93,7 +94,5 @@ def epoch(n, pop1, pop2, num_networks, f, data, save_best, name='', report=True)
 def print_populations(bp_pop, mod_pop):
   for bp in bp_pop:
     print(str(bp))
-    for mod in list(bp._species_indiv.values()):
-       print("     "+str(mod))
   for mod in mod_pop:
     print(str(mod))

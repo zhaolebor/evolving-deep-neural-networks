@@ -185,12 +185,12 @@ class Population(object):
         """ Checks if a species is in the population."""
         try:
           ind = self.__species.index(species)
-          if len(self.__species[ind].members) == 0:
+          if len(self.__species[ind]) == 0:
               return False
           else:
               return True
-        except IndexError:
-          return False
+        except ValueError:
+            return False
 
     def stdeviation(self):
         """ Returns the population standard deviation """
@@ -293,11 +293,9 @@ class Population(object):
 
         self.__generation += 1
 
-        if report: print('\n ****** Running generation %d ****** \n' % \
+        if report: print('\n ****** Generation %d ****** \n' % \
                self.__generation)
 
-        # Speciates the population
-        self.__speciate(report)
         # Compute spawn levels for each remaining species
         self.__compute_spawn_levels()
 
@@ -350,7 +348,7 @@ class Population(object):
             print('Species age      : %s' % \
                   [s.age for s in self.__species])
             print('Species no improv: %s' % \
-                  [s.no_improvement_age for s in self.__species]) 
+                  [s.no_improvement_age for s in self.__species])
 
         # Stops the simulation
         if self.best.fitness > Config.max_fitness_threshold:
@@ -379,12 +377,12 @@ class Population(object):
             new_population.extend(s.reproduce())
 
         # Remove stagnated species and its members
-        # (except if it has the best chromosome)            
+        # (except if it has the best chromosome)
         for s in self.__species[:]:
             if s.no_improvement_age > Config.max_stagnation:
                 if s.hasBest == False:
                     if report:
-                        print("\n   Species %2d is stagnated: removing it" % s.id)                        
+                        print("\n   Species %2d is stagnated: removing it" % s.id)
                     # removing species
                     self.__species.remove(s)
                     # removing all the species' members
@@ -392,14 +390,14 @@ class Population(object):
                     for c in new_population[:]:
                         if c.species_id == s.id:
                             new_population.remove(c)
-                            
+
         # Remove "super-stagnated" species
         # (even if it has the best chromosome)
         # It is not clear if it really avoids local minima
         for s in self.__species[:]:
             if s.no_improvement_age > 2*Config.max_stagnation:
                 if report:
-                    print("\n   Species %2d is super-stagnated: removing it" % s.id)                        
+                    print("\n   Species %2d is super-stagnated: removing it" % s.id)
                 # removing species
                 self.__species.remove(s)
                 # removing all the species' members
@@ -407,8 +405,8 @@ class Population(object):
                 for c in new_population[:]:
                     if c.species_id == s.id:
                         new_population.remove(c)
-        
-        # ----------------------------#                            
+
+        # ----------------------------#
         # Controls under or overflow  #
         # ----------------------------#
         fill = (self.__popsize) - len(new_population)
@@ -419,6 +417,9 @@ class Population(object):
             # I can't remove a species' representative!
             # Removing the last added members
             new_population = new_population[:fill]
+            for s in self.__species:
+                if s.representant not in new_population:
+                    self.__species.remove(s)
 
         if fill > 0: # underflow
             if report:
@@ -456,6 +457,10 @@ class Population(object):
         elif checkpoint_generation is not None and \
                  self.__generation % checkpoint_generation == 0:
             self.__create_checkpoint(report)
+
+        # Speciates the population
+        self.__speciate(report)
+
         return 1
 
 
