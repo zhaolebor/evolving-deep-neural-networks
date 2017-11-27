@@ -111,7 +111,7 @@ class DenseGene(LayerGene):
 class ConvGene(LayerGene):
 
     layer_params = {
-            "_size": [2**i for i in range(5, 9)],
+            "_size": [2**i for i in range(4, 9)],
             "_kernel_size": [1,3,5],
             "_activation": ['sigmoid','tanh','relu'],
             "_dropout": [.1*i for i in range(7)],
