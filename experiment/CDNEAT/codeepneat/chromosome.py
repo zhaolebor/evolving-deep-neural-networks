@@ -167,8 +167,9 @@ class BlueprintChromo(Chromosome):
           valid_species = True
           for g in self._genes:
               if not (self._module_pop.has_species(g.module)):
-                g.set_module(self._module_pop.get_species())
-                valid_species = False
+                  new_species = self._module_pop.get_species()
+                  g.set_module(new_species)
+                  valid_species = False
         for g in self._genes:
             try:
                 self._species_indiv[g.module.id] = random.choice(g.module.members)
@@ -285,10 +286,17 @@ class ModuleChromo(Chromosome):
         if (chromo1._gene_type != chromo2._gene_type):
             return (dist+1000)
         else:
-            for i, conn in enumerate(chromo2._connections):
-                for j in range(len(chromo1._connections[i]._in)):
-                    if chromo1._connections[i]._in[j] not in list(conn._in):
-                        dist += Config.connection_coefficient
+            if len(chromo1._connections) > len(chromo2._connections):
+                for i, conn in enumerate(chromo2._connections):
+                    for j in range(len(chromo1._connections[i]._in)):
+                        if chromo1._connections[i]._in[j] not in list(conn._in):
+                            dist += Config.connection_coefficient
+            else:
+                for i, conn in enumerate(chromo1._connections):
+                    for j in range(len(chromo2._connections[i]._in)):
+                        if chromo2._connections[i]._in[j] not in list(conn._in):
+                            dist += Config.connection_coefficient
+
             size_diff = 0
             for j, layer in enumerate(chromo2._genes):
                size_diff += math.log2(chromo1._genes[j]._size) - math.log2(layer._size)
@@ -299,6 +307,12 @@ class ModuleChromo(Chromosome):
         """ Applies the crossover operator. """
         assert(parent1.fitness >= parent2.fitness)
 
+        if (parent1 == parent2):
+            child._genes = parent1._genes
+            child._connections = parent1._connections
+            return
+
+        parent1.__connection_sort()
         # Crossover layer genes
         for i, g1 in enumerate(parent1._genes):
             try:
@@ -310,7 +324,6 @@ class ModuleChromo(Chromosome):
             except TypeError:
                 # copies disjoint genes from the fittest parent
                 child._genes.append(g1.copy())
-        parent1.__connection_sort()
         child._connections = parent1._connections.copy()
         child.__connection_sort()
         for i, conn in enumerate(parent1._connections):

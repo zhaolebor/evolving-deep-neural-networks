@@ -242,9 +242,9 @@ class Connection(object):
     def decode(self, mod_inputs):
         if len(self._in) > 1:
             conn_inputs = []
-            for mod in self._in:
+            for layer in self._in:
                 try:
-                    conn_inputs.append(mod_inputs[mod._id])
+                    conn_inputs.append(mod_inputs[layer._id])
                 except KeyError:
                     print(str(self))
                     raise KeyError
