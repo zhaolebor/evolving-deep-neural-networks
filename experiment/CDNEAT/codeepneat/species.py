@@ -111,7 +111,7 @@ class Species(object):
         if Config.elitism:
             # TODO: Wouldn't it be better if we set elitism=2,3,4...
             # depending on the size of each species?
-            offspring.append(self.__subpopulation[0])
+            offspring.append(self.__subpopulation[0].copy())
             self.spawn_amount -= 1
         # keep a % of the best individuals
         survivors = int(round(len(self)*Config.survival_threshold))

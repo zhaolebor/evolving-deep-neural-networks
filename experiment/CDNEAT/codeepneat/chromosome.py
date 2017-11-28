@@ -91,6 +91,11 @@ class Chromosome(object):
             number of enabled connections (bias is not considered)
         """
         return len(self._genes)
+    def copy(self):
+        """
+        Default copy method on Chromo is not an actual copy, must be overriden for shallow copy
+        """
+        return self
 
     def __cmp__(self, other):
         return cmp(self.fitness, other.fitness)
@@ -161,20 +166,13 @@ class BlueprintChromo(Chromosome):
 
 
     def __get_species_indiv(self):
-        valid_species = False
-        #TODO if species is working correctly, shouldn't need while loop
-        while not valid_species:
-          valid_species = True
-          for g in self._genes:
-              if not (self._module_pop.has_species(g.module)):
-                  new_species = self._module_pop.get_species()
-                  g.set_module(new_species)
-                  valid_species = False
         for g in self._genes:
-            try:
+            if not self._module_pop.has_species(g.module):
+                raise ValueError('Missing species at decode: '+str(g.module))
+        self._species_indiv = {}
+        for g in self._genes:
+            if g.module.id not in self._species_indiv:
                 self._species_indiv[g.module.id] = random.choice(g.module.members)
-            except KeyError:
-                pass
 
     def decode(self, inputs):
         self.__get_species_indiv()
@@ -221,6 +219,12 @@ class BlueprintChromo(Chromosome):
             except TypeError:
                 # copies disjoint genes from the fittest parent
                 child._genes.append(g1.copy())
+        # Insure inherited module genes point to actual species
+        for g in child._genes:
+            if not (child._module_pop.has_species(g.module)):
+                new_species = child._module_pop.get_species()
+                g.set_module(new_species)
+
 
     def mutate(self):
         """ Mutates this chromosome """
@@ -233,7 +237,7 @@ class BlueprintChromo(Chromosome):
                 if r() < 0.5:
                     self._active_params[param] = random.choice(self._all_params[param])
         ind = random.randrange(len(self._genes))
-        self._genes[ind].set_module = self._module_pop.get_species()
+        self._genes[ind].set_module(self._module_pop.get_species())
         return self
 
     def _mutate_add_module(self):
@@ -241,6 +245,13 @@ class BlueprintChromo(Chromosome):
         ind = random.randint(0,len(self._genes))
         module = self._module_pop.get_species()
         self._genes.insert(ind, genome.ModuleGene(None, module))
+
+    def copy(self):
+        for g in self._genes:
+            if not (self._module_pop.has_species(g.module)):
+                new_species = self._module_pop.get_species()
+                g.set_module(new_species)
+        return self
 
     @classmethod
     def create_initial(cls, module_pop):
@@ -308,8 +319,8 @@ class ModuleChromo(Chromosome):
         assert(parent1.fitness >= parent2.fitness)
 
         if (parent1 == parent2):
-            child._genes = parent1._genes
-            child._connections = parent1._connections
+            child._genes = parent1._genes.copy()
+            child._connections = parent1._connections.copy()
             return
 
         parent1.__connection_sort()
@@ -395,7 +406,7 @@ class ModuleChromo(Chromosome):
         if inind == 0:
             self._connections[0]._in.pop(0)
             self._connections[0]._in.insert(0,ng)
-            self._connections.insert(0,inconn)
+            self._connections.insert(0,inconn.copy())
             self.__connection_sort()
             return
         # otherwise add the new layer to the output of the chosen input connections
@@ -424,7 +435,7 @@ class ModuleChromo(Chromosome):
         if len(output._in) == 1 and output._out[0].type == 'OUT':
             self._connections[-1]._out.pop(0)
             self._connections[-1]._out.insert(0,ng)
-            self._connections.append(output)
+            self._connections.append(output.copy())
             self.__connection_sort
             return
         else:
@@ -435,7 +446,8 @@ class ModuleChromo(Chromosome):
         assert self._connections[0]._in[0].id == 0, str(self._connections[0])
         assert self._connections[-1]._out[0].id == -1, str(self._connections[-1])
         new_conns = []
-        new_conns.append(self._connections.pop(0))
+        new_conns.append(self._connections[0].copy())
+        del self._connections[0]
         avail_layers = new_conns[0]._out.copy()
         ind = 0
         pos_correct = False
@@ -449,13 +461,15 @@ class ModuleChromo(Chromosome):
                 else:
                     pos_correct = True
             if(pos_correct):
-                next_conn = self._connections.pop(ind)
+                next_conn = self._connections[ind].copy()
+                del self._connections[ind]
                 avail_layers.extend(next_conn._out.copy())
                 new_conns.append(next_conn)
                 ind = 0
+                pos_correct = False
         assert self._connections[0]._out[0].id == -1
-        new_conns.append(self._connections.pop(0))
-        self._connections = new_conns
+        new_conns.append(self._connections[0].copy())
+        self._connections = new_conns.copy()
 
 
     @classmethod

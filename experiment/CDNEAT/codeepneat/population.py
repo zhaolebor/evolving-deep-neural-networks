@@ -27,8 +27,13 @@ class Population(object):
     evaluate = None # Evaluates the entire population. You need to override
                     # this method in your experiments
 
-    def __init__(self, size=Config.pop_size, chromo_type=None, co_pop=None, checkpoint_file=None):
+    def __init__(self, size=Config.pop_size, chromo_type=None, co_pop=None, \
+            checkpoint_file=None, debug=None):
         self.first = True
+        self.__debug = debug
+
+        self.__co_population = co_pop
+        self.__chromo_type = chromo_type
         if checkpoint_file:
             # start from a previous point: creates an 'empty'
             # population and point its __dict__ to the previous one
@@ -38,10 +43,6 @@ class Population(object):
             self.__popsize = size
             # currently living species
             self.__species = []
-
-            self.__chromo_type = chromo_type
-
-            self.__co_population = co_pop
 
             # species history
             self.__species_log = []
@@ -158,6 +159,12 @@ class Population(object):
                 #    print "Removing species %d for being empty" % s.id
                 # remove empty species
                 self.__species.remove(s)
+        if self.__debug is not None:
+            self.__debug.write('Speciating ' + self.__chromo_type.__name__ + '\n')
+            string = ''
+            for s in self.__species:
+                string += str(s) + '\n'
+            self.__debug.write(string)
         self.__set_compatibility_threshold()
     def __set_compatibility_threshold(self):
         ''' Controls compatibility threshold '''
@@ -179,13 +186,18 @@ class Population(object):
 
     def get_species(self):
         """ Used for getting a pointer to a random species."""
-        return random.choice(self.__species)
+        indiv = random.choice(self.__population)
+        for s in self.__species:
+            if s.id == indiv.species_id:
+                return s
 
     def has_species(self, species):
         """ Checks if a species is in the population."""
         try:
           ind = self.__species.index(species)
+          #this should be redundant
           if len(self.__species[ind]) == 0:
+              self._species.pop(ind)
               return False
           else:
               return True
@@ -303,7 +315,7 @@ class Population(object):
         self.best = max(self.__population)
         self.__best_fitness.append(self.best.fitness)
         # Current population's average fitness
-        self.__avg_fitness.append(self.average_fitness()) 
+        self.__avg_fitness.append(self.average_fitness())
 
         # Print some statistics
         # Which species has the best chromosome?
@@ -420,14 +432,15 @@ class Population(object):
             for s in self.__species:
                 if s.representant not in new_population:
                     self.__species.remove(s)
+            if self.__debug is not None:
+                self.__debug.write('Spawn Overflow ' + self.__chromo_type.__name__ + '\n')
 
         if fill > 0: # underflow
             if report:
                 print('Selecting %d more indiv(s) to fill up the new population' %fill)
-            
             while fill > 0:
                 # Selects a random chromosome from population
-                parent1 = random.choice(self.__population)         
+                parent1 = random.choice(self.__population)
                 # Search for a mate within the same species
                 found = False
                 for c in self:
@@ -440,13 +453,15 @@ class Population(object):
                 if not found:
                     # If no mate was found, just mutate it
                     new_population.append(parent1.mutate())
-                fill -= 1                                       
+                fill -= 1
 
         assert self.__popsize == len(new_population), \
                'Different population sizes!'
         # Updates current population
         self.__population = new_population[:]
-        
+        # Speciates the population
+        self.__speciate(report)
+
         # how often a checkpoint will be created?
         #if self.__generation % 10 is 0:
         #    self.__create_checkpoint(report)
@@ -458,20 +473,17 @@ class Population(object):
                  self.__generation % checkpoint_generation == 0:
             self.__create_checkpoint(report)
 
-        # Speciates the population
-        self.__speciate(report)
-
         return 1
 
 
 
 if __name__ ==  '__main__' :
-    
+
     # sample fitness function
     def eval_fitness(population):
         for individual in population:
             individual.fitness = 1.0
-            
+
     # set fitness function 
     Population.evaluate = eval_fitness
     

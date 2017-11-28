@@ -199,16 +199,16 @@ class ModuleGene(object):
     module = property(lambda self: self._module)
 
     def __str__(self):
-        return "Module ID: %2d Species ID: %2d"%(self._id, self._module.id)
+        return "Gene ID: %2d Species ID: %2d"%(self._id, self._module.id)
 
     def get_child(self, other):
         """
-        Creates a new NodeGene randonly inheriting its attributes from
+        Creates a new NodeGene randomly inheriting its attributes from
         parents.
         """
         assert(self._type == other._type)
 
-        g = ModuleGene(self._id, random.choice(self._module, other._module))
+        g = ModuleGene(self.__get_new_id(), random.choice(self._module, other._module))
         return g
 
     def copy(self):
@@ -242,19 +242,21 @@ class Connection(object):
     def decode(self, mod_inputs):
         if len(self._in) > 1:
             conn_inputs = []
-            for layer in self._in:
+            for layer in self._in[:]:
                 try:
                     conn_inputs.append(mod_inputs[layer._id])
                 except KeyError:
                     print(str(self))
                     raise KeyError
-            x = keras.layers.Add()(conn_inputs)
+            x = keras.layers.Concatenate()(conn_inputs)
         else:
             x = mod_inputs[self._in[0]._id]
-        for layer in self._out:
+        for layer in self._out[:]:
             if layer._type == 'OUT':
                 mod_inputs[-1] = x
             else:
                 mod_inputs[layer._id] = layer.decode(x)
+    def copy(self):
+        return Connection(self._in.copy(), self._out.copy())
 
         ###############################################

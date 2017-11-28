@@ -9,7 +9,7 @@ max_fitness_threshold = 1
 
 # Human reasoning
 pop_size              = 10
-prob_addconv          = 0.9
+prob_addconv          = 0
 prob_addlayer         = 0.1
 prob_addmodule        = 0.05
 elitism               = 1
@@ -17,12 +17,13 @@ elitism               = 1
 [genotype compatibility]
 compatibility_threshold = 3.0
 compatibility_change    = 0.0
-excess_coeficient       = 1.0
-disjoint_coeficient     = 1.0
-connection_coeficient   = 0.4
+excess_coefficient       = 5.0
+disjoint_coefficient     = 3.0
+connection_coefficient   = 0.4
+size_coefficient         = 0.8
 
 [species]
-species_size        = 10
+species_size        = 5
 survival_threshold  = 0.2
 old_threshold       = 30
 youth_threshold     = 10
