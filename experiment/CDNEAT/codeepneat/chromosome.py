@@ -166,7 +166,9 @@ class BlueprintChromo(Chromosome):
 
 
     def __get_species_indiv(self):
+        # This method chooses an individule for each unique Module Species Gene
         for g in self._genes:
+            # Check that each gene actually points to an existing species
             if not self._module_pop.has_species(g.module):
                 raise ValueError('Missing species at decode: '+str(g.module))
         self._species_indiv = {}
@@ -175,6 +177,7 @@ class BlueprintChromo(Chromosome):
                 self._species_indiv[g.module.id] = random.choice(g.module.members)
 
     def decode(self, inputs):
+        # create keras Model from component modules
         self.__get_species_indiv()
         next = inputs
         for g in self._genes:
@@ -183,6 +186,7 @@ class BlueprintChromo(Chromosome):
         return next
 
     def distance(self, other):
+        # measure distance between two blueprint chromosomes for speciation purpose
         dist = 0
         if len(self._genes) > len(other._genes):
             chromo1 = self
@@ -243,10 +247,22 @@ class BlueprintChromo(Chromosome):
     def _mutate_add_module(self):
         """ Adds a module to the BluePrintChromo"""
         ind = random.randint(0,len(self._genes))
-        module = self._module_pop.get_species()
-        self._genes.insert(ind, genome.ModuleGene(None, module))
+        if Config.conv and ind > 0:
+            valid_mod = False
+            while not valid_mod:
+                module = module_pop.get_species()
+                mod_type = module.members[0].type
+                if c._genes[ind-1].type != 'CONV' and mod_type == 'CONV':
+                    valid_mod = False
+                else:
+                    valid_mod = True
+        else:
+            module = self._module_pop.get_species()
+            mod_type = module.members[0].type
+        self._genes.insert(ind, genome.ModuleGene(None, module, mod_type))
 
     def copy(self):
+        """ NOT TRUE COPY METHOD, returns pointer to self with valid species pointers"""
         for g in self._genes:
             if not (self._module_pop.has_species(g.module)):
                 new_species = self._module_pop.get_species()
@@ -257,8 +273,22 @@ class BlueprintChromo(Chromosome):
     def create_initial(cls, module_pop):
         c = cls(None, None, module_pop)
         n = random.randrange(2,5)
-        for i in range(n):
-            c._genes.append(genome.ModuleGene(None, module_pop.get_species()))
+        mod = module_pop.get_species()
+        mod_type = mod.members[0].type
+        c._genes.append(genome.ModuleGene(None, mod, mod_type))
+        for i in range(1,n):
+            c._genes.append(genome.ModuleGene(None, mod, mod_type))
+        if Config.conv and Config.prob_addconv < 1:
+            conv_ind = []
+            for i in range(len(c._genes)):
+                if c._genes[i].type == 'CONV':
+                    conv_ind.append(i)
+            conv_mods = []
+            for j in range(len(conv_ind)-1, 0, -1):
+                mod = c._genes.pop(conv_ind[j])
+                conv_mods.append(mod)
+            for k in range(len(conv_mods)):
+                c._genes.insert(0,conv_mods.pop())
         return c
 
 
@@ -272,6 +302,7 @@ class ModuleChromo(Chromosome):
         super(ModuleChromo, self).__init__(parent1_id, parent2_id, gene_type)
         self._connections = []
 
+    type = property(lambda self: self._gene_type)
     def decode(self, inputs):
         """
         Produces Keras Model of this module
@@ -387,8 +418,11 @@ class ModuleChromo(Chromosome):
         r = random.random
         self.__connection_sort()
         # create new either conv or dense gene
-        if self._gene_type == 'CONV' and r() < Config.prob_addconv:
+        if self._gene_type == 'CONV':
             ng = genome.ConvGene(None, random.choice(genome.ConvGene.layer_params['_size']))
+            self._genes.append(ng)
+        elif self._gene_type == 'LSTM':
+            ng = genome.LSTMGene(None, random.choice(genome.LSTMGene.layer_params['_size']))
             self._genes.append(ng)
         else:
             ng = genome.DenseGene(None, random.choice(genome.DenseGene.layer_params['_size']))
@@ -480,6 +514,12 @@ class ModuleChromo(Chromosome):
         if Config.conv and random.random() < Config.prob_addconv:
             c._gene_type = 'CONV'
             g = genome.ConvGene(None, random.choice(genome.ConvGene.layer_params['_size']))
+            c._genes.append(g)
+            c._connections.append(genome.Connection([n],[g]))
+            c._connections.append(genome.Connection([g],[x]))
+        elif Config.LSTM and random.random() < Config.prob_addLSTM:
+            c._gene_type = 'LSTM'
+            g = genome.LSTMGene(None, random.choice(genome.LSTMGene.layer_params['_size']))
             c._genes.append(g)
             c._connections.append(genome.Connection([n],[g]))
             c._connections.append(genome.Connection([g],[x]))

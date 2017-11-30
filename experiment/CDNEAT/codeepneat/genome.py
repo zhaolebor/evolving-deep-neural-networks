@@ -156,6 +156,8 @@ class ConvGene(LayerGene):
             self._size = random.choice(self.layer_params['_size'])
 
     def decode(self, x):
+        # the below code attempts to reconstruct a 2D shape from a 1D input. This is probably
+        # a bad idea and will be removed soon
         inputdim = len(keras.backend.int_shape(x)[1:])
         if inputdim == 1:
             xval = keras.backend.int_shape(x)[1]
@@ -173,11 +175,50 @@ class ConvGene(LayerGene):
                 x = keras.layers.MaxPool2D()(x)
         return x
 
+class LSTMGene(LayerGene):
+
+    layer_params = {
+            "_size": [2**i for i in range(4, 9)],
+            "_activation": ['sigmoid', 'tanh', 'relu'],
+            "_dropout": [0.1*i for i in range(7)],
+    }
+    def __init__(self, id, numnodes, activation='tanh', dropout=0.0, batch_norm=False, layertype='LSTM'):
+        super(LSTMGene, self).__init__(id, layertype, numnodes)
+        self._activation = activation
+        self._dropout = dropout
+
+    def get_child(self, other):
+        if(self._type != other._type):
+            raise TypeError
+        child_param = []
+        for key in list(LSTMGene.layer_params.keys()):
+           child_param.append(random.choice(getattr(self,key), getattr(other,key)))
+        return LSTMGene(self.__get_new_id(), child_param[0], child_param[1], child_param[2])
+
+    def copy(self):
+        return DenseGene(self._id, self._size, self._activation, \
+                self._dropout, self._batch_norm)
+
+    def mutate(self):
+        r = random.random
+        if r() < .2:
+            self._max_pooling = random.choice(self.layer_params['_batch_norm'])
+        elif r() < .2:
+            self._dropout = random.choice(self.layer_params['_dropout'])
+        elif r() < .2:
+            self._size = random.choice(self.layer_params['_size'])
+
+    def decode(self, x):
+        inputdim = len(keras.backend.int_shape(x)[1:])
+        if inputdim > 2:
+            x = keras.layers.Flatten()(x)
+        x = keras.layers.LSTM(self._size, activation=self._activation, dropout=self._dropout)(x)
+        return x
 
 
 class ModuleGene(object):
     _id = 0
-    def __init__(self, id, modspecies):
+    def __init__(self, id, modspecies, modtype='DENSE'):
         """
         A module gene is a node which represents a multilayer component of
         a deep neural network.
@@ -186,7 +227,7 @@ class ModuleGene(object):
             self._id = self.__get_new_id()
         else:
             self._id = id
-        self._type = 'MODULE'
+        self._type = modtype
         self._module = modspecies
 
     @classmethod
@@ -240,6 +281,9 @@ class Connection(object):
         return s
 
     def decode(self, mod_inputs):
+        # if there are multiple inputs they must be merged. Our choice for this is depthwise
+        # concatenation. This is more computationally expensive than the other common solution,
+        # summing. If input sizes don't match, they are downsampled to the smallest size
         if len(self._in) > 1:
             conn_inputs = []
             for layer in self._in[:]:
@@ -248,6 +292,15 @@ class Connection(object):
                 except KeyError:
                     print(str(self))
                     raise KeyError
+            # The below code uses MaxPooling layers to downsample convolutional layers
+            # TODO add code to downsample dense layers
+            conn_in_sizes = []
+            for i in range(len(conn_inputs)):
+                conn_in_sizes.append(keras.backend.int_shape(conn_inputs[i])[1])
+            min_size = min(conn_in_sizes)
+            for i in range(len(conn_inputs)):
+                if conn_in_sizes[i] != min_size:
+                    conn_inputs[i] = keras.layers.MaxPool2D(min_size/conn_in_sizes[i])(conn_inputs[i])
             x = keras.layers.Concatenate()(conn_inputs)
         else:
             x = mod_inputs[self._in[0]._id]

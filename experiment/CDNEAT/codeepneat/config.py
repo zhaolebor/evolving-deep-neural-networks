@@ -16,6 +16,7 @@ def load(file):
         Config.input_nodes   = tuple(map(int, parameters.get('phenotype','input_nodes').split(',')))
         Config.output_nodes  = int(parameters.get('phenotype','output_nodes'))
         Config.conv          = parameters.getboolean('phenotype','conv')
+        Config.LSTM          = parameters.getboolean('phenotype', 'LSTM')
 
         # GA
         Config.pop_size                 = int(parameters.get('genetic','pop_size'))
@@ -23,6 +24,7 @@ def load(file):
         Config.prob_addlayer            = float(parameters.get('genetic','prob_addlayer'))
         Config.prob_addmodule           = float(parameters.get('genetic','prob_addmodule'))
         Config.prob_addconv             = float(parameters.get('genetic','prob_addconv'))
+        Config.prob_addLSTM             = float(parameters.get('genetic', 'prob_addLSTM'))
         Config.elitism                  = float(parameters.get('genetic','elitism'))
 
         # genotype compatibility
@@ -48,11 +50,13 @@ class Config:
     input_nodes         = None
     output_nodes        = None
     conv                = None
+    LSTM                = None
 
     # GA config
     pop_size               = None
     max_fitness_threshold   = None
     prob_addconv            = None
+    prob_addLSTM            = None
     prob_addlayer           = None
     prob_addmodule          = None
     elitism                 = None
