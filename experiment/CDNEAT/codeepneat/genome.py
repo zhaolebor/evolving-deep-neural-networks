@@ -300,7 +300,8 @@ class Connection(object):
             min_size = min(conn_in_sizes)
             for i in range(len(conn_inputs)):
                 if conn_in_sizes[i] != min_size:
-                    conn_inputs[i] = keras.layers.MaxPool2D(conn_in_sizes[i]/min_size)(conn_inputs[i])
+                    new_size = int(conn_in_sizes[i]/min_size)
+                    conn_inputs[i] = keras.layers.MaxPool2D(new_size)(conn_inputs[i])
             x = keras.layers.Concatenate()(conn_inputs)
         else:
             x = mod_inputs[self._in[0]._id]

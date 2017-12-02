@@ -1,0 +1,4767 @@
+Speciating ModuleChromo
+
+   Species  1   size:   9   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  2   size:   2   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  3   size:   2   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  4   size:   2   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+Speciating BlueprintChromo
+
+   Species  1   size:   3   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  2   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  3   size:   2   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  4   size:   2   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  5   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  6   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 11 Species: 1
+Genes:
+	Gene ID: 32 Species ID:  1
+	Gene ID: 31 Species ID:  1
+	Gene ID: 30 Species ID:  1
+	Gene ID: 29 Species ID:  1
+ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 14 Species: 1
+Genes:
+	Gene ID: 44 Species ID:  1
+	Gene ID: 43 Species ID:  1
+	Gene ID: 42 Species ID:  1
+	Gene ID: 41 Species ID:  1
+ID: 15 Species: 3
+Genes:
+	Gene ID: 46 Species ID:  1
+	Gene ID: 45 Species ID:  1
+ID: 16 Species: 4
+Genes:
+	Gene ID: 49 Species ID:  3
+	Gene ID: 48 Species ID:  3
+	Gene ID: 47 Species ID:  3
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+
+ ------------------ Module Population ----------------------- 
+ID: 16 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   64
+ID: 17 Species: 1
+Genes:
+	Layer ID: 17 Type:   CONV Size:   32
+ID: 18 Species: 1
+Genes:
+	Layer ID: 18 Type:   CONV Size:   32
+ID: 19 Species: 1
+Genes:
+	Layer ID: 19 Type:   CONV Size:  128
+ID: 20 Species: 2
+Genes:
+	Layer ID:  1 Type:  DENSE Size:   16
+ID: 21 Species: 3
+Genes:
+	Layer ID: 20 Type:   CONV Size:  256
+ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+ID: 23 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 24 Species: 1
+Genes:
+	Layer ID: 22 Type:   CONV Size:   16
+ID: 25 Species: 1
+Genes:
+	Layer ID: 23 Type:   CONV Size:   16
+ID: 26 Species: 1
+Genes:
+	Layer ID: 24 Type:   CONV Size:   16
+ID: 27 Species: 4
+Genes:
+	Layer ID:  3 Type:  DENSE Size:  256
+ID: 28 Species: 1
+Genes:
+	Layer ID: 25 Type:   CONV Size:   64
+ID: 29 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 30 Species: 3
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 28 Species: 1
+Genes:
+	Layer ID: 25 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 24 Species: 1
+Genes:
+	Layer ID: 22 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 18 Species: 1
+Genes:
+	Layer ID: 18 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 14 Species: 1
+Genes:
+	Gene ID: 44 Species ID:  1
+	Gene ID: 43 Species ID:  1
+	Gene ID: 42 Species ID:  1
+	Gene ID: 41 Species ID:  1
+Module: ID: 26 Species: 1
+Genes:
+	Layer ID: 24 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 27 Species: 4
+Genes:
+	Layer ID:  3 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 18 Species: 1
+Genes:
+	Layer ID: 18 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 16 Species: 4
+Genes:
+	Gene ID: 49 Species ID:  3
+	Gene ID: 48 Species ID:  3
+	Gene ID: 47 Species ID:  3
+Module: ID: 30 Species: 3
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 14 Species: 1
+Genes:
+	Gene ID: 44 Species ID:  1
+	Gene ID: 43 Species ID:  1
+	Gene ID: 42 Species ID:  1
+	Gene ID: 41 Species ID:  1
+Module: ID: 17 Species: 1
+Genes:
+	Layer ID: 17 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 27 Species: 4
+Genes:
+	Layer ID:  3 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 19 Species: 1
+Genes:
+	Layer ID: 19 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 15 Species: 3
+Genes:
+	Gene ID: 46 Species ID:  1
+	Gene ID: 45 Species ID:  1
+Module: ID: 17 Species: 1
+Genes:
+	Layer ID: 17 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 16 Species: 4
+Genes:
+	Gene ID: 49 Species ID:  3
+	Gene ID: 48 Species ID:  3
+	Gene ID: 47 Species ID:  3
+Module: ID: 21 Species: 3
+Genes:
+	Layer ID: 20 Type:   CONV Size:  256
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 14 Species: 1
+Genes:
+	Gene ID: 44 Species ID:  1
+	Gene ID: 43 Species ID:  1
+	Gene ID: 42 Species ID:  1
+	Gene ID: 41 Species ID:  1
+Module: ID: 25 Species: 1
+Genes:
+	Layer ID: 23 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 30 Species: 3
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 18 Species: 1
+Genes:
+	Layer ID: 18 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 14 Species: 1
+Genes:
+	Gene ID: 44 Species ID:  1
+	Gene ID: 43 Species ID:  1
+	Gene ID: 42 Species ID:  1
+	Gene ID: 41 Species ID:  1
+Module: ID: 17 Species: 1
+Genes:
+	Layer ID: 17 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 27 Species: 4
+Genes:
+	Layer ID:  3 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 11 Species: 1
+Genes:
+	Gene ID: 32 Species ID:  1
+	Gene ID: 31 Species ID:  1
+	Gene ID: 30 Species ID:  1
+	Gene ID: 29 Species ID:  1
+Module: ID: 19 Species: 1
+Genes:
+	Layer ID: 19 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 16 Species: 4
+Genes:
+	Gene ID: 49 Species ID:  3
+	Gene ID: 48 Species ID:  3
+	Gene ID: 47 Species ID:  3
+Module: ID: 21 Species: 3
+Genes:
+	Layer ID: 20 Type:   CONV Size:  256
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 16 Species: 4
+Genes:
+	Gene ID: 49 Species ID:  3
+	Gene ID: 48 Species ID:  3
+	Gene ID: 47 Species ID:  3
+Module: ID: 30 Species: 3
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 15 Species: 3
+Genes:
+	Gene ID: 46 Species ID:  1
+	Gene ID: 45 Species ID:  1
+Module: ID: 17 Species: 1
+Genes:
+	Layer ID: 17 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 25 Species: 1
+Genes:
+	Layer ID: 23 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 16 Species: 4
+Genes:
+	Gene ID: 49 Species ID:  3
+	Gene ID: 48 Species ID:  3
+	Gene ID: 47 Species ID:  3
+Module: ID: 30 Species: 3
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+Unused module 16
+Unused module 20
+Unused module 23
+Unused module 29
+Unused module 30
+Speciating ModuleChromo
+
+   Species  1   size:   5   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.53005432
+
+   Species  2   size:   5   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.70000000
+
+   Species  3   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.47358333
+
+   Species  4   size:   3   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.35968889
+
+   Species  7   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+Speciating BlueprintChromo
+
+   Species  1   size:   2   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.47611111
+
+   Species  2   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.70000000
+
+   Species  3   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.48685333
+
+   Species  5   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.37286667
+
+   Species  6   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.34404444
+
+   Species  8   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  9   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species 10   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 21 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+
+ ------------------ Module Population ----------------------- 
+ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 31 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 32 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   64
+ID: 33 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 29 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 34 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 35 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 36 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 30 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+ID: 38 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 39 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+ID: 40 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+ID: 41 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 33 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 35 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 41 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 39 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+Module: ID: 29 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 30 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+Module: ID: 35 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 39 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 31 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 33 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 34 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 41 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 41 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 34 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 41 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 30 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+Module: ID: 41 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 22 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 32 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 39 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+Module: ID: 34 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 32 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 12 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 33 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 36 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Unused module 37
+Unused module 38
+Unused module 40
+Unused module 41
+Speciating ModuleChromo
+
+   Species  1   size:   2   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.53005432
+
+   Species  2   size:   2   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.70000000
+
+   Species  3   size:   2   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.47358333
+
+   Species  4   size:   3   age:   2   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.49723111
+
+   Species  7   size:   5   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.70000000
+
+   Species 11   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   2   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.52151111
+
+   Species  2   size:   1   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.70000000
+
+   Species  3   size:   1   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   2   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.48953333
+
+   Species  5   size:   1   age:   2   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.37980000
+
+   Species  6   size:   1   age:   2   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.36746667
+
+   Species  8   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.20597333
+
+   Species  9   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.41093333
+
+   Species 10   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+
+ ------------------ Module Population ----------------------- 
+ID: 31 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 43 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 44 Species: 7
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+	Layer ID: 28 Type:   CONV Size:   64
+ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 40 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+ID: 46 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+ID: 38 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 48 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 49 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 50 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   16
+ID: 51 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  128
+	Layer ID: 27 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 46 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 40 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 31 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 31 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 40 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 46 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 46 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 31 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 22 Species: 8
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  1
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 31 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 43 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 23 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 40 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  256
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+Unused module 44
+Unused module 38
+Unused module 48
+Unused module 49
+Unused module 50
+Unused module 51
+Speciating ModuleChromo
+
+   Species  1   size:   2   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.53005432
+
+   Species  2   size:   1   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.70000000
+
+   Species  3   size:   2   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.47358333
+
+   Species  4   size:   2   age:   3   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.49723111
+
+   Species  7   size:   4   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.70000000
+
+   Species 11   size:   4   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.70000000
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   3   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.52151111
+
+   Species  2   size:   1   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.70000000
+
+   Species  3   size:   1   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   3   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.48953333
+
+   Species  5   size:   1   age:   3   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.42560000
+
+   Species  6   size:   1   age:   3   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.36746667
+
+   Species  9   size:   1   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.41093333
+
+   Species 10   size:   1   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.35180000
+
+   Species 13   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+
+ ------------------ Module Population ----------------------- 
+ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 51 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 55 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 56 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 57 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 50 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+ID: 58 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+ID: 59 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+ID: 60 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 45 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 47 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 52 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Unused module 51
+Unused module 55
+Unused module 56
+Unused module 57
+Unused module 50
+Unused module 58
+Unused module 59
+Unused module 60
+Spawn Overflow ModuleChromo
+Speciating ModuleChromo
+
+   Species  1   size:   2   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.53005432
+
+   Species  2   size:   2   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.70000000
+
+   Species  3   size:   1   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.47358333
+
+   Species  4   size:   2   age:   4   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.49723111
+
+   Species  7   size:   5   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.70000000
+
+   Species 11   size:   3   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.70000000
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   4   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.52151111
+
+   Species  2   size:   1   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.70000000
+
+   Species  3   size:   1   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   4   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.49333333
+
+   Species  5   size:   1   age:   4   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.42560000
+
+   Species  6   size:   1   age:   4   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.36746667
+
+   Species  9   size:   1   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.41093333
+
+   Species 10   size:   1   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.35180000
+
+   Species 13   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.30168889
+
+ ----------------- Blueprint Population --------------------- 
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+
+ ------------------ Module Population ----------------------- 
+ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 62 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 63 Species: 7
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+	Layer ID: 30 Type:   CONV Size:   64
+ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 57 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 65 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 66 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 67 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 60 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+ID: 68 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+ID: 69 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:   32
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 62 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 62 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 62 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 62 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 26 Species: 13
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  2
+Module: ID: 61 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 54 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Unused module 63
+Unused module 57
+Unused module 65
+Unused module 66
+Unused module 67
+Unused module 60
+Unused module 68
+Unused module 69
+Unused module 69
+Spawn Overflow ModuleChromo
+Speciating ModuleChromo
+
+   Species  1   size:   2   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.53005432
+
+   Species  2   size:   2   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.70000000
+
+   Species  3   size:   2   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.47358333
+
+   Species  4   size:   2   age:   5   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.49723111
+
+   Species  7   size:   4   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.70000000
+
+   Species 11   size:   3   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.70000000
+Spawn Overflow BlueprintChromo
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   5   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.52151111
+
+   Species  2   size:   1   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.70000000
+
+   Species  3   size:   1   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   5   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.70000000
+
+   Species  5   size:   1   age:   5   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.42560000
+
+   Species  6   size:   1   age:   5   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.44120000
+
+   Species  9   size:   1   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.41093333
+
+   Species 10   size:   1   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   3   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.35180000
+
+   Species 14   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+
+ ------------------ Module Population ----------------------- 
+ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 72 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 67 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 75 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 76 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 77 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+ID: 69 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+ID: 78 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+ID: 79 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+	Layer ID: 29 Type:   CONV Size:   32
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 77 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 42 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 75 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 13 Species: 2
+Genes:
+	Gene ID: 37 Species ID:  2
+	Gene ID: 38 Species ID:  2
+	Gene ID: 39 Species ID:  2
+	Gene ID: 40 Species ID:  2
+Module: ID: 37 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 77 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 75 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 53 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 64 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Unused module 72
+Unused module 67
+Unused module 76
+Unused module 69
+Unused module 78
+Unused module 79
+Unused module 79
+Speciating ModuleChromo
+
+   Species  1   size:   2   age:   6   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.53005432
+
+   Species  2   size:   2   age:   6   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.70000000
+
+   Species  3   size:   2   age:   6   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.47358333
+
+   Species  4   size:   2   age:   6   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.49723111
+
+   Species  7   size:   3   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.70000000
+
+   Species 11   size:   4   age:   4   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.70000000
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   6   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.52151111
+
+   Species  3   size:   1   age:   6   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   6   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.70000000
+
+   Species  5   size:   1   age:   6   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.42560000
+
+   Species  6   size:   1   age:   6   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.44120000
+
+   Species  9   size:   1   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.41093333
+
+   Species 10   size:   1   age:   5   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   4   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.70000000
+
+   Species 14   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.46886667
+
+   Species 15   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 18 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 28 Species: 15
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 11
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+
+ ------------------ Module Population ----------------------- 
+ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+ID: 72 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 82 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   16
+ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 83 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 76 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 85 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 86 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 79 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+ID: 87 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+ID: 88 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+ID: 89 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 83 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  4
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  3
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 28 Species: 15
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 11
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 88 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 76 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  3
+	Gene ID: 53 Species ID:  3
+	Gene ID: 52 Species ID:  7
+Module: ID: 73 Species: 3
+Genes:
+	Layer ID: 21 Type:   CONV Size:  128
+Module: ID: 86 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 28 Species: 15
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 11
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 88 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 28 Species: 15
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 11
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 87 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  4
+	Gene ID: 51 Species ID:  4
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 28 Species: 15
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 11
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 89 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  4
+	Gene ID: 56 Species ID:  4
+	Gene ID: 57 Species ID:  4
+	Gene ID: 58 Species ID:  4
+Module: ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  4
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 74 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  4
+	Gene ID: 59 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 84 Species: 4
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 28 Species: 15
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 11
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 71 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:   16
+Module: ID: 88 Species: 11
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+Unused module 72
+Unused module 82
+Unused module 85
+Unused module 79
+Unused module 89
+Speciating ModuleChromo
+
+   Species  1   size:   4   age:   7   spawn:   0   
+   No improvement:   6 	 avg. fitness: 0.53005432
+
+   Species  2   size:   6   age:   7   spawn:   0   
+   No improvement:   6 	 avg. fitness: 0.70000000
+
+   Species  7   size:   4   age:   6   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.70000000
+
+   Species 16   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+Spawn Overflow BlueprintChromo
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   7   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.52151111
+
+   Species  3   size:   1   age:   7   spawn:   0   
+   No improvement:   6 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   7   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.70000000
+
+   Species  5   size:   1   age:   7   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.42560000
+
+   Species  6   size:   1   age:   7   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.44120000
+
+   Species  9   size:   1   age:   6   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.41093333
+
+   Species 10   size:   1   age:   6   spawn:   0   
+   No improvement:   5 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   5   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.70000000
+
+   Species 14   size:   1   age:   2   spawn:   0   
+   No improvement:   1 	 avg. fitness: 0.46886667
+
+   Species 17   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+ID: 29 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+	Gene ID: 90 Species ID:  2
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  7
+	Gene ID: 52 Species ID:  7
+
+ ------------------ Module Population ----------------------- 
+ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:  128
+ID: 90 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:  128
+ID: 82 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+ID: 91 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+ID: 92 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+ID: 93 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 94 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 74 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 95 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 85 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 96 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 31 Type:   CONV Size:   16
+ID: 97 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 32 Type:   CONV Size:   64
+ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 29 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+	Gene ID: 90 Species ID:  2
+Module: ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 74 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+Module: ID: 94 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 85 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 94 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  7
+	Gene ID: 52 Species ID:  7
+Module: ID: 82 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  7
+	Gene ID: 52 Species ID:  7
+Module: ID: 93 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  7
+	Gene ID: 52 Species ID:  7
+Module: ID: 82 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 94 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 92 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 97 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 32 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 92 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 96 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 31 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 85 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  7
+	Gene ID: 52 Species ID:  7
+Module: ID: 82 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 97 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 32 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 85 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 90 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:  128
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+Module: ID: 91 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 96 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 31 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 74 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 85 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 90 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+Module: ID: 74 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 97 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 32 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 85 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 90 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 27 Species: 14
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  7
+	Gene ID: 52 Species ID:  7
+Module: ID: 92 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 81 Species: 1
+Genes:
+	Layer ID: 16 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 91 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+Module: ID: 82 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 96 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 31 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 91 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 97 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 32 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 85 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 97 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 32 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 82 Species: 2
+Genes:
+	Layer ID:  4 Type:  DENSE Size:   64
+Module: ID: 79 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+Unused module 95
+Speciating ModuleChromo
+
+   Species  1   size:   6   age:   8   spawn:   0   
+   No improvement:   7 	 avg. fitness: 0.53005432
+
+   Species  2   size:   3   age:   8   spawn:   0   
+   No improvement:   7 	 avg. fitness: 0.70000000
+
+   Species  7   size:   3   age:   7   spawn:   0   
+   No improvement:   6 	 avg. fitness: 0.70000000
+
+   Species 16   size:   3   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.40568889
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   8   spawn:   0   
+   No improvement:   6 	 avg. fitness: 0.52151111
+
+   Species  3   size:   1   age:   8   spawn:   0   
+   No improvement:   7 	 avg. fitness: 0.47924444
+
+   Species  4   size:   1   age:   8   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.70000000
+
+   Species  5   size:   1   age:   8   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.46733333
+
+   Species  6   size:   1   age:   8   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.44120000
+
+   Species  9   size:   1   age:   7   spawn:   0   
+   No improvement:   6 	 avg. fitness: 0.41093333
+
+   Species 10   size:   1   age:   7   spawn:   0   
+   No improvement:   6 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   6   spawn:   0   
+   No improvement:   2 	 avg. fitness: 0.70000000
+
+   Species 17   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.39360000
+
+   Species 18   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 29 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+	Gene ID: 90 Species ID:  2
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+ID: 30 Species: 18
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  7
+
+ ------------------ Module Population ----------------------- 
+ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 99 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+	Layer ID: 33 Type:   CONV Size:   64
+ID: 100 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 101 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 102 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 95 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 103 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 104 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+ID: 85 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 107 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 108 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 109 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 107 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 30 Species: 18
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  7
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 104 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 107 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 99 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+	Layer ID: 33 Type:   CONV Size:   64
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 30 Species: 18
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  7
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 109 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 85 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+Module: ID: 104 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+Module: ID: 101 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 108 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 102 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+Module: ID: 95 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+Module: ID: 100 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 109 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 99 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+	Layer ID: 33 Type:   CONV Size:   64
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 101 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+Module: ID: 104 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 14
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+Module: ID: 104 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 15
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 103 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 16
+Blueprint: ID: 29 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+	Gene ID: 90 Species ID:  2
+Module: ID: 85 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 104 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 17
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 103 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 18
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 101 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 19
+Blueprint: ID: 30 Species: 18
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  7
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 20
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 100 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 21
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 109 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 102 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 22
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+Module: ID: 101 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Module: ID: 98 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 23
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 95 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 106 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:  128
+
+ ------------- Evaluating --------------- 
+Network 24
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 102 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+Unused module 109
+Speciating ModuleChromo
+
+   Species  1   size:   7   age:   9   spawn:   0   
+   No improvement:   8 	 avg. fitness: 0.53005432
+
+   Species  2   size:   2   age:   9   spawn:   0   
+   No improvement:   8 	 avg. fitness: 0.70000000
+
+   Species  7   size:   3   age:   8   spawn:   0   
+   No improvement:   7 	 avg. fitness: 0.70000000
+
+   Species 16   size:   1   age:   2   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.47520741
+
+   Species 19   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species 20   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   9   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.63666667
+
+   Species  3   size:   1   age:   9   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.54303333
+
+   Species  4   size:   1   age:   9   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.70000000
+
+   Species  5   size:   1   age:   9   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.62233333
+
+   Species  6   size:   1   age:   9   spawn:   0   
+   No improvement:   4 	 avg. fitness: 0.44120000
+
+   Species  9   size:   1   age:   8   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.64364444
+
+   Species 10   size:   1   age:   8   spawn:   0   
+   No improvement:   7 	 avg. fitness: 0.40605333
+
+   Species 12   size:   1   age:   7   spawn:   0   
+   No improvement:   3 	 avg. fitness: 0.70000000
+
+   Species 17   size:   1   age:   2   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.44514667
+
+   Species 18   size:   1   age:   1   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.56493333
+
+ ----------------- Blueprint Population --------------------- 
+ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+ID: 29 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+	Gene ID: 90 Species ID:  2
+ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+ID: 24 Species: 10
+Genes:
+	Gene ID: 54 Species ID:  2
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+ID: 21 Species: 12
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID:  1
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+ID: 30 Species: 18
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  7
+
+ ------------------ Module Population ----------------------- 
+ID: 83 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 110 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+	Layer ID: 34 Type:   CONV Size:   64
+ID: 111 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 112 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+ID: 95 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 113 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+ID: 114 Species: 19
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+	Layer ID:  5 Type:  DENSE Size:   16
+ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+ID: 115 Species: 20
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+	Layer ID: 35 Type:   CONV Size:   64
+ID: 116 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+ID: 117 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+ID: 109 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 118 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 119 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+ID: 120 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 113 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 116 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 1
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 120 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 118 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 2
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 111 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 3
+Blueprint: ID: 29 Species: 4
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID:  2
+	Gene ID: 52 Species ID:  7
+	Gene ID: 90 Species ID:  2
+Module: ID: 109 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 113 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 4
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+Module: ID: 95 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 5
+Blueprint: ID: 23 Species: 9
+Genes:
+	Gene ID: 60 Species ID:  7
+	Gene ID: 59 Species ID:  1
+Module: ID: 109 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 6
+Blueprint: ID: 17 Species: 5
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  2
+Module: ID: 95 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 116 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 7
+Blueprint: ID: 30 Species: 18
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  7
+Module: ID: 116 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 8
+Blueprint: ID: 30 Species: 18
+Genes:
+	Gene ID: 50 Species ID:  7
+	Gene ID: 51 Species ID:  7
+Module: ID: 117 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 9
+Blueprint: ID: 25 Species: 1
+Genes:
+	Gene ID: 36 Species ID:  1
+	Gene ID: 35 Species ID: 16
+	Gene ID: 34 Species ID:  1
+	Gene ID: 33 Species ID:  1
+Module: ID: 120 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 112 Species: 1
+Genes:
+	Layer ID: 21 Type:   CONV Size:   64
+
+ ------------- Evaluating --------------- 
+Network 10
+Blueprint: ID: 19 Species: 6
+Genes:
+	Gene ID: 55 Species ID:  2
+	Gene ID: 56 Species ID:  2
+	Gene ID: 57 Species ID:  2
+	Gene ID: 58 Species ID:  7
+Module: ID: 113 Species: 2
+Genes:
+	Layer ID:  2 Type:  DENSE Size:  128
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 11
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+Module: ID: 120 Species: 16
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 118 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+Module: ID: 105 Species: 7
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+	Layer ID: 29 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 12
+Blueprint: ID: 20 Species: 3
+Genes:
+	Gene ID: 60 Species ID:  1
+	Gene ID: 59 Species ID:  1
+Module: ID: 118 Species: 1
+Genes:
+	Layer ID: 26 Type:   CONV Size:  256
+	Layer ID: 27 Type:   CONV Size:   16
+
+ ------------- Evaluating --------------- 
+Network 13
+Blueprint: ID: 18 Species: 17
+Genes:
+	Gene ID: 54 Species ID:  1
+	Gene ID: 53 Species ID: 16
+	Gene ID: 52 Species ID:  7
+ERROR
+('The `pool_size` argument must be a tuple of 2 integers. Received: 2.0',)
