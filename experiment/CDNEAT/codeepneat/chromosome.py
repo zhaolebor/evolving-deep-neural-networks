@@ -241,7 +241,8 @@ class BlueprintChromo(Chromosome):
                 if r() < 0.5:
                     self._active_params[param] = random.choice(self._all_params[param])
         ind = random.randrange(len(self._genes))
-        self._genes[ind].set_module(self._module_pop.get_species())
+        if r() < Config.prop_switchmodule:
+          self._genes[ind].set_module(self._module_pop.get_species())
         return self
 
     def _mutate_add_module(self):
@@ -410,7 +411,8 @@ class ModuleChromo(Chromosome):
 
         else:
             for g in self._genes:
-                g.mutate() # mutate layer params
+                if r() < Config.prob_mutatelayer:
+                   g.mutate() # mutate layer params
 
         return self
 

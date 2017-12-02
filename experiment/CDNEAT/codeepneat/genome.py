@@ -66,10 +66,10 @@ class DenseGene(LayerGene):
     layer_params = {
             "_size": [2**i for i in range(4, int(math.log(256, 2)) + 1)],
             "_activation": ['sigmoid', 'tanh', 'relu'],
-            "_dropout": [0.1*i for i in range(7)],
+            "_dropout": [0.1*i for i in range(8)],
             "_batch_norm": [True, False],
     }
-    def __init__(self, id, numnodes, activation='relu', dropout=0.0, batch_norm=False, layertype='DENSE'):
+    def __init__(self, id, numnodes, activation='relu', dropout=0.0, batch_norm=True, layertype='DENSE'):
         super(DenseGene, self).__init__(id, layertype, numnodes)
         self._activation = activation
         self._dropout = dropout
@@ -90,11 +90,9 @@ class DenseGene(LayerGene):
 
     def mutate(self):
         r = random.random
-        if r() < .2:
-            self._max_pooling = random.choice(self.layer_params['_batch_norm'])
-        elif r() < .2:
+        if r() < .5:
             self._dropout = random.choice(self.layer_params['_dropout'])
-        elif r() < .2:
+        else:
             self._size = random.choice(self.layer_params['_size'])
 
     def decode(self, x):
@@ -114,15 +112,15 @@ class ConvGene(LayerGene):
             "_size": [2**i for i in range(4, 9)],
             "_kernel_size": [1,3,5],
             "_activation": ['sigmoid','tanh','relu'],
-            "_dropout": [.1*i for i in range(7)],
+            "_dropout": [.1*i for i in range(8)],
             "_padding": ['same','valid'],
             "_strides": [(1,1), (2,1), (1,2), (2,2)],
-            "_max_pooling": list(range(3)),
+            "_max_pooling": [True, False],
             "_batch_norm": [True, False],
     }
 
     def __init__(self, id, numfilter, kernel_size=1, activation='relu', dropout=0.0, \
-            padding='same', strides=(1,1), max_pooling=0, batch_norm=False, layertype='CONV'):
+            padding='same', strides=(1,1), max_pooling=False, batch_norm=True, layertype='CONV'):
         super(ConvGene, self).__init__(id, layertype, numfilter)
         self._kernel_size = kernel_size
         self._activation = activation
@@ -145,14 +143,14 @@ class ConvGene(LayerGene):
         return ConvGene(self._id, self._size, self._kernel_size, self._activation, self._dropout,self._padding, self._strides, self._max_pooling, self._batch_norm)
 
     def mutate(self):
-        r = random.random
-        if r() < .2:
+        r = random.random()
+        if r < .25:
             self._max_pooling = random.choice(self.layer_params['_max_pooling'])
-        elif r() < .2:
+        elif r < .5:
             self._dropout = random.choice(self.layer_params['_dropout'])
-        elif r() < .2:
+        elif r < .75:
             self._kernel_size = random.choice(self.layer_params['_kernel_size'])
-        elif r() < .2:
+        else:
             self._size = random.choice(self.layer_params['_size'])
 
     def decode(self, x):
@@ -300,7 +298,8 @@ class Connection(object):
             min_size = min(conn_in_sizes)
             for i in range(len(conn_inputs)):
                 if conn_in_sizes[i] != min_size:
-                    conn_inputs[i] = keras.layers.MaxPool2D(conn_in_sizes[i]/min_size)(conn_inputs[i])
+                    new_size = int(conn_in_sizes[i]/min_size)
+                    conn_inputs[i] = keras.layers.MaxPool2D(new_size)(conn_inputs[i])
             x = keras.layers.Concatenate()(conn_inputs)
         else:
             x = mod_inputs[self._in[0]._id]
