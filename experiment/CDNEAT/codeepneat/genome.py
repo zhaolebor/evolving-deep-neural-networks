@@ -178,7 +178,7 @@ class ConvGene(LayerGene):
 class LSTMGene(LayerGene):
 
     layer_params = {
-            "_size": [2**i for i in range(4, 9)],
+            "_size": [2**i for i in range(6, 10)],
             "_activation": ['sigmoid', 'tanh', 'relu'],
             "_dropout": [0.1*i for i in range(7)],
     }
