@@ -171,8 +171,8 @@ class ConvGene(LayerGene):
         if self._dropout:
             x = keras.layers.Dropout(self._dropout)(x)
         if self._max_pooling:
-            for i in range(self._max_pooling):
-                x = keras.layers.MaxPool2D()(x)
+            if keras.backend.int_shape(x)[1] > 1:
+              x = keras.layers.MaxPool2D()(x)
         return x
 
 class LSTMGene(LayerGene):
@@ -300,7 +300,7 @@ class Connection(object):
             min_size = min(conn_in_sizes)
             for i in range(len(conn_inputs)):
                 if conn_in_sizes[i] != min_size:
-                    conn_inputs[i] = keras.layers.MaxPool2D(min_size/conn_in_sizes[i])(conn_inputs[i])
+                    conn_inputs[i] = keras.layers.MaxPool2D(conn_in_sizes[i]/min_size)(conn_inputs[i])
             x = keras.layers.Concatenate()(conn_inputs)
         else:
             x = mod_inputs[self._in[0]._id]

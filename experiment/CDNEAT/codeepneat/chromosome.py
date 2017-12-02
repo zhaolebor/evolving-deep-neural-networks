@@ -250,9 +250,9 @@ class BlueprintChromo(Chromosome):
         if Config.conv and ind > 0:
             valid_mod = False
             while not valid_mod:
-                module = module_pop.get_species()
+                module = self._module_pop.get_species()
                 mod_type = module.members[0].type
-                if c._genes[ind-1].type != 'CONV' and mod_type == 'CONV':
+                if self._genes[ind-1].type != 'CONV' and mod_type == 'CONV':
                     valid_mod = False
                 else:
                     valid_mod = True
