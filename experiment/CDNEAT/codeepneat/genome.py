@@ -212,7 +212,7 @@ class LSTMGene(LayerGene):
         inputdim = len(keras.backend.int_shape(x)[1:])
         if inputdim > 2:
             x = keras.layers.Flatten()(x)
-        x = keras.layers.LSTM(self._size, activation=self._activation, dropout=self._dropout)(x)
+        x = keras.layers.LSTM(self._size, activation=self._activation, dropout=self._dropout, return_sequences=True)(x)
         return x
 
 
