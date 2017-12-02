@@ -22,7 +22,9 @@ def load(file):
         Config.pop_size                 = int(parameters.get('genetic','pop_size'))
         Config.max_fitness_threshold    = float(parameters.get('genetic','max_fitness_threshold'))
         Config.prob_addlayer            = float(parameters.get('genetic','prob_addlayer'))
+        Config.prob_mutatelayer         = float(parameters.get('genetic','prob_mutatelayer'))
         Config.prob_addmodule           = float(parameters.get('genetic','prob_addmodule'))
+        Config.prob_switchmodule        = float(parameters.get('genetic','prob_switchmodule'))
         Config.prob_addconv             = float(parameters.get('genetic','prob_addconv'))
         Config.prob_addLSTM             = float(parameters.get('genetic', 'prob_addLSTM'))
         Config.elitism                  = float(parameters.get('genetic','elitism'))
@@ -58,7 +60,9 @@ class Config:
     prob_addconv            = None
     prob_addLSTM            = None
     prob_addlayer           = None
+    prob_mutatelayer        = None
     prob_addmodule          = None
+    prob_switchmodule       = None
     elitism                 = None
 
     #prob_crossover = 0.7  # not implemented (always apply crossover)
