@@ -10,11 +10,18 @@ import h5py
 import keras
 
 def produce_net(bp):
-    inputs = keras.layers.Input(Config.input_nodes, name='input')
-    x = bp.decode(inputs)
+    if Config.LSTM:
+        inputs = keras.layers.Input(Config.input_nodes, name='input')
+        lstm_in = keras.layers.Embedding(input_dim=10000, output_dim=138, input_length=30)(inputs)
+        x = bp.decode(lstm_in)
+    else:
+        inputs = keras.layers.Input(Config.input_nodes, name='input')
+        x = bp.decode(inputs)
     x_dim = len(keras.backend.int_shape(x)[1:])
     if x_dim > 2:
         x = keras.layers.Flatten()(x)
+    if x_dim == 2:
+        x = keras.layers.GlobalMaxPooling1D()(x)
     predictions = keras.layers.Dense(Config.output_nodes, activation='softmax')(x)
     net = keras.models.Model(inputs=inputs, outputs=predictions)
     net.compile(optimizer='rmsprop',loss='categorical_crossentropy',metrics=['accuracy'])

@@ -99,11 +99,11 @@ class DenseGene(LayerGene):
         inputdim = len(keras.backend.int_shape(x)[1:])
         if inputdim > 2:
             x = keras.layers.Flatten()(x)
+        if self._dropout:
+            x = keras.layers.Dropout(self._dropout)(x)
         x = keras.layers.Dense(self._size, activation=self._activation)(x)
         if self._batch_norm:
             x = keras.layers.BatchNormalization()(x)
-        if self._dropout:
-            x = keras.layers.Dropout(self._dropout)(x)
         return x
 
 class ConvGene(LayerGene):
@@ -164,10 +164,10 @@ class ConvGene(LayerGene):
                 dim1 -= 1
             dim2 = xval/dim1
             x = keras.layers.Reshape((int(dim1),int(dim2),1))(x)
-        x = keras.layers.Conv2D(self._size, self._kernel_size, strides=self._strides, \
-                padding=self._padding, activation=self._activation)(x)
         if self._dropout:
             x = keras.layers.Dropout(self._dropout)(x)
+        x = keras.layers.Conv2D(self._size, self._kernel_size, strides=self._strides, \
+                padding=self._padding, activation=self._activation)(x)
         if self._max_pooling:
             if keras.backend.int_shape(x)[1] > 1:
               x = keras.layers.MaxPool2D()(x)
@@ -180,7 +180,7 @@ class LSTMGene(LayerGene):
             "_activation": ['sigmoid', 'tanh', 'relu'],
             "_dropout": [0.1*i for i in range(7)],
     }
-    def __init__(self, id, numnodes, activation='tanh', dropout=0.0, batch_norm=False, layertype='LSTM'):
+    def __init__(self, id, numnodes, activation='tanh', dropout=0.0, layertype='LSTM'):
         super(LSTMGene, self).__init__(id, layertype, numnodes)
         self._activation = activation
         self._dropout = dropout
@@ -194,23 +194,25 @@ class LSTMGene(LayerGene):
         return LSTMGene(self.__get_new_id(), child_param[0], child_param[1], child_param[2])
 
     def copy(self):
-        return DenseGene(self._id, self._size, self._activation, \
-                self._dropout, self._batch_norm)
+        return LSTMGene(self._id, self._size, self._activation, \
+                self._dropout)
 
     def mutate(self):
-        r = random.random
-        if r() < .2:
-            self._max_pooling = random.choice(self.layer_params['_batch_norm'])
-        elif r() < .2:
+        r = random.random()
+        if r < .5:
             self._dropout = random.choice(self.layer_params['_dropout'])
-        elif r() < .2:
+        else:
             self._size = random.choice(self.layer_params['_size'])
 
     def decode(self, x):
+        # TODO remove hardcoded batch size
         inputdim = len(keras.backend.int_shape(x)[1:])
-        if inputdim > 2:
-            x = keras.layers.Flatten()(x)
-        x = keras.layers.LSTM(self._size, activation=self._activation, dropout=self._dropout, return_sequences=True)(x)
+        if self._dropout:
+            x = keras.layers.Dropout(self._dropout)(x)
+        if inputdim > 3:
+            x = keras.layers.ConvLSTM2D(self._size, activation=self._activation, return_sequences=True, batch_size=32)(x)
+        else:
+            x = keras.layers.LSTM(self._size, activation=self._activation, return_sequences=True, batch_size=32)(x)
         return x
 
 
@@ -278,7 +280,7 @@ class Connection(object):
         s = "IN: " + s_in + " OUT: " + s_out
         return s
 
-    def decode(self, mod_inputs):
+    def decode(self, mod_inputs, mod_type):
         # if there are multiple inputs they must be merged. Our choice for this is depthwise
         # concatenation. This is more computationally expensive than the other common solution,
         # summing. If input sizes don't match, they are downsampled to the smallest size
@@ -292,14 +294,15 @@ class Connection(object):
                     raise KeyError
             # The below code uses MaxPooling layers to downsample convolutional layers
             # TODO add code to downsample dense layers
-            conn_in_sizes = []
-            for i in range(len(conn_inputs)):
-                conn_in_sizes.append(keras.backend.int_shape(conn_inputs[i])[1])
-            min_size = min(conn_in_sizes)
-            for i in range(len(conn_inputs)):
-                if conn_in_sizes[i] != min_size:
-                    new_size = int(conn_in_sizes[i]/min_size)
-                    conn_inputs[i] = keras.layers.MaxPool2D(new_size)(conn_inputs[i])
+            if mod_type == 'CONV':
+                conn_in_sizes = []
+                for i in range(len(conn_inputs)):
+                    conn_in_sizes.append(keras.backend.int_shape(conn_inputs[i])[1])
+                min_size = min(conn_in_sizes)
+                for i in range(len(conn_inputs)):
+                    if conn_in_sizes[i] != min_size:
+                        new_size = int(conn_in_sizes[i]/min_size)
+                        conn_inputs[i] = keras.layers.MaxPool2D(new_size)(conn_inputs[i])
             x = keras.layers.Concatenate()(conn_inputs)
         else:
             x = mod_inputs[self._in[0]._id]

@@ -309,11 +309,14 @@ class ModuleChromo(Chromosome):
         Produces Keras Model of this module
         """
         inputdim = backend.int_shape(inputs)[1:]
-        inputlayer = Input(shape=inputdim)
+        if self._gene_type == 'LSTM':
+            inputlayer = Input(inputdim)
+        else:
+            inputlayer = Input(shape=inputdim)
         mod_inputs = {0: inputlayer}
         self.__connection_sort()
         for conn in self._connections:
-            conn.decode(mod_inputs)
+            conn.decode(mod_inputs, self._gene_type)
         mod = Model(inputs=inputlayer, outputs=mod_inputs[-1])
         return mod
 

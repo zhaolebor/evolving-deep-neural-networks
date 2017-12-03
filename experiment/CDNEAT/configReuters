@@ -1,7 +1,7 @@
 #--- parameters for the robot experiment ---#
 [phenotype]
-input_nodes         = 32,32,3
-output_nodes        = 10
+input_nodes         = 30
+output_nodes        = 46
 conv                = False
 LSTM                = True
 
@@ -13,7 +13,9 @@ pop_size              = 10
 prob_addconv          = 0.0
 prob_addLSTM          = 0.9
 prob_addlayer         = 0.1
+prob_mutatelayer      = 0.4
 prob_addmodule        = 0.05
+prob_switchmodule     = 0.3
 elitism               = 1
 
 [genotype compatibility]
