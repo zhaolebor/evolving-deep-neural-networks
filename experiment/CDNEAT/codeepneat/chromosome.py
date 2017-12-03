@@ -227,9 +227,17 @@ class BlueprintChromo(Chromosome):
         for g in child._genes.copy():
             if not (child._module_pop.has_species(g.module)):
                 new_species = child._module_pop.get_species()
+                fails = 0
                 while True:
                     try:
                         g.set_module(new_species)
+                        break
+                    except TypeError:
+                        fails += 1
+                        new_species = child._module_pop.get_species()
+                        if fails > 500:
+                            child._genes.remove(g)
+                            break
 
 
     def mutate(self):
@@ -242,9 +250,20 @@ class BlueprintChromo(Chromosome):
             for param in list(self._active_params.keys):
                 if r() < 0.5:
                     self._active_params[param] = random.choice(self._all_params[param])
-        ind = random.randrange(len(self._genes))
-        if r() < Config.prop_switchmodule:
-          self._genes[ind].set_module(self._module_pop.get_species())
+        g = random.choice(self._genes)
+        if r() < Config.prob_switchmodule:
+            new_species = self._module_pop.get_species()
+            fails = 0
+            while True:
+                try:
+                    g.set_module(new_species)
+                    break
+                except TypeError:
+                    fails += 1
+                    new_species = self._module_pop.get_species()
+                    if fails > 500:
+                        self._genes.remove(g)
+                        break
         return self
 
     def _mutate_add_module(self):
@@ -269,12 +288,17 @@ class BlueprintChromo(Chromosome):
         for g in self._genes:
             if not (self._module_pop.has_species(g.module)):
                 new_species = self._module_pop.get_species()
+                fails = 0
                 while True:
                     try:
                         g.set_module(new_species)
                         break
                     except TypeError:
+                        fails += 1
                         new_species = self._module_pop.get_species()
+                        if fails > 500:
+                            self._genes.remove(g)
+                            break
         return self
 
     @classmethod
