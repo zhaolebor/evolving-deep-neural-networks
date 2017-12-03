@@ -18,7 +18,7 @@ def produce_net(bp):
         inputs = keras.layers.Input(Config.input_nodes, name='input')
         x = bp.decode(inputs)
     x_dim = len(keras.backend.int_shape(x)[1:])
-    if x_dim > 2:
+    if x_dim > 1:
         x = keras.layers.Flatten()(x)
     if x_dim == 2:
         x = keras.layers.GlobalMaxPooling1D()(x)
