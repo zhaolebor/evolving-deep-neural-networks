@@ -34,6 +34,7 @@ def evaluate(blueprint_pop, module_pop, num_networks, f, data, debug=None):
     # Track the best model and its accuracy
     best_model = None
     best_fit = 0
+    avg_fit = 0
     # Evaluate a given number of networks
     for i in range(num_networks):
         # Choose a random blue print
@@ -58,6 +59,7 @@ def evaluate(blueprint_pop, module_pop, num_networks, f, data, debug=None):
         print('Network '+ str(i))
         # Get fitness of created network
         fit = f(net, data)
+        avg_fit += fit
         print()
         print('Network '+ str(i) + ' Fitness: ' + str(fit))
         # Record this fitness and model if its the best fitness of this generation
@@ -68,20 +70,22 @@ def evaluate(blueprint_pop, module_pop, num_networks, f, data, debug=None):
         bp.fitness += fit
         for module in list(bp._species_indiv.values()):
             module.fitness += fit
+    avg_fit /= num_networks
     # Set fitness of modules as average of attributed fitnesses
-    # Set unused modules and blueprints at an arbitrary .7 to encourage inclusion in next gen
+    # Set unused modules and blueprints at the average network fitness,
+    # (plus .01 to encourage their survival to be used in the future)
     for module in module_pop:
         if module.num_use == 0:
             if debug is not None:
                 debug.write('Unused module ' + str(module.id) + '\n')
-            module.fitness = .7
+            module.fitness = avg_fit + .01
         else:
             module.fitness /= module.num_use
     for blueprint in blueprint_pop:
         if blueprint.num_use == 0:
             if debug is not None:
                 debug.write('Unused module ' + str(module.id) + '\n')
-            blueprint.fitness = .7
+            blueprint.fitness = avg_fit + .01
         else:
           blueprint.fitness /= blueprint.num_use
     # return the highest performing single network
