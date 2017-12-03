@@ -247,7 +247,8 @@ class ModuleGene(object):
         Creates a new NodeGene randomly inheriting its attributes from
         parents.
         """
-        assert(self._type == other._type)
+        if (self._type != other._type):
+            raise TypeError
 
         g = ModuleGene(self.__get_new_id(), random.choice(self._module, other._module))
         return g
@@ -256,6 +257,8 @@ class ModuleGene(object):
         return ModuleGene(self._id, self._module)
 
     def set_module(self, modspecies):
+        if modspecies.members[0].type != self._type:
+            raise TypeError
         self._module = modspecies
 
     def mutate(self):

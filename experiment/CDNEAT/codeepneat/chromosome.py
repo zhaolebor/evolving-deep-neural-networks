@@ -224,10 +224,12 @@ class BlueprintChromo(Chromosome):
                 # copies disjoint genes from the fittest parent
                 child._genes.append(g1.copy())
         # Insure inherited module genes point to actual species
-        for g in child._genes:
+        for g in child._genes.copy():
             if not (child._module_pop.has_species(g.module)):
                 new_species = child._module_pop.get_species()
-                g.set_module(new_species)
+                while True:
+                    try:
+                        g.set_module(new_species)
 
 
     def mutate(self):
@@ -266,7 +268,12 @@ class BlueprintChromo(Chromosome):
         for g in self._genes:
             if not (self._module_pop.has_species(g.module)):
                 new_species = self._module_pop.get_species()
-                g.set_module(new_species)
+                while True:
+                    try:
+                        g.set_module(new_species)
+                        break
+                    except TypeError:
+                        new_species = self._module_pop.get_species()
         return self
 
     @classmethod
