@@ -101,7 +101,8 @@ class DenseGene(LayerGene):
             x = keras.layers.Flatten()(x)
         if self._dropout:
             x = keras.layers.Dropout(self._dropout)(x)
-        x = keras.layers.Dense(self._size, activation=self._activation)(x)
+        layer_name = 'dense_' + str(self._id)
+        x = keras.layers.Dense(self._size, activation=self._activation, name=layer_name)(x)
         if self._batch_norm:
             x = keras.layers.BatchNormalization()(x)
         return x
@@ -166,8 +167,9 @@ class ConvGene(LayerGene):
             x = keras.layers.Reshape((int(dim1),int(dim2),1))(x)
         if self._dropout:
             x = keras.layers.Dropout(self._dropout)(x)
+        layer_name = 'conv2d_' + str(self._id)
         x = keras.layers.Conv2D(self._size, self._kernel_size, strides=self._strides, \
-                padding=self._padding, activation=self._activation)(x)
+                padding=self._padding, activation=self._activation, name=layer_name)(x)
         if self._max_pooling:
             if keras.backend.int_shape(x)[1] > 1:
               x = keras.layers.MaxPool2D()(x)
@@ -210,9 +212,11 @@ class LSTMGene(LayerGene):
         if self._dropout:
             x = keras.layers.Dropout(self._dropout)(x)
         if inputdim > 3:
-            x = keras.layers.ConvLSTM2D(self._size, activation=self._activation, return_sequences=True, batch_size=32)(x)
+            layer_name = 'convlstm2d_' + str(self._id)
+            x = keras.layers.ConvLSTM2D(self._size, activation=self._activation, return_sequences=True, batch_size=32, name=layer_name)(x)
         else:
-            x = keras.layers.LSTM(self._size, activation=self._activation, return_sequences=True, batch_size=32)(x)
+            layer_name = 'lstm_' + str(self._id)
+            x = keras.layers.LSTM(self._size, activation=self._activation, return_sequences=True, batch_size=32, name=layer_name)(x)
         return x
 
 
@@ -277,10 +281,16 @@ class Connection(object):
         s_in = ""
         s_out = ""
         for g in self._in:
-            s_in += str(g)
+            if s_in == "":
+                s_in += str(g)
+            else:
+                s_in += '\n     ' + str(g) 
         for g in self._out:
-            s_out += str(g)
-        s = "IN: " + s_in + " OUT: " + s_out
+            if s_out == "":
+                s_out += str(g)
+            else:
+                s_out += '\n     ' + str(g)
+        s = "IN : " + s_in + "\nOUT: " + s_out
         return s
 
     def decode(self, mod_inputs, mod_type):

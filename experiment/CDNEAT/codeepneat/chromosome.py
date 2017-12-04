@@ -470,8 +470,12 @@ class ModuleChromo(Chromosome):
         conns.insert(0, genome.Connection([n], []))
         # randomly pick location for new layer
         inind = random.randrange(len(conns))
-        inconn = conns[inind]
+        inconn = conns[inind].copy()
         inconn._out.append(ng)
+        print('1 ' + str(len(inconn._out)))
+        for connection in self._connections:
+            print('1.5 ' + str(len(connection._out)))
+        print(inind)
         # if in front was chosen, add a new connection to the connection list
         if inind == 0:
             self._connections[0]._in.pop(0)
@@ -482,22 +486,29 @@ class ModuleChromo(Chromosome):
         # otherwise add the new layer to the output of the chosen input connections
         else:
             self._connections[inind-1]._out.append(ng)
+            for connection in self._connections:
+                print('2 ' + str(len(connection._out)))
+
         # add possibility of inserting layer at end linearly
         conns.append(genome.Connection([], [x]))
         # choose random out location
-        outind = random.randrange(conns.index(inconn),len(conns))
-        output = conns[outind]
+        outind = random.randrange(inind,len(conns))
+        output = conns[outind].copy()
         # if the output location is the same as the input location
-        if ng in output._out:
+        if outind == inind:
             # if this layer is the only layer that takes output, choose a new out location
             if len(output._in) == 1 or outind == 0:
-                outind = random.randrange(conns.index(inconn)+1,len(conns))
-                output = conns[outind]
+                outind = random.randrange(inind+1,len(conns))
+                output = conns[outind].copy()
             else:
             # otherwise, insert a new connection
                 inlayers = output._in.copy()
                 self._connections[inind-1]._out.remove(ng)
                 self._connections[inind-1]._in.append(ng)
+                for connection in self._connections:
+                    print('3 ' + str(len(connection._in)))
+                    print('4 ' + str(len(connection._out)))
+
                 self._connections.insert(inind-1, genome.Connection(inlayers, [ng]))
                 self.__connection_sort()
                 return
@@ -506,11 +517,13 @@ class ModuleChromo(Chromosome):
             self._connections[-1]._out.pop(0)
             self._connections[-1]._out.insert(0,ng)
             self._connections.append(output.copy())
-            self.__connection_sort
+            self.__connection_sort()
             return
         else:
             self._connections[outind-1]._in.append(ng)
         self.__connection_sort()
+        for connection in self._connections:
+            print('5 ' + str(len(connection._out)))
 
     def __connection_sort(self):
         assert self._connections[0]._in[0].id == 0, str(self._connections[0])
@@ -565,4 +578,3 @@ class ModuleChromo(Chromosome):
             c._connections.append(genome.Connection([n],[g]))
             c._connections.append(genome.Connection([g],[x]))
         return c
-
