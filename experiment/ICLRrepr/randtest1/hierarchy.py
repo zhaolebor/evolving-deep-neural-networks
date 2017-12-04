@@ -142,7 +142,6 @@ class HierArch(Architecture):
             for i in range(0, num_levels-1):
                 self.__m.insert(i,[])
                 for j in range(num_motifs[i]):
-                    print(num_nodes[i])
                     if i == 0:
                         self.__m[i].append(Motif(num_nodes[i]))
                     else:

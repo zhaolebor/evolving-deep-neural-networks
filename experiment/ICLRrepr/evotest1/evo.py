@@ -13,6 +13,7 @@
 from math import pi, floor
 import random
 import hierarchy
+import visualize
 import pickle
 import numpy as np
 import keras
@@ -132,7 +133,7 @@ def evolve(n, data, record=None):
 # In[7]:
 
 
-def eval_best(model_file, record):
+def eval_best(model_file, record, data):
     model = keras.models.load_model(model_file)
     visualize.draw_net(model, "_" + model_file)    
     model.fit(data[0], data[1], epochs=100)
@@ -181,17 +182,18 @@ def main():
   print("  y test:", y_test.shape)
 
   # In[7]: random search over flat population
-  record = open('fitnesses.txt','w')
+  record = open('fitnesses.txt','a')
   Q, M = evolve(100, data)
   M.sort()
   M.reverse()
   top = 1
-  eval_best(M[0], record)
-  record.close()
   for indiv in M[:5]:
     filename = 'model_top_'+str(top)
-    indiv.save(filename)
+    model = assemble_small(indiv, data[0].shape[1:])
+    model.save(filename)
     top += 1
+  eval_best('model_top_1', record, data)
+  record.close()
 
 if __name__ == "__main__":
   main()
