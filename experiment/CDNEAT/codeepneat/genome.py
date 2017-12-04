@@ -170,6 +170,8 @@ class ConvGene(LayerGene):
         layer_name = 'conv2d_' + str(self._id)
         x = keras.layers.Conv2D(self._size, self._kernel_size, strides=self._strides, \
                 padding=self._padding, activation=self._activation, name=layer_name)(x)
+        if self._batch_norm:
+            x = keras.layers.BatchNormalization()(x)
         if self._max_pooling:
             if keras.backend.int_shape(x)[1] > 1:
               x = keras.layers.MaxPool2D()(x)
