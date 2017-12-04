@@ -16,6 +16,7 @@ import hierarchy
 import pickle
 import numpy as np
 import keras
+import h5py
 
 
 
@@ -109,7 +110,7 @@ def evolve(n, data, debugging=False):
         debug = open("debug.txt", "w")
     else:
         debug = None
-    Q = create_flat_population(25, 8)
+    Q = create_flat_population(10, 8)
     init_pop = len(Q)
     M = []
     random_mutate(Q,M, init_pop, data)
@@ -158,6 +159,11 @@ def main():
   random_mutate(Q, M, 100, data)
   M.sort()
   M.reverse()
+  top = 1
+  for indiv in M[:3]:
+    filename = 'model_top_'+str(top)
+    indiv.save(filename)
+    top += 1
   for indiv in M:
     print(indiv.fitness)
     

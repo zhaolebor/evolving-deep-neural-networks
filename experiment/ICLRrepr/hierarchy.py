@@ -70,9 +70,9 @@ class Motif(object):
                         x_temp = keras.layers.SeparableConv2D(c, 3, padding='same', activation='relu')(self.__x[j])
                         new_x.append(keras.layers.BatchNormalization()(x_temp))
                     elif op == 'max_pool':
-                        new_x.append(keras.layers.MaxPooling2D(3, padding='same')(self.__x[j]))
+                        new_x.append(keras.layers.MaxPooling2D(3, strides=1, padding='same')(self.__x[j]))
                     elif op == 'avg_pool':
-                        new_x.append(keras.layers.AveragePooling2D(3, padding='same')(self.__x[j]))
+                        new_x.append(keras.layers.AveragePooling2D(3, strides=1, padding='same')(self.__x[j]))
                     else:
                         raise ValueError('Invalid level 1 motif: '+op)
                 if len(new_x) == 0:
