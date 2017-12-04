@@ -43,7 +43,7 @@ class Motif(object):
                     elif op == 'ident':
                         new_x.append(self.__x[j])
                     else:
-                        new_x.append(op.decode(self.__x[j]))
+                        new_x.append(op.decode(self.__x[j], c))
                 if len(new_x) == 0:
                     self.__G.itemset((i,i-1), 2)
                     self.__x.append(self.__x[i-1])
@@ -110,9 +110,12 @@ class Architecture(object):
         raise NotImplementedError
 
 class FlatArch(Architecture):
-    def __init__(self, num_nodes):
+    def __init__(self, num_nodes, motifs=None):
         super(FlatArch, self).__init__(num_nodes)
-        self.__m = Motif(num_nodes)
+        if motifs is not None:
+            self.__m = motifs
+        else:
+            self.__m = Motif(num_nodes)
 
     def mutate(self):
         self.__m.mutate()
@@ -120,4 +123,39 @@ class FlatArch(Architecture):
     def assemble(self, inputs, c):
         output = self.__m.decode(inputs, c)
         return output
+
+    def copy(self):
+        return FlatArch(self._num_nodes, motifs=self.__m)
+
+class HierArch(Architecture):
+    def __init__(self, num_nodes, num_levels, num_motifs, motifs=None):
+        super(FlatArch, self).__init__(num_nodes)
+        assert num_levels > 2, "Insufficent levels to require hierarchical architecture"
+        self.height = num_levels
+        self._num_motifs = num_motifs
+        self.__m = []
+        if motifs is not None:
+            self.__m = motifs
+        else:
+            for i in range(0, num_levels-1):
+                self.__m[i] = []
+                for j in range(num_motifs[i]):
+                    if i == 0:
+                        self.__m[i].append(Motif(num_nodes[i]))
+                    else:
+                        self.__m[i].append(Motif(num_nodes[i], prev_motifs = self.__m[i-1], level=i+2))
+
+    def mutate(self):
+        l = random.randint(2, self.height)
+        m_ind = random.randrange(self._num_motifs[l-2])
+        m = self.__m[l-2][m_ind]
+        m.mutate()
+
+    def assemble(self, inputs, c):
+        output = self.__m[self.height-2][0].decode(inputs, c)
+        return output
+
+    def copy(self):
+        return HierArch(self,_num_nodes, self.height, self._num_motifs, motifs=self.__m)
+
 
