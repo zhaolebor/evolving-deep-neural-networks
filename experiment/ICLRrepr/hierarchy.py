@@ -30,6 +30,7 @@ class Motif(object):
     level = property(lambda self: self.__level)
 
     def decode(self, inputs, c):
+        self.__x = []
         self.__x.append(inputs)
         if self.__level > 2:
             for i in range(1, self.__size):
@@ -82,6 +83,7 @@ class Motif(object):
                     self.__x.append(new_x[0])
                 else:
                     self.__x.append(keras.layers.Concatenate()(new_x))
+        assert len(self.__x) == self.__size, 'Size Error: ' + str(len(self.__x)) + ' ' + str(self.__size)
         return self.__x[-1]
 
     def mutate(self):
@@ -129,7 +131,7 @@ class FlatArch(Architecture):
 
 class HierArch(Architecture):
     def __init__(self, num_nodes, num_levels, num_motifs, motifs=None):
-        super(FlatArch, self).__init__(num_nodes)
+        super(HierArch, self).__init__(num_nodes)
         assert num_levels > 2, "Insufficent levels to require hierarchical architecture"
         self.height = num_levels
         self._num_motifs = num_motifs
@@ -138,8 +140,9 @@ class HierArch(Architecture):
             self.__m = motifs
         else:
             for i in range(0, num_levels-1):
-                self.__m[i] = []
+                self.__m.insert(i,[])
                 for j in range(num_motifs[i]):
+                    print(num_nodes[i])
                     if i == 0:
                         self.__m[i].append(Motif(num_nodes[i]))
                     else:
@@ -156,6 +159,6 @@ class HierArch(Architecture):
         return output
 
     def copy(self):
-        return HierArch(self,_num_nodes, self.height, self._num_motifs, motifs=self.__m)
+        return HierArch(self._num_nodes, self.height, self._num_motifs, motifs=self.__m)
 
 

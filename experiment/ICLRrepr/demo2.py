@@ -37,6 +37,7 @@ def create_hier_population(pop_size, indiv_nodes, indiv_motifs, levels):
     population = []
     for i in range(pop_size):
         population.append(hierarchy.HierArch(indiv_nodes, levels, indiv_motifs))
+    return population
 
 def assemble_small(architecture, inputdim):
     inputs = keras.layers.Input(shape=inputdim)
@@ -76,6 +77,7 @@ def fitness(architecture, data):
 
 def random_mutate(Q, M, steps, data):
     for i in range(steps):
+        print('\n---------------Mutating step: ' + str(i) +'---------------\n')
         if len(Q) > 0:
             indiv = Q.pop()
             indiv.mutate()
@@ -106,10 +108,6 @@ def tournament_select(pop):
     return contestants[0].copy()
 
 def evolve(n, data, debugging=False):
-    if(debugging):
-        debug = open("debug.txt", "w")
-    else:
-        debug = None
     Q = create_flat_population(10, 8)
     init_pop = len(Q)
     M = []
@@ -154,9 +152,10 @@ def main():
   data = [trainx, trainy, testx, testy]
   
   # In[7]: random search over flat population
-  Q = create_flat_population(25, 8)
+  Q = create_hier_population(10, [4, 5], [6, 1], 3)
   M = []
   random_mutate(Q, M, 100, data)
+  #evolve(20, data)
   M.sort()
   M.reverse()
   top = 1
