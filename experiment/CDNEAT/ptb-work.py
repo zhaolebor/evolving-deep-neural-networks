@@ -76,16 +76,14 @@ data = [x_train, y_train, x_val, y_val, x_test, y_test]
 # In[9]:
 
 
-get_ipython().run_cell_magic('file', 'configReuters', '#--- parameters for the robot experiment ---#\n[phenotype]\ninput_nodes         = 30\noutput_nodes        = 46\nconv                = False\nLSTM                = True\n\n[genetic]\nmax_fitness_threshold = 1\n\n# Human reasoning\npop_size              = 10\nprob_addconv          = 0.0\nprob_addLSTM          = 0.9\nprob_addlayer         = 0.1\nprob_mutatelayer      = 0.4\nprob_addmodule        = 0.05\nprob_switchmodule     = 0.3\nelitism               = 1\n\n[genotype compatibility]\ncompatibility_threshold = 3.0\ncompatibility_change    = 0.0\nexcess_coefficient      = 5.0\ndisjoint_coefficient    = 3.0\nconnection_coefficient  = 0.4\nsize_coefficient        = 0.8\n\n[species]\nspecies_size        = 10\nsurvival_threshold  = 0.2\nold_threshold       = 30\nyouth_threshold     = 10\nold_penalty         = 0.2\nyouth_boost         = 1.2\nmax_stagnation      = 15')
+get_ipython().run_cell_magic('file', 'configReuters', '#--- parameters for the robot experiment ---#\n[phenotype]\ninput_nodes         = 30\noutput_nodes        = 46\nconv                = False\nLSTM                = True\n\n[genetic]\nmax_fitness_threshold = 1\n\n# Human reasoning\npop_size              = 10\nprob_addconv          = 0.0\nprob_addLSTM          = 0.0\nprob_addlayer         = 0.1\nprob_mutatelayer      = 0.4\nprob_addmodule        = 0.05\nprob_switchmodule     = 0.3\nelitism               = 1\n\n[genotype compatibility]\ncompatibility_threshold = 3.0\ncompatibility_change    = 0.0\nexcess_coefficient      = 5.0\ndisjoint_coefficient    = 3.0\nconnection_coefficient  = 0.4\nsize_coefficient        = 0.8\n\n[species]\nspecies_size        = 10\nsurvival_threshold  = 0.2\nold_threshold       = 30\nyouth_threshold     = 10\nold_penalty         = 0.2\nyouth_boost         = 1.2\nmax_stagnation      = 15')
 
 
 # In[10]:
 
 
 def fitness(network, data):
-    K.set_learning_phase(1)
-    network.fit(data[0], data[1],  epochs=5, batch_size = 32)
-    K.set_learning_phase(0)
+    network.fit(data[0], data[1],  epochs=5, batch_size=32)
     loss, acc = network.evaluate(data[2], data[3], batch_size=32)
     return acc
 
@@ -106,7 +104,7 @@ def evolve(n, debugging=False):
     # Most of the actual evolving is now handled outside of the population, by CoDeepNEAT
     # Instead of requiring the user to overwrite the evaluation function, CoDeepNEAT evaluates the populations itself,
     # it simply requires a fitness function for the networks it creates passed in as an argument.
-    codeepneat.epoch(n, blueprint_pop, module_pop, 2, fitness, data, save_best=True, name='reuters', debug=debug)
+    codeepneat.epoch(n, blueprint_pop, module_pop, 10, fitness, data, save_best=True, name='reuters', debug=debug)
     # It will still stop if fitness surpasses the max_fitness_threshold in config file
     # Plots the evolution of the best/average fitness
     visualize.plot_stats(module_pop.stats, name="reutersmod_")
@@ -119,5 +117,5 @@ def evolve(n, debugging=False):
 # In[ ]:
 
 
-evolve(25, True)
+evolve(2, True)
 
