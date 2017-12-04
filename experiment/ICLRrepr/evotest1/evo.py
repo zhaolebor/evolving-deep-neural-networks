@@ -64,7 +64,7 @@ def assemble_small(architecture, inputdim):
 
 def fitness(architecture, data):
     network = assemble_small(architecture, data[0].shape[1:])
-    network.fit(data[0], data[1],  epochs=5)
+    network.fit(data[0], data[1],  epochs=10)
     loss, acc = network.evaluate(data[2], data[3])
     architecture.fitness = acc
     return acc
@@ -84,14 +84,14 @@ def random_mutate(Q, M, steps, data, record=None):
             indiv.mutate()
             acc = fitness(indiv, data)
             if record is not None:
-                record.write(str(i)+' Fitness: '+str(acc))
+                record.write(str(i)+' Fitness: '+str(acc)+'\n')
             M.append(indiv)
         else:
             indiv = random.choice(M).copy()
             indiv.mutate()
             acc = fitness(indiv, data)
             if record is not None:
-                record.write(str(i)+' Fitness: '+str(acc))
+                record.write(str(i)+' Fitness: '+str(acc)+'\n')
             M.append(indiv)
 
 
@@ -113,7 +113,7 @@ def tournament_select(pop):
     return contestants[0].copy()
 
 def evolve(n, data, record=None):
-    Q = create_flat_population(10, 8)
+    Q = create_hier_population(10, [5,4], [6,1], 3)
     init_pop = len(Q)
     M = []
     random_mutate(Q,M, init_pop, data, record)
@@ -122,8 +122,9 @@ def evolve(n, data, record=None):
         indiv.mutate()
         acc = fitness(indiv, data)
         if record is not None:
-                record.write(str(step+init_pop)+' Fitness: '+str(acc))
+                record.write(str(step+init_pop)+' Fitness: '+str(acc)+'\n')
         M.append(indiv)
+    return Q, M
 
 
 
@@ -131,12 +132,12 @@ def evolve(n, data, record=None):
 # In[7]:
 
 
-def eval_best(model_file):
+def eval_best(model_file, record):
     model = keras.models.load_model(model_file)
     visualize.draw_net(model, "_" + model_file)    
-    model.fit(data[0], data[1], epochs=5)
+    model.fit(data[0], data[1], epochs=100)
     loss, fitness = model.evaluate(data[4], data[5])
-    print("fitness", fitness)
+    record.write("fitness "+str(fitness)+"\n")
 
 
 # In[8]:
@@ -181,21 +182,16 @@ def main():
 
   # In[7]: random search over flat population
   record = open('fitnesses.txt','w')
-  Q = create_hier_population(10, [4, 5], [6, 1], 3)
-  M = []
-  random_mutate(Q, M, 100, data, record)
-  #evolve(20, data)
+  Q, M = evolve(100, data)
   M.sort()
   M.reverse()
   top = 1
+  eval_best(M[0], record)
   record.close()
   for indiv in M[:5]:
     filename = 'model_top_'+str(top)
     indiv.save(filename)
     top += 1
-
-  # In[6]: evolve over flat pop
-  #evolve(5, data, False)
 
 if __name__ == "__main__":
   main()

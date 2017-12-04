@@ -16,21 +16,26 @@ def load(file):
         Config.input_nodes   = tuple(map(int, parameters.get('phenotype','input_nodes').split(',')))
         Config.output_nodes  = int(parameters.get('phenotype','output_nodes'))
         Config.conv          = parameters.getboolean('phenotype','conv')
+        Config.LSTM          = parameters.getboolean('phenotype', 'LSTM')
 
         # GA
         Config.pop_size                 = int(parameters.get('genetic','pop_size'))
         Config.max_fitness_threshold    = float(parameters.get('genetic','max_fitness_threshold'))
         Config.prob_addlayer            = float(parameters.get('genetic','prob_addlayer'))
+        Config.prob_mutatelayer         = float(parameters.get('genetic','prob_mutatelayer'))
         Config.prob_addmodule           = float(parameters.get('genetic','prob_addmodule'))
-        Config.prob_addconn             = float(parameters.get('genetic','prob_addconn'))
+        Config.prob_switchmodule        = float(parameters.get('genetic','prob_switchmodule'))
+        Config.prob_addconv             = float(parameters.get('genetic','prob_addconv'))
+        Config.prob_addLSTM             = float(parameters.get('genetic', 'prob_addLSTM'))
         Config.elitism                  = float(parameters.get('genetic','elitism'))
 
         # genotype compatibility
         Config.compatibility_threshold = float(parameters.get('genotype compatibility','compatibility_threshold'))
         Config.compatibility_change    = float(parameters.get('genotype compatibility','compatibility_change'))
-        Config.excess_coefficient      = float(parameters.get('genotype compatibility','excess_coeficient'))
-        Config.disjoint_coefficient    = float(parameters.get('genotype compatibility','disjoint_coeficient'))
-        Config.connection_coefficient  = float(parameters.get('genotype compatibility','connection_coeficient'))
+        Config.excess_coefficient      = float(parameters.get('genotype compatibility','excess_coefficient'))
+        Config.disjoint_coefficient    = float(parameters.get('genotype compatibility','disjoint_coefficient'))
+        Config.connection_coefficient  = float(parameters.get('genotype compatibility','connection_coefficient'))
+        Config.size_coefficient        = float(parameters.get('genotype compatibility','size_coefficient'))
 
         # species
         Config.species_size         =   int(parameters.get('species','species_size'))
@@ -47,13 +52,17 @@ class Config:
     input_nodes         = None
     output_nodes        = None
     conv                = None
+    LSTM                = None
 
     # GA config
     pop_size               = None
     max_fitness_threshold   = None
-    prob_addconn            = None
+    prob_addconv            = None
+    prob_addLSTM            = None
     prob_addlayer           = None
+    prob_mutatelayer        = None
     prob_addmodule          = None
+    prob_switchmodule       = None
     elitism                 = None
 
     #prob_crossover = 0.7  # not implemented (always apply crossover)
@@ -65,6 +74,7 @@ class Config:
     excess_coefficient       = None
     disjoint_coefficient     = None
     connection_coefficient       = None
+    size_coefficient         = None
 
     # species
     species_size        = None

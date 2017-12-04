@@ -31,18 +31,6 @@ def plot_stats(stats, name=""):
     plot.write_img(600, 300, name+'avg_fitness.svg')
     # width and height doesn't seem to affect the output! 
 
-def plot_spikes(spikes):
-    ''' Plots the trains for a single spiking neuron. '''
-    time = [i for i in range(len(spikes))]
-        
-    plot = biggles.FramedPlot()
-    plot.title = "Izhikevich's spiking neuron model"
-    plot.ylabel = r"Membrane Potential"
-    plot.xlabel = r"Time (in ms)"
-
-    plot.add(biggles.Curve(time, spikes, color="green"))
-    plot.write_img(600, 300, 'spiking_neuron.svg')
-    # width and height doesn't seem to affect the output!
 
 def plot_species(species_log, name=""):
     ''' 
