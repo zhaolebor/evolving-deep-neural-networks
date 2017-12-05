@@ -35,15 +35,7 @@ def main():
   y_train_all = keras.utils.np_utils.to_categorical(y_train_all)
   y_test = keras.utils.np_utils.to_categorical(y_test)
   
-  index = np.array(range(len(x_train_all)))
-  np.random.shuffle(index)
-  index_train = index[:42500]
-  index_val = index[42500:]
-  x_train = x_train_all[index_train]
-  y_train = y_train_all[index_train]
-  x_val = x_train_all[index_val]
-  y_val = y_train_all[index_val]
-  data = [x_train, y_train, x_val, y_val, x_test, y_test]
+  data = [x_train_all, y_train_all, x_test, y_test]
   eval_best(sys.argv[1], data)
 
 
@@ -51,8 +43,8 @@ def main():
 def eval_best(model_file, data):
     config.load('configCIFAR10')
     model = keras.models.load_model(model_file)
-    model.fit(data[0], data[1], epochs=50, validation_data=(data[2],data[3]))
-    loss, fitness = model.evaluate(x_test, y_test)
+    model.fit(data[0], data[1], epochs=50)
+    loss, fitness = model.evaluate(data[2], data[3])
     print("fitness", fitness)
 
 if __name__=='__main__':
