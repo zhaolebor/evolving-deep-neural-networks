@@ -63,10 +63,6 @@ print("  y test:", y_test.shape)
 
 # In[7]:
 
-
-get_ipython().run_cell_magic('file', 'configCIFAR10', '#--- parameters for the robot experiment ---#\n[phenotype]\ninput_nodes         = 32,32,3\noutput_nodes        = 10\nconv                = True\nLSTM                = False\n\n[genetic]\nmax_fitness_threshold = 1\n\n# Human reasoning\npop_size              = 10\nprob_addconv          = 0.9\nprob_addLSTM          = 0.0\nprob_addlayer         = 0.1\nprob_addmodule        = 0.05\nelitism               = 1\n\n[genotype compatibility]\ncompatibility_threshold = 3.0\ncompatibility_change    = 0.0\nexcess_coefficient      = 5.0\ndisjoint_coefficient    = 3.0\nconnection_coefficient  = 0.4\nsize_coefficient        = 0.8\n\n[species]\nspecies_size        = 10\nsurvival_threshold  = 0.2\nold_threshold       = 30\nyouth_threshold     = 10\nold_penalty         = 0.2\nyouth_boost         = 1.2\nmax_stagnation      = 15')
-
-
 # ### Fitness
 # 
 # For this demonstration we'll be using supervised learning to train the networks produced by CoDeepNEAT on CIFAR-10 and will use their accuracy after 5 epochs as our fitness. CIFAR-10, like MNIST, is a 10 category classification problem.

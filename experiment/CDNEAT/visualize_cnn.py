@@ -122,15 +122,15 @@ def mutate_module(chromo_file):
 
 
 if __name__ == "__main__":
-    directory = "CIFARtest2/"
-    #for i in range(11):
-        #model_file = "CIFAR10_best_model_" + str(i)
-        #visualize_model(directory + model_file)
-        #module_file = "CIFAR10_m_best_chromo_" + str(i)
-        #visualize_module(directory + module_file)
+    directory = "CIFARtest4/"
+    for i in range(8):
+        model_file = "CIFAR10_best_model_" + str(i)
+        visualize_model(directory + model_file)
+        module_file = "CIFAR10_m_best_chromo_" + str(i)
+        visualize_module(directory + module_file)
 
     #test_nonlinear()
     #test_inception()
 
-    module_file = "CIFAR10_m_best_chromo_0"
-    mutate_module(directory + module_file)
+    #module_file = "CIFAR10_m_best_chromo_0"
+    #mutate_module(directory + module_file)
