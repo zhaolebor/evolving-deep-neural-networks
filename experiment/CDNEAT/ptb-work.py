@@ -4,7 +4,7 @@
 # # CoDeepNEAT demo
 # ## CS081 project checkpoint demo
 # ### Harsha Uppli, Alan Zhao, Gabriel Meyer-Lee
-# 
+#
 # The following notebook demonstrates using CoDeepNEAT to solve the Penn Tree Bank
 
 # In[7]:
@@ -37,12 +37,12 @@ print(len(x_test), 'test sequences')
 num_classes = np.max(y_train_all) + 1
 print(num_classes, 'classes')
 
-print('Vectorizing sequence data...')
-tokenizer = Tokenizer(num_words=max_words)
-x_train_all = tokenizer.sequences_to_matrix(x_train_all, mode='binary')
-x_test = tokenizer.sequences_to_matrix(x_test, mode='binary')
+
+
 x_train_all = preprocessing.sequence.pad_sequences(x_train_all, maxlen=30)
 x_test = preprocessing.sequence.pad_sequences(x_test, maxlen=30)[:2240]
+y_train_all = keras.utils.to_categorical(y_train_all, num_classes)
+y_test = keras.utils.to_categorical(y_test, num_classes)[:2240]
 
 # print('x_train shape:', x_train.shape)
 # print('x_test shape:', x_test.shape)
@@ -50,8 +50,6 @@ x_test = preprocessing.sequence.pad_sequences(x_test, maxlen=30)[:2240]
 
 print('Convert class vector to binary class matrix '
       '(for use with categorical_crossentropy)')
-y_train_all = keras.utils.to_categorical(y_train_all, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)[:2240]
 #Reshaping the input data
 # x_train = np.reshape(x_train, (8982, 10000, 1))
 # x_test = np.reshape(x_test, (2246, 10000, 1))
@@ -98,7 +96,7 @@ def evolve(n, debugging=False):
         debug = None
     config.load('configReuters')
     # Create 2 separate populations (size is now defined explicitly, but config file can still be used)
-    module_pop = population.Population(15, chromosome.ModuleChromo, debug=debug)
+    module_pop = population.Population(10, chromosome.ModuleChromo, debug=debug)
     # As the top hierarchical level, the blueprint population needs to be able to see the module population
     blueprint_pop = population.Population(10, chromosome.BlueprintChromo, module_pop, debug=debug)
     # Most of the actual evolving is now handled outside of the population, by CoDeepNEAT
@@ -117,5 +115,4 @@ def evolve(n, debugging=False):
 # In[ ]:
 
 
-evolve(2, True)
-
+evolve(10, True)
