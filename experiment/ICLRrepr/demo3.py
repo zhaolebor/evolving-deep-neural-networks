@@ -242,44 +242,11 @@ def main():
     y_train_all_one_hot = keras.utils.np_utils.to_categorical(y_train_all)
     y_test = keras.utils.np_utils.to_categorical(y_test)
 
-    num_categories = 10
-    category_count = np.zeros(num_categories)
-
-    num_training = 40000
-
-    x_train = []
-    y_train = []
-    x_val = []
-    y_val = []
-
-
-    index = np.array(range(len(x_train_all)))
-    np.random.shuffle(index)
-    x_train_all = x_train_all[index]
-    y_train_all = y_train_all[index]
-    y_train_all_one_hot = y_train_all_one_hot[index]
-    for i in range(len(index)):
-        if category_count[y_train_all[i]] < num_training/num_categories:
-            x_train.append(x_train_all[i])
-            y_train.append(y_train_all_one_hot[i])
-            category_count[y_train_all[i]] += 1
-        else:
-            x_val.append(x_train_all[i])
-            y_val.append(y_train_all_one_hot[i])
-    print(category_count)
-
-    x_train = np.array(x_train)
-    y_train = np.array(y_train)
-    x_val = np.array(xcsv_logger = CSVLogger('cifar10.csv')_val)
-    y_val = np.array(y_val)
 
     data = [x_train_all, y_train_all_one_hot, x_test, y_test]
     print("data shapes")
-    print("  x train:", x_train.shape)
-    print("  y train:", y_train.shape)
-
-    print("  x val:", x_val.shape)
-    print("  y val:", y_val.shape)
+    print("  x train:", x_train_all.shape)
+    print("  y train:", y_train_all_one_hot.shape)
 
     print("  x test:", x_test.shape)
     print("  y test:", y_test.shape)
