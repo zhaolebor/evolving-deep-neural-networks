@@ -1,0 +1,136 @@
+Speciating ModuleChromo
+
+   Species  1   size:  13   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  2   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  3   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+Speciating BlueprintChromo
+
+   Species  1   size:   1   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  2   size:   4   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  3   size:   3   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+   Species  4   size:   2   age:   0   spawn:   0   
+   No improvement:   0 	 avg. fitness: 0.00000000
+
+ ----------------- Blueprint Population --------------------- 
+ID: 1 Species: 1
+Genes:
+	Gene ID:  1 Species ID:  2
+	Gene ID:  2 Species ID:  2
+	Gene ID:  3 Species ID:  2
+ID: 2 Species: 2
+Genes:
+	Gene ID:  4 Species ID:  1
+	Gene ID:  5 Species ID:  1
+	Gene ID:  6 Species ID:  1
+ID: 3 Species: 3
+Genes:
+	Gene ID:  7 Species ID:  1
+	Gene ID:  8 Species ID:  1
+	Gene ID:  9 Species ID:  1
+	Gene ID: 10 Species ID:  1
+ID: 4 Species: 3
+Genes:
+	Gene ID: 11 Species ID:  1
+	Gene ID: 12 Species ID:  1
+	Gene ID: 13 Species ID:  1
+	Gene ID: 14 Species ID:  1
+ID: 5 Species: 4
+Genes:
+	Gene ID: 15 Species ID:  1
+	Gene ID: 16 Species ID:  1
+ID: 6 Species: 4
+Genes:
+	Gene ID: 17 Species ID:  1
+	Gene ID: 18 Species ID:  1
+ID: 7 Species: 2
+Genes:
+	Gene ID: 19 Species ID:  1
+	Gene ID: 20 Species ID:  1
+	Gene ID: 21 Species ID:  1
+ID: 8 Species: 2
+Genes:
+	Gene ID: 22 Species ID:  1
+	Gene ID: 23 Species ID:  1
+	Gene ID: 24 Species ID:  1
+ID: 9 Species: 3
+Genes:
+	Gene ID: 25 Species ID:  1
+	Gene ID: 26 Species ID:  1
+	Gene ID: 27 Species ID:  1
+	Gene ID: 28 Species ID:  1
+ID: 10 Species: 2
+Genes:
+	Gene ID: 29 Species ID:  1
+	Gene ID: 30 Species ID:  1
+	Gene ID: 31 Species ID:  1
+
+ ------------------ Module Population ----------------------- 
+ID: 1 Species: 1
+Genes:
+	Layer ID:  1 Type:   LSTM Size:  256
+ID: 2 Species: 1
+Genes:
+	Layer ID:  2 Type:   LSTM Size:  512
+ID: 3 Species: 1
+Genes:
+	Layer ID:  3 Type:   LSTM Size:  128
+ID: 4 Species: 1
+Genes:
+	Layer ID:  4 Type:   LSTM Size:  128
+ID: 5 Species: 1
+Genes:
+	Layer ID:  5 Type:   LSTM Size:   64
+ID: 6 Species: 1
+Genes:
+	Layer ID:  6 Type:   LSTM Size:  128
+ID: 7 Species: 2
+Genes:
+	Layer ID:  7 Type:   LSTM Size:  512
+ID: 8 Species: 1
+Genes:
+	Layer ID:  8 Type:   LSTM Size:  128
+ID: 9 Species: 1
+Genes:
+	Layer ID:  9 Type:   LSTM Size:  128
+ID: 10 Species: 1
+Genes:
+	Layer ID: 10 Type:   LSTM Size:  128
+ID: 11 Species: 1
+Genes:
+	Layer ID: 11 Type:   LSTM Size:  512
+ID: 12 Species: 1
+Genes:
+	Layer ID: 12 Type:   LSTM Size:  256
+ID: 13 Species: 1
+Genes:
+	Layer ID: 13 Type:   LSTM Size:   64
+ID: 14 Species: 1
+Genes:
+	Layer ID: 14 Type:   LSTM Size:  256
+ID: 15 Species: 3
+Genes:
+	Layer ID: 15 Type:   LSTM Size:   64
+
+ ------------- Evaluating --------------- 
+Network 0
+Blueprint: ID: 10 Species: 2
+Genes:
+	Gene ID: 29 Species ID:  1
+	Gene ID: 30 Species ID:  1
+	Gene ID: 31 Species ID:  1
+Module: ID: 14 Species: 1
+Genes:
+	Layer ID: 14 Type:   LSTM Size:  256
+ERROR
+('=',)

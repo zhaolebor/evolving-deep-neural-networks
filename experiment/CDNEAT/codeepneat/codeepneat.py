@@ -8,25 +8,34 @@ import pickle as pickle
 import random
 import h5py
 import keras
+import numpy as np
 
 def produce_net(bp):
     if Config.LSTM:
         inputs = keras.layers.Input(Config.input_nodes, name='input')
+        #
         lstm_in = keras.layers.Embedding(input_dim=10000, output_dim=138, input_length=30)(inputs)
-        x = bp.decode(lstm_in)
+        x = bp.decode(inputs)
     else:
         inputs = keras.layers.Input(Config.input_nodes, name='input')
         x = bp.decode(inputs)
     x_dim = len(keras.backend.int_shape(x)[1:])
     if x_dim == 2:
         x = keras.layers.GlobalMaxPooling1D()(x)
-
     if x_dim != 2 and x_dim > 1:
         x = keras.layers.Flatten()(x)
     predictions = keras.layers.Dense(Config.output_nodes, activation='softmax')(x)
     net = keras.models.Model(inputs=inputs, outputs=predictions)
     net.compile(optimizer='rmsprop',loss='categorical_crossentropy',metrics=['accuracy'])
     return net
+
+def sample(preds, temperature=1.0):
+    preds = np.asarray(preds).astype('float64')
+    preds = np.log(preds) / temperature
+    exp_preds = np.exp(preds)
+    preds = exp_preds / np.sum(exp_preds)
+    probas = np.random.multinomial(1, preds, 1)
+    return np.argmax(probas)
 
 
 def evaluate(blueprint_pop, module_pop, num_networks, f, data, debug=None):
@@ -99,6 +108,8 @@ def evaluate(blueprint_pop, module_pop, num_networks, f, data, debug=None):
     # return the highest performing single network
     return best_model
 
+
+
 def epoch(n, pop1, pop2, num_networks, f, data, save_best, name='', report=True, debug=None):
     try:
         for g in range(n):
@@ -130,4 +141,3 @@ def print_populations(bp_pop, mod_pop, debug):
     debug.write('\n ------------------ Module Population ----------------------- \n')
     for mod in mod_pop:
         debug.write(str(mod)+'\n')
-
