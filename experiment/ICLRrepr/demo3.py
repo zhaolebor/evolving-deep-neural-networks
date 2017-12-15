@@ -122,7 +122,7 @@ def fitness(architecture, data):
                 cropped_x = random_crop(x, crop_size)
                 new_x_batch.append(cropped_x)
             new_x_batch = np.array(new_x_batch)
-            train_network.fit(new_x_batch, y_batch, batch_size=batch_size, validation_data=(data[2], data[3]), verbose=0, callbacks=csv_logger)
+            train_network.fit(new_x_batch, y_batch, batch_size=batch_size, verbose=0, callbacks=[csv_logger])
             batches += 1
             if batches >= len(data[0]) / batch_size:
             # we need to break the loop by hand because
