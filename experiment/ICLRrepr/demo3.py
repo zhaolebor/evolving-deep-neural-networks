@@ -17,6 +17,7 @@ import pickle
 import numpy as np
 import keras
 import h5py
+import csv
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import CSVLogger
 
@@ -89,12 +90,13 @@ def assemble_large(architecture, inputdim):
 
 def fitness(architecture, data):
 
-    csv_logger = CSVLogger('random_sample.csv')
+    #csv_logger = CSVLogger('random_sample.csv', append=True)
+    datafile = 'random_sample.csv'
     crop_size = 24
     batch_size = 256
     num_epoch = 200
-    eval_network = assemble_small(architecture, data[0].shape[1:])
-    train_network = assemble_small(architecture.copy(), (crop_size, crop_size, data[0].shape[-1]))
+    eval_network = assemble_large(architecture, data[0].shape[1:])
+    train_network = assemble_large(architecture.copy(), (crop_size, crop_size, data[0].shape[-1]))
 
 
     datagen = ImageDataGenerator(
@@ -113,6 +115,21 @@ def fitness(architecture, data):
     #                    steps_per_epoch=data[0].shape[0] // batch_size,
     #                    validation_data=(data[2], data[3]),
     #                    epochs=num_epoch, verbose=1, max_queue_size=100)
+
+    # assemble a new training set
+    new_x_train = []
+    for x in data[0]:
+        cropped_x = random_crop(x, crop_size)
+        new_x_train.append(cropped_x)
+    new_x_train = np.array(new_x_train)
+
+    new_x_test = []
+    for x in data[2]:
+        cropped_x = random_crop(x, crop_size)
+        new_x_test.append(cropped_x)
+    new_x_test = np.array(new_x_test)
+
+
     for e in range(num_epoch):
         print('Epoch:', e)
         batches = 0
@@ -122,17 +139,30 @@ def fitness(architecture, data):
                 cropped_x = random_crop(x, crop_size)
                 new_x_batch.append(cropped_x)
             new_x_batch = np.array(new_x_batch)
-            train_network.fit(new_x_batch, y_batch, batch_size=batch_size, verbose=0, callbacks=[csv_logger])
+            train_network.fit(new_x_batch, y_batch, batch_size=batch_size, verbose=0)
             batches += 1
             if batches >= len(data[0]) / batch_size:
             # we need to break the loop by hand because
             # the generator loops indefinitely
                 break
 
+        # evaluate the network on a training set
+        train_loss, train_acc = train_network.evaluate(new_x_train[:10000], data[1][:10000], batch_size=batch_size, verbose=0)
+        test_loss, test_acc = train_network.evaluate(new_x_test, data[3], batch_size=batch_size, verbose=0)
+
+        with open(datafile, 'a') as csvfile:
+            writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            row = [e, train_loss, train_acc, test_loss, test_acc]
+            writer.writerow(row)
+
     weights = train_network.get_weights()
     eval_network.set_weights(weights)
 
     loss, acc = eval_network.evaluate(data[2], data[3])
+    with open(datafile, 'a') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        row = [loss, acc, eval_network.count_params()]
+        writer.writerow(row)
     architecture.fitness = acc
     return acc, eval_network.count_params()
 
@@ -266,4 +296,4 @@ def main():
     #evolve(5, data, False)
 
 if __name__ == "__main__":
-  main()
+    main()
