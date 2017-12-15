@@ -18,6 +18,7 @@ import numpy as np
 import keras
 import h5py
 from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import CSVLogger
 
 
 
@@ -87,9 +88,11 @@ def assemble_large(architecture, inputdim):
 
 
 def fitness(architecture, data):
+
+    csv_logger = CSVLogger('random_sample.csv')
     crop_size = 24
     batch_size = 256
-    num_epoch = 20
+    num_epoch = 200
     eval_network = assemble_small(architecture, data[0].shape[1:])
     train_network = assemble_small(architecture.copy(), (crop_size, crop_size, data[0].shape[-1]))
 
@@ -119,7 +122,7 @@ def fitness(architecture, data):
                 cropped_x = random_crop(x, crop_size)
                 new_x_batch.append(cropped_x)
             new_x_batch = np.array(new_x_batch)
-            train_network.fit(new_x_batch, y_batch, batch_size=batch_size, verbose=0)
+            train_network.fit(new_x_batch, y_batch, batch_size=batch_size, validation_data=(data[2], data[3]), verbose=0, callbacks=csv_logger)
             batches += 1
             if batches >= len(data[0]) / batch_size:
             # we need to break the loop by hand because
@@ -173,7 +176,7 @@ def random_mutate(Q, M, steps, data, record=None):
             M.append(indiv)
 
 def initial_mutate(pop):
-    large_number = 50
+    large_number = 100
     for indiv in pop:
         for i in range(large_number):
             indiv.mutate()
@@ -267,10 +270,10 @@ def main():
 
     x_train = np.array(x_train)
     y_train = np.array(y_train)
-    x_val = np.array(x_val)
+    x_val = np.array(xcsv_logger = CSVLogger('cifar10.csv')_val)
     y_val = np.array(y_val)
 
-    data = [x_train, y_train, x_val, y_val, x_test, y_test]
+    data = [x_train_all, y_train_all_one_hot, x_test, y_test]
     print("data shapes")
     print("  x train:", x_train.shape)
     print("  y train:", y_train.shape)
@@ -282,10 +285,15 @@ def main():
     print("  y test:", y_test.shape)
 
     # In[7]: random search over flat population
-    record = 'data.txt'
-    Q = create_hier_population(50, [4, 5], [6, 1], 3)
+    record = 'single.txt'
+    Q = create_hier_population(1, [4, 5], [6, 1], 3)
     initial_mutate(Q)
-    evolve(Q, 200, data, record)
+    arch = Q[0]
+    file = open('single_arch','wb')
+    pickle.dump(arch, file)
+    file.close()
+    acc, param = fitness(arch, data)
+    print(acc, param)
 
     # In[6]: evolve over flat pop
     #evolve(5, data, False)

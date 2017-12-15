@@ -4,7 +4,7 @@
 # # CoDeepNEAT demo
 # ## CS081 project checkpoint demo
 # ### Harsha Uppli, Alan Zhao, Gabriel Meyer-Lee
-# 
+#
 # The following notebook demonstrates using CoDeepNEAT to solve CIFAR-10
 
 # In[11]:
@@ -12,6 +12,7 @@
 
 from keras.datasets import cifar10
 from keras.utils.np_utils import to_categorical
+from keras.preprocessing.image import ImageDataGenerator
 from math import pi, floor
 from random import random
 from codeepneat import codeepneat, config, population, chromosome, genome, visualize
@@ -21,7 +22,7 @@ import keras
 
 
 # ### Problem: CIFAR10 data set
-# 
+#
 # Conveniently, it's also built into Keras, which our CoDeepNEAT imiplementation is built off of.
 
 # In[12]:
@@ -80,7 +81,7 @@ print("  y test:", y_test.shape)
 
 
 # ### Configuring NEAT
-# 
+#
 # Many of the options and inputs are still handled through the config file. The config file has been shortened considerably as many parameters have been eliminated, although many parameters have also been introduced which could be added.
 
 # In[3]:
@@ -90,20 +91,40 @@ get_ipython().run_cell_magic('file', 'configCIFAR10', '#--- parameters for the r
 
 
 # ### Fitness
-# 
+#
 # For this demonstration we'll be using supervised learning to train the networks produced by CoDeepNEAT on CIFAR-10 and will use their accuracy after 5 epochs as our fitness. CIFAR-10, like MNIST, is a 10 category classification problem.
 
 # In[13]:
 
 
+
 def fitness(network, data):
-    network.fit(data[0], data[1],  epochs=8)
+    batch_size = 64
+    num_epoch = 8
+
+    datagen = ImageDataGenerator(
+            featurewise_center=False,  # set input mean to 0 over the dataset
+            samplewise_center=False,  # set each sample mean to 0
+            featurewise_std_normalization=False,  # divide inputs by std of the dataset
+            samplewise_std_normalization=False,  # divide each input by its std
+            zca_whitening=False,  # apply ZCA whitening
+            rotation_range=0,  # randomly rotate images in the range (degrees, 0 to 180)
+            width_shift_range=0.1,  # randomly shift images horizontally (fraction of total width)
+            height_shift_range=0.1,  # randomly shift images vertically (fraction of total height)
+            horizontal_flip=True,  # randomly flip images
+            vertical_flip=False)  # randomly flip images
+
+    datagen.fit(data[0])
+    network.fit_generator(datagen.flow(data[0], data[1], batch_size=batch_size),
+                        steps_per_epoch=data[0].shape[0] // batch_size,
+                        validation_data=(data[2], data[3]),
+                        epochs=num_epoch, verbose=1, max_queue_size=100)
     loss, acc = network.evaluate(data[2], data[3])
     return acc
 
 
 # ### Evolution
-# 
+#
 # Evolution with CoDeepNEAT is slightly different than evolution with NEAT. The main difference is coevolution, where we have two separate populations with a hierarchical relationship evolving together.
 
 # In[5]:
@@ -136,4 +157,3 @@ def evolve(n, debugging=False):
 
 
 evolve(25, True)
-

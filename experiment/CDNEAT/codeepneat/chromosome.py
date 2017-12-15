@@ -472,10 +472,7 @@ class ModuleChromo(Chromosome):
         inind = random.randrange(len(conns))
         inconn = conns[inind].copy()
         inconn._out.append(ng)
-        print('1 ' + str(len(inconn._out)))
-        for connection in self._connections:
-            print('1.5 ' + str(len(connection._out)))
-        print(inind)
+
         # if in front was chosen, add a new connection to the connection list
         if inind == 0:
             self._connections[0]._in.pop(0)
@@ -486,8 +483,6 @@ class ModuleChromo(Chromosome):
         # otherwise add the new layer to the output of the chosen input connections
         else:
             self._connections[inind-1]._out.append(ng)
-            for connection in self._connections:
-                print('2 ' + str(len(connection._out)))
 
         # add possibility of inserting layer at end linearly
         conns.append(genome.Connection([], [x]))
@@ -505,10 +500,6 @@ class ModuleChromo(Chromosome):
                 inlayers = output._in.copy()
                 self._connections[inind-1]._out.remove(ng)
                 self._connections[inind-1]._in.append(ng)
-                for connection in self._connections:
-                    print('3 ' + str(len(connection._in)))
-                    print('4 ' + str(len(connection._out)))
-
                 self._connections.insert(inind-1, genome.Connection(inlayers, [ng]))
                 self.__connection_sort()
                 return
@@ -522,8 +513,72 @@ class ModuleChromo(Chromosome):
         else:
             self._connections[outind-1]._in.append(ng)
         self.__connection_sort()
-        for connection in self._connections:
-            print('5 ' + str(len(connection._out)))
+
+    def _mutate_add_layer_debug(self):
+        r = random.random
+        self.__connection_sort()
+        # create new either conv or dense gene
+        if self._gene_type == 'CONV':
+            ng = genome.ConvGene(None, random.choice(genome.ConvGene.layer_params['_size']))
+            self._genes.append(ng)
+        elif self._gene_type == 'LSTM':
+            ng = genome.LSTMGene(None, random.choice(genome.LSTMGene.layer_params['_size']))
+            self._genes.append(ng)
+        else:
+            ng = genome.DenseGene(None, random.choice(genome.DenseGene.layer_params['_size']))
+            self._genes.append(ng)
+        # add the possibility of inserting new layer in front of existing layers linearly
+        n = genome.LayerGene(0, 'IN', 0)
+        x = genome.LayerGene(-1, 'OUT', 0)
+        conns = self._connections.copy()
+        conns.insert(0, genome.Connection([n], []))
+        # randomly pick location for new layer
+        inind = random.randrange(len(conns))
+        inconn = conns[inind].copy()
+        inconn._out.append(ng)
+        print(len(conns))
+
+        # if in front was chosen, add a new connection to the connection list
+        if inind == 0:
+            self._connections[0]._in.pop(0)
+            self._connections[0]._in.insert(0,ng)
+            self._connections.insert(0,inconn.copy())
+            self.__connection_sort()
+            return
+        # otherwise add the new layer to the output of the chosen input connections
+        else:
+            self._connections[inind-1]._out.append(ng)
+
+        # add possibility of inserting layer at end linearly
+        conns.append(genome.Connection([], [x]))
+        # choose random out location
+        outind = random.randrange(inind,len(conns))
+        output = conns[outind].copy()
+        # if the output location is the same as the input location
+        if outind == inind:
+            # if this layer is the only layer that takes output, choose a new out location
+            if len(output._in) == 1 or outind == 0:
+                outind = random.randrange(inind+1,len(conns))
+                output = conns[outind].copy()
+            else:
+            # otherwise, insert a new connection
+                inlayers = output._in.copy()
+                self._connections[inind-1]._out.remove(ng)
+                self._connections[inind-1]._in.append(ng)
+                self._connections.insert(inind-1, genome.Connection(inlayers, [ng]))
+                self.__connection_sort()
+                return
+        output._in.append(ng)
+        if len(output._in) == 1 and output._out[0].type == 'OUT':
+            self._connections[-1]._out.pop(0)
+            self._connections[-1]._out.insert(0,ng)
+            self._connections.append(output.copy())
+            self.__connection_sort()
+            return
+        else:
+            self._connections[outind-1]._in.append(ng)
+        self.__connection_sort()
+
 
     def __connection_sort(self):
         assert self._connections[0]._in[0].id == 0, str(self._connections[0])

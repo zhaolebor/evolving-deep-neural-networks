@@ -22,8 +22,11 @@ def visualize_model(model_file):
     #module_2 = model.get_layer("model_870")
     counter = 1
     if len(layer_list) >= 3:
-        for module in layer_list[1:-2]:
-            plot_model(module, to_file=model_file + '_module_' + str(counter) + '.png', show_shapes = True)
+        for module in layer_list[1:-1]:
+            try:
+                plot_model(module, to_file=model_file + '_module_' + str(counter) + '.png', show_shapes = True)
+            except:
+                print("this module cannot be deconstructed")
             counter += 1
 
 
@@ -110,7 +113,7 @@ def mutate_module(chromo_file):
         mutate = input("Mutate? y/n: ")
         print()
         if mutate == "y":
-            chromo._mutate_add_layer()
+            chromo._mutate_add_layer_debug()
             for connection in chromo._connections:
                 print(str(connection))
             config.load('configCIFAR10')
@@ -122,15 +125,15 @@ def mutate_module(chromo_file):
 
 
 if __name__ == "__main__":
-    directory = "CIFARtest4/"
-    for i in range(8):
-        model_file = "CIFAR10_best_model_" + str(i)
-        visualize_model(directory + model_file)
-        module_file = "CIFAR10_m_best_chromo_" + str(i)
-        visualize_module(directory + module_file)
+    directory = "CIFARtest5/"
+    #for i in range(25):
+    #    model_file = "CIFAR10_best_model_" + str(i)
+    #    visualize_model(directory + model_file)
+    #    module_file = "CIFAR10_m_best_chromo_" + str(i)
+    #    visualize_module(directory + module_file)
 
     #test_nonlinear()
     #test_inception()
 
-    #module_file = "CIFAR10_m_best_chromo_0"
-    #mutate_module(directory + module_file)
+    module_file = "CIFAR10_m_best_chromo_7"
+    mutate_module(directory + module_file)
