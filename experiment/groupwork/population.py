@@ -105,7 +105,7 @@ class Population(object):
         if self.__chromo_type != None:
             genotypes = self.__chromo_type
         else:
-            genotypes = chromosome.Chromosome
+            raise ValueError('Must specificy chromo type')
         if self.__co_population == None:
             g = genotypes.create_initial()
         else:

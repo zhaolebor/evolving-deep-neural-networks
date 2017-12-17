@@ -40,6 +40,9 @@ class Chromosome(object):
         """ Mutates this chromosome """
         raise NotImplementedError
 
+    def decode(self):
+        """ Creates Neural Network from genome """
+        raise NotImplementedError
     def crossover(self, other):
         """ Crosses over parents' chromosomes and returns a child. """
 
@@ -95,9 +98,9 @@ class Chromosome(object):
 
     def copy(self):
         """
-        Default copy method on Chromo is not an actual copy, must be overriden for shallow copy
+        Returns shallow copy of chromosome
         """
-        return self
+        return self.__class__(self.id, other.id, self._gene_type)
 
     def __cmp__(self, other):
         return cmp(self.fitness, other.fitness)
@@ -327,30 +330,4 @@ class BlueprintChromo(Chromosome):
             for k in range(len(conv_mods)):
                 c._genes.insert(0,conv_mods.pop())
         return c
-
-
-class ModuleChromo(Chromosome, hierarchy.Architecture):
-    def __init__(self, parent1_id, parent2_id, gene_type, num_nodes, num_levels, num_motifs, input_dim, motifs=None):
-        Chromosome.__init__(self, parent1_id, parent2_id, gene_type)
-        hierarchy.Architecture.__init__(self, num_nodes)
-        assert num_levels > 2, "Insufficent levels to require hierarchical architecture"
-        self.height = num_levels
-        self._num_motifs = num_motifs
-        self.__m = []
-        self.__m = motifs
-
-    def mutate(self):
-        l = random.randint(2, self.height)
-        m_ind = random.randrange(self._num_motifs[l-2])
-        m = self.__m[l-2][m_ind]
-        m.mutate()
-
-    def assemble(self, inputs, c):
-        output = self.__m[self.height-2][0].decode(inputs, c)
-        return output
-
-    def copy(self):
-        return ModuleChromo(self.parent1_id, self.parent2_id, self._gene_type, self._num_nodes, \
-                self.height, self._num_motifs, self.input_dim, motifs=self.__m)
-
 

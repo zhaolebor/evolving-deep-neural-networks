@@ -19,7 +19,7 @@ def load(file):
         Config.LSTM          = parameters.getboolean('phenotype', 'LSTM')
 
         # GA
-        Config.pop_size                 = int(parameters.get('genetic','pop_size'))
+        Config.pop_size                 = tuple(map(int, parameters.get('genetic','pop_size').split(',')))
         Config.max_fitness_threshold    = float(parameters.get('genetic','max_fitness_threshold'))
         Config.prob_addlayer            = float(parameters.get('genetic','prob_addlayer'))
         Config.prob_mutatelayer         = float(parameters.get('genetic','prob_mutatelayer'))

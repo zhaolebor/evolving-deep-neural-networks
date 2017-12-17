@@ -133,7 +133,7 @@ class FlatArch(Architecture):
         return output
 
     def copy(self):
-        return FlatArch(self._num_nodes, motifs=self.__m)
+        return FlatArch(self._num_nodes, motifs=self.__m.copy())
 
 class HierArch(Architecture):
     def __init__(self, num_nodes, num_levels, num_motifs, motifs=None):

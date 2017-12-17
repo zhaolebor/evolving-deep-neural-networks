@@ -20,7 +20,6 @@ def produce_net(bp):
     x_dim = len(keras.backend.int_shape(x)[1:])
     if x_dim == 2:
         x = keras.layers.GlobalMaxPooling1D()(x)
-
     if x_dim != 2 and x_dim > 1:
         x = keras.layers.Flatten()(x)
     predictions = keras.layers.Dense(Config.output_nodes, activation='softmax')(x)
@@ -99,7 +98,7 @@ def evaluate(blueprint_pop, module_pop, num_networks, f, data, debug=None):
     # return the highest performing single network
     return best_model
 
-def epoch(n, pop1, pop2, num_networks, f, data, save_best, name='', report=True, debug=None):
+def epoch(n, pop, num_networks, f, data, save_best, name='', report=True, debug=None):
     try:
         for g in range(n):
             print('-----Generation '+str(g)+'--------')
@@ -123,11 +122,44 @@ def epoch(n, pop1, pop2, num_networks, f, data, save_best, name='', report=True,
             debug.close()
         raise err
 
-def print_populations(bp_pop, mod_pop, debug):
+def print_populations(pop, debug):
     debug.write('\n ----------------- Blueprint Population --------------------- \n')
-    for bp in bp_pop:
+    for bp in pop[2]:
         debug.write(str(bp)+'\n')
-    debug.write('\n ------------------ Module Population ----------------------- \n')
-    for mod in mod_pop:
+    debug.write('\n ------------------ Motif Level 3 Population ----------------------- \n')
+    for mod in pop[1]:
         debug.write(str(mod)+'\n')
+    debug.write('\n ------------------ Motif Level 2 Population ----------------------- \n')
+    for mod in pop[0]:
+        debug.write(str(mod)+'\n')
+
+
+def evolve(n, name, inputdim, f, data, debugging=False):
+    if(debugging):
+        debug = open("debug.txt", "w")
+    else:
+        debug = None
+    config.load('config'+name)
+    # Create a separate population for each level
+    if inputdim == 3:
+      pop_l2 = population.Population(Config.popsize[0], hierarchy.ConvoMotif, debug=debug)
+      pop_l3 = population.Population(Config.popsize[1], hierarchy.ConvoMotif, pop_l2, debug=debug)
+    elif inputdim == 2:
+      pop_l2 = population.Population(Config.popsize[0], hierarchy.RecurMotif, debug=debug)
+      pop_l3 = population.Population(Config.popsize[1], hierarchy.RecurMotif, pop_l2, debug=debug)
+    else:
+      pop_l2 = population.Population(Config.popsize[0], hierarchy.DenseMotif, debug=debug)
+      pop_l3 = population.Population(Config.popsize[1], hierarchy.DenseMotif, pop_l2, debug=debug)
+    pop_l4 = population.Population(Config.popsize[2], chromosome.BlueprintChromo, pop_l3, debug=debug)
+    # it simply requires a fitness function for the networks it creates passed in as an argument.
+    epoch(n, [pop_l2, pop_l3, pop_l4], f, data, save_best=True, name=name, debug=debug)
+    # It will still stop if fitness surpasses the max_fitness_threshold in config file
+    # Plots the evolution of the best/average fitness
+    visualize.plot_stats(module_pop.stats, name="CIFAR10mod_")
+    visualize.plot_stats(blueprint_pop.stats, name="CIFAR10bp_")
+    # Visualizes speciation
+    #visualize.plot_species(module_pop.species_log, name="NMISTmod_")
+    #visualize.plot_species(blueprint_pop.species_log, name="NMISTbp_")
+
+
 
