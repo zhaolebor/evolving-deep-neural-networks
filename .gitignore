@@ -3,8 +3,7 @@ __pycache__
 *.pyc
 configMNIST
 configCIFAR10
-CIFARtest1/
-CIFARtest2/
+CIFARtest*
 Reuterstest1/
 Reuterstest2/
 mutate/
