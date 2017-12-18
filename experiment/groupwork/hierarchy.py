@@ -119,7 +119,7 @@ class RecurMotif(Motif):
         super(RecurMotif, self).__init__(parent1_id, parent2_id, num_nodes, level)
         # if lowest non primitive level operations are primitive
         if level == 2:
-            self.__o = [ None,'no_op', 'ident','rnn','gru','lstm', 'conv1d', 'local', 'max_pool']
+            self.__o = [ None,'no_op', 'ident','rnn','gru','lstm', 'conv1d', 'avg_pool', 'max_pool']
         # otherwise build operations from previous level of motifs
         else:
             self.__o = [ None, 'no_op', 'ident' ]
@@ -162,17 +162,16 @@ class RecurMotif(Motif):
                         continue
                     elif op == 'ident':
                         new_x.append(x_tens[j])
-                    elif op == '1x1':
-                        x_temp = keras.layers.Conv2D(c, 1, padding='same', activation='relu')(x_tens[j])
-                        new_x.append(keras.layers.BatchNormalization()(x_temp))
-                    elif op == '3x3_depth':
-                        x_temp = keras.layers.Conv2D(c, 3, strides=1 padding='same', activation='relu')(x_tens[j])
-                        new_x.append(keras.layers.BatchNormalization()(x_temp))
-                    elif op == '3x3_sep':
-                        x_temp = keras.layers.SeparableConv2D(c, 3, strides=1 padding='same', activation='relu')(x_tens[j])
-                        new_x.append(keras.layers.BatchNormalization()(x_temp))
+                    elif op == 'rnn':
+                        new_x.append(keras.layers.SimpleRNN(c, return_sequences=True, stateful=True)(x_tens[j]))
+                    elif op == 'gru':
+                        new_x.append(keras.layers.GRU(c, return_sequences=True, stateful=True)(x_tens[j]))
+                    elif op == 'lstm':
+                        new_x.append(keras.layers.LSTM(c, return_sequences=True, stateful=True)(x_tens[j]))
                     elif op == 'max_pool':
-                        new_x.append(keras.layers.MaxPooling2D(3, strides=1, padding='same')(x_tens[j]))
+                        new_x.append(keras.layers.MaxPooling1D(3, strides=1, padding='same')(x_tens[j]))
+                    elif op == 'conv1d':
+                        new_x.append(keras.layers.Conv1D(c, 3, strides=1, padding='same')(x_tens[j]))
                     elif op == 'avg_pool':
                         new_x.append(keras.layers.AveragePooling2D(3, strides=1, padding='same')(x_tens[j]))
                     else:
